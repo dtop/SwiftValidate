@@ -9,7 +9,7 @@
 import XCTest
 @testable import validate
 
-class validateTests: XCTestCase {
+class ValidatorChainTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
@@ -21,16 +21,15 @@ class validateTests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measureBlock {
-            // Put the code you want to measure the time of here.
+    func testChainCanBeSetuped() {
+
+        let chain = ValidatorChain() {
+            $0.stopOnException = true
+            $0.stopOnFirstError = false
         }
+        
+        XCTAssertTrue(chain.stopOnException)
+        XCTAssertFalse(chain.stopOnFirstError)
     }
     
 }
