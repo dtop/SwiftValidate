@@ -159,7 +159,7 @@ public class ValidatorEmail: BaseValidator, ValidatorProtocol {
      */
     private func splitEmailAddress(address: String) -> (local: String, hostname: String) {
         
-        let parts = address.characters.split{ $0 == "@" }.map(String.init)
+        let parts = address.characters.split { $0 == "@" }.map(String.init)
         return (parts[0], parts[1])
     }
     

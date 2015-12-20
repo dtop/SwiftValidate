@@ -39,11 +39,18 @@ public class ValidatorBetween<TYPE: SignedNumberType>: ValidatorProtocol {
         return self._err
     }
     
-    // MARK: - comparision closures -
+    // MARK: comparision closures
     
     var compareExclusive = { (alpha: TYPE, bravo: TYPE ) -> Bool in return alpha > bravo }
     var compareInclusive = { (alpha: TYPE, bravo: TYPE ) -> Bool in return alpha >= bravo }
     
+    // MARK: methods
+    
+    /**
+    Inits
+    
+    - returns: the instance
+    */
     required public init(@noescape _ initializer: ValidatorBetween -> () = { _ in }) {
         
         initializer(self)
@@ -102,11 +109,11 @@ public class ValidatorBetween<TYPE: SignedNumberType>: ValidatorProtocol {
         
         if let numVal = Double(value) {
             
-            guard let minVal = self.toDouble(self.minValue) else {
+            guard let minVal = NumberConverter<TYPE>.toDouble(self.minValue) else {
                 return false
             }
             
-            guard let maxVal = self.toDouble(self.maxValue) else {
+            guard let maxVal = NumberConverter<TYPE>.toDouble(self.maxValue) else {
                 return false
             }
             
@@ -123,25 +130,5 @@ public class ValidatorBetween<TYPE: SignedNumberType>: ValidatorProtocol {
         
         self._err.append(self.errorMessageInvalidType)
         return false
-    }
-    
-    /**
-     Tries to convert to double
-     
-     - parameter value: from value
-     
-     - returns: double or nil
-     */
-    private func toDouble(value: TYPE) -> Double? {
-        
-        if value is Int {
-            return Double((value as? Int)!)
-        }
-        
-        if value is Float {
-            return Double((value as? Float)!)
-        }
-        
-        return value as? Double
     }
 }
