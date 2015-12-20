@@ -32,8 +32,8 @@ public class ValidatorGreaterThan<TYPE: SignedNumberType>: ValidatorProtocol {
     
     //MARK: comparision functions
     
-    var compareExclusive = { (alpha: TYPE, bravo: TYPE ) -> Bool in return alpha > bravo }
-    var compareInclusive = { (alpha: TYPE, bravo: TYPE ) -> Bool in return alpha >= bravo }
+    let compareExclusive = { (alpha: TYPE, bravo: TYPE ) -> Bool in return alpha > bravo }
+    let compareInclusive = { (alpha: TYPE, bravo: TYPE ) -> Bool in return alpha >= bravo }
     
     //MARK: methods
     

@@ -41,8 +41,8 @@ public class ValidatorBetween<TYPE: SignedNumberType>: ValidatorProtocol {
     
     // MARK: comparision closures
     
-    var compareExclusive = { (alpha: TYPE, bravo: TYPE ) -> Bool in return alpha > bravo }
-    var compareInclusive = { (alpha: TYPE, bravo: TYPE ) -> Bool in return alpha >= bravo }
+    let compareExclusive = { (alpha: TYPE, bravo: TYPE ) -> Bool in return alpha > bravo }
+    let compareInclusive = { (alpha: TYPE, bravo: TYPE ) -> Bool in return alpha >= bravo }
     
     // MARK: methods
     
