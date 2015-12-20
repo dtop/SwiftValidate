@@ -9,7 +9,10 @@
 import Foundation
 
 public class ValidatorBetween<TYPE: SignedNumberType>: ValidatorProtocol {
-        
+    
+    /// allows the value to be nil
+    var allowNil: Bool = true
+    
     /// allows the value as string
     var allowString: Bool = true
     
@@ -67,6 +70,10 @@ public class ValidatorBetween<TYPE: SignedNumberType>: ValidatorProtocol {
      - returns: true if ok
      */
     public func validate<T: Any>(value: T?, context: [String: Any?]?) throws -> Bool {
+        
+        if self.allowNil && nil == value {
+            return true
+        }
         
         if let strVal = value as? String {
             

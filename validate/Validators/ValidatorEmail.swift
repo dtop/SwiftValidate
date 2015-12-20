@@ -15,6 +15,9 @@ public class ValidatorEmail: BaseValidator, ValidatorProtocol {
     /// length of the hostname part
     private static let maxLengthHostnamePart: Int = 255
     
+    /// nil is allowed
+    var allowNil: Bool = true
+    
     /// Validates the local part of the mail addr (before @)
     var validateLocalPart: Bool = true
     
@@ -22,7 +25,7 @@ public class ValidatorEmail: BaseValidator, ValidatorProtocol {
     var validateHostnamePart: Bool = true
     
     /// strict check
-    var strict: Bool = false
+    var strict: Bool = true
     
     /// generic invalid error message
     var errorMessageInvalidAddress: String = NSLocalizedString("the entered address is invalid", comment: "ValidatorEmail - Invalid address")
@@ -58,7 +61,11 @@ public class ValidatorEmail: BaseValidator, ValidatorProtocol {
      - returns: true if ok
      */
     public override func validate<T: Any>(value: T?, context: [String: Any?]?) throws -> Bool {
-       
+        
+        if self.allowNil && nil == value {
+            return true
+        }
+        
         if let strVal = value as? String {
             
             if !self.validateMailFormat(strVal) {

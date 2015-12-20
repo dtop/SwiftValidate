@@ -11,7 +11,7 @@ import Foundation
 public class ValidatorRegex: BaseValidator, ValidatorProtocol {
     
     /// allows a nil value
-    var allowNil: Bool = false
+    var allowNil: Bool = true
     
     /// the pattern to be matched against
     var pattern: String!

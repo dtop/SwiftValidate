@@ -10,13 +10,17 @@ import Foundation
 
 class ValidatorNumeric: BaseValidator, ValidatorProtocol {
     
-    var errorMessageNotNumeric = NSLocalizedString("Please enter avalid number", comment: "error message not numeric")
+    /// nil is allowed
+    var allowNil: Bool = true
     
     /// Holds if the number can be a string representation
     var canBeString: Bool = true
     
     /// Holds if we accept floating point numbers
     var allowFloatingPoint = true
+    
+    /// error message not numeric
+    var errorMessageNotNumeric = NSLocalizedString("Please enter avalid number", comment: "error message not numeric")
     
     /**
      inits

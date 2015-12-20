@@ -14,7 +14,7 @@ import Foundation
 public class ValidatorEmpty: BaseValidator, ValidatorProtocol {
     
     /// can the value be nil?
-    var canBeNil: Bool = false
+    var allowNil: Bool = false
     
     /// this error message
     var errorMessage: String = NSLocalizedString("Value was Empty", comment: "ValidatorEmpty - Error String")
@@ -44,8 +44,7 @@ public class ValidatorEmpty: BaseValidator, ValidatorProtocol {
      */
     override public func validate<T: Any>(value: T?, context: [String: Any?]?) throws -> Bool {
         
-        if nil == value && self.canBeNil {
-            
+        if self.allowNil && nil == value {
             return true
         }
         

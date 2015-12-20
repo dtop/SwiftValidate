@@ -10,6 +10,9 @@ import Foundation
 
 public class ValidatorSmallerThan<TYPE: SignedNumberType>: ValidatorProtocol {
     
+    /// nil is allowed
+    var allowNil: Bool = true
+    
     /// the value to compare against
     var max: TYPE = 0
     
@@ -58,6 +61,10 @@ public class ValidatorSmallerThan<TYPE: SignedNumberType>: ValidatorProtocol {
      - returns: true if ok
      */
     public func validate<T: Any>(value: T?, context: [String: Any?]?) throws -> Bool {
+        
+        if self.allowNil && nil == value {
+            return true
+        }
         
         if let strVal = value as? String {
             

@@ -10,6 +10,9 @@ import Foundation
 
 public class ValidatorAlnum: BaseValidator, ValidatorProtocol {
     
+    /// allow nil values
+    var allowNil: Bool = true
+    
     /// allow only ascii chars
     var allowEmpty: Bool = false
     
@@ -43,6 +46,10 @@ public class ValidatorAlnum: BaseValidator, ValidatorProtocol {
      - returns: true if alnum
      */
     override public func validate<T: Any>(value: T?, context: [String: Any?]?) throws -> Bool {
+        
+        if self.allowNil && nil == value {
+            return true
+        }
         
         let charSet = NSCharacterSet.alphanumericCharacterSet()
         

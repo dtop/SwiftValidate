@@ -10,6 +10,9 @@ import Foundation
 
 public class ValidatorCallback: BaseValidator, ValidatorProtocol {
     
+    /// nil is allowed
+    var allowNil: Bool = true
+    
     /// Holds the callback
     var callback: ((validator: ValidatorCallback, value: Any?, context: [String : Any?]?) throws -> (result: Bool, errorMessage: String?))!
     
@@ -37,6 +40,10 @@ public class ValidatorCallback: BaseValidator, ValidatorProtocol {
      - returns: true if ok
      */
     public override func validate<T: Any>(value: T?, context: [String: Any?]?) throws -> Bool {
+        
+        if self.allowNil && nil == value {
+            return true
+        }
         
         if nil == self.callback {
             
