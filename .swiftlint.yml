@@ -1,0 +1,21 @@
+disabled_rules: # rule identifiers to exclude from running
+  - function_body_length
+  - leading_whitespace
+  - trailing_whitespace
+excluded: # paths to ignore during linting. overridden by `included`.
+  - Carthage
+  - Pods
+# parameterized rules can be customized from this configuration file
+line_length: 220
+# parameterized rules are first parameterized as a warning level, then error level.
+type_body_length:
+  - 300 # warning
+  - 400 # error
+# parameterized rules are first parameterized as a warning level, then error level.
+variable_name_max_length:
+  - 40 # warning
+  - 60 # error
+# parameterized rules are first parameterized as a warning level, then error level.
+variable_name_min_length:
+  - 2 # warning
+  - 1 # error
