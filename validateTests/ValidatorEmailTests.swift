@@ -7,6 +7,7 @@
 //
 
 import XCTest
+@testable import validate
 
 class ValidatorEmailTests: XCTestCase {
     
@@ -22,14 +23,84 @@ class ValidatorEmailTests: XCTestCase {
     
     func testValidatorCanHandleValidEmail() {
         
+        let validator = ValidatorEmail() {
+            $0.strict = true
+            $0.validateHostnamePart = true
+            $0.validateLocalPart = true
+        }
+        
+        let mail = "werner~zwei@example.org"
+        
+        do {
+            
+            let result = try validator.validate(mail, context: nil)
+            XCTAssertTrue(result)
+            
+        } catch _ {
+            XCTAssert(false)
+        }
     }
     
     func testValidatorCanHandleInvalidLocalPart() {
         
+        let validator = ValidatorEmail() {
+            $0.strict = true
+            $0.validateHostnamePart = true
+            $0.validateLocalPart = true
+        }
+        
+        let mail = "§§§werner~zwei@example.org"
+        
+        do {
+            
+            let result = try validator.validate(mail, context: nil)
+            XCTAssertFalse(result)
+            
+        } catch _ {
+            XCTAssert(false)
+        }
     }
     
     func testValidatorCanHandleInvalidHostnamePart() {
         
+        let validator = ValidatorEmail() {
+            $0.strict = true
+            $0.validateHostnamePart = true
+            $0.validateLocalPart = true
+        }
+        
+        let mail = "werner~zwei@exaghtasn%&/(&(&/(%$&§%$§$$mple.org"
+        
+        do {
+            
+            let result = try validator.validate(mail, context: nil)
+            XCTAssertFalse(result)
+            
+        } catch _ {
+            XCTAssert(false)
+        }
     }
     
+    func testValidatorCanHandleInvalidLength() {
+       
+        let validator = ValidatorEmail() {
+            $0.strict = true
+            $0.validateHostnamePart = true
+            $0.validateLocalPart = true
+        }
+        
+        let local = String(count: 65, repeatedValue: Character("a"))
+        let host  = String(count: 256, repeatedValue: Character("b"))
+        
+        let mail  = String(format: "%@@%@", local, host)
+        
+        do {
+            
+            let result = try validator.validate(mail, context: nil)
+            XCTAssertFalse(result)
+            
+        } catch _ {
+            XCTAssert(false)
+        }
+    }
 }
