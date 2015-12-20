@@ -60,7 +60,6 @@ let errors = validatorChain.errors
 
 # Included Validators
 
----
 #### ValidatorEmpty()
 
 Tests if the given value is not an empty string
@@ -73,7 +72,8 @@ Tests if the given value is not an empty string
 
 **Error Messages**
 
-* `errorMessage` - error message if value is empty
++ `errorMessage` - error message if value is empty
+
 ---
 #### ValidatorStrLen()
 
@@ -107,6 +107,7 @@ Validates that the given value contains only alphanumerical chars
 **Error Messages**
 
 + `errorMessageStringNotAlnum: String` - (optional)
+
 ---
 #### ValidatorEmail()
 
@@ -127,6 +128,7 @@ Validates a given email address
 + `errorMessageInvalidLocalPart` - the local part (before @) is invalid
 + `errorMessageInvalidHostnamePart` - the hostname is invalid
 + `errorMessagePartLengthExceeded` - a part is exceeding its length
+
 ---
 #### ValidatorRegex()
 
@@ -142,6 +144,7 @@ Validates a given string against a user definded regex
 **Error Messages**
 
 + `errorMessageValueIsNotMatching` - value does not match teh given pattern
+
 ---
 #### ValidatorNumeric()
 
@@ -158,6 +161,7 @@ Validates if the given value is a valid number
 **Error Messages**
 
 + `errorMessageNotNumeric` - value is not numeric
+
 ---
 #### ValidatorBetween()
 
@@ -185,6 +189,7 @@ let validator = ValidatorBetween<Double>() {
 
 + `errorMessageInvalidType` - invalid type given [-should be thrown-]
 + `errorMessageNotBetween` - value is not between the predefined values
+
 ---
 #### ValidatorGreaterThan()
 
@@ -209,6 +214,7 @@ let validator = ValidatorGreaterThan<Double>() {
 
 + `errorMessageInvalidType` - invalid type given [-should be thrown-]
 + `errorMessageNotGreaterThan` - value is not great enaugh
+
 ---
 #### ValidatorSmallerThan()
 
@@ -233,6 +239,7 @@ let validator = ValidatorSmallerThan<Double>() {
 
 + `errorMessageInvalidType` - invalid type given [-should be thrown-]
 + `errorMessageNotSmallerThan` - value is not small enaugh
+
 ---
 #### ValidatorDateTime()
 
@@ -248,6 +255,7 @@ Validates if the given date is a valid one
 **Error Messages**
 
 + `errorMessageInvalidDate` - invalid date given
+
 ---
 #### ValidatorDateBetween()
 
@@ -267,6 +275,7 @@ Validates if the given date (NSDate or String) is between the predefined dates
 **Error Messages**
 
 + `errorMessageNotBetween` - Date is not between the predefined ones
+
 ---
 #### ValidatorCallback()
 
@@ -294,6 +303,7 @@ let validator = ValidatorCallback() {
     }
 }
 ```
+
 ---
 #### ValidatorInArray()
 
@@ -321,7 +331,8 @@ let validator = ValidatorInArray<Double>() {
 **Error Messages**
 
 + `errorMessageItemIsNotContained` - given value is not contained in the array
----
+
+
 # Extensibility
 
 Non generic:
@@ -377,4 +388,8 @@ class MyGenericValidator<TYPE where TYPE: Equatable>: ValidatorProtocol {
 [Callback]: #validatorcallback
 [InArray]: #validatorinarray
 [Extensibility]: #extensibility
+
+
+
+
 
