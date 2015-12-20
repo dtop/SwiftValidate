@@ -11,7 +11,7 @@ import Foundation
 /**
  * Validates on emptynes
  */
-public class ValidatorEmpty: _BaseValidator, ValidatorProtocol {
+public class ValidatorEmpty: BaseValidator, ValidatorProtocol {
     
     /// can the value be nil?
     var canBeNil: Bool = false

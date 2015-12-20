@@ -11,7 +11,7 @@ import Foundation
 /**
  * Validates the strlen of a string
  */
-class ValidatorStrLen: _BaseValidator, ValidatorProtocol {
+class ValidatorStrLen: BaseValidator, ValidatorProtocol {
     
     /// error if no string
     var errorMessageNotAString = NSLocalizedString("the given value was no string", comment: "ValidatorStrLen - error message no string")

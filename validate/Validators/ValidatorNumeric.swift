@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ValidatorNumeric: _BaseValidator, ValidatorProtocol {
+class ValidatorNumeric: BaseValidator, ValidatorProtocol {
     
     var errorMessageNotNumeric = NSLocalizedString("Please enter avalid number", comment: "error message not numeric")
     

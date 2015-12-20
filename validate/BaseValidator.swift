@@ -13,7 +13,7 @@ import Foundation
  *
  * DO NOT instanciate directly
  */
-public class _BaseValidator: ValidationAwareProtocol {
+public class BaseValidator: ValidationAwareProtocol {
     
     public var errors: [String] = []
     

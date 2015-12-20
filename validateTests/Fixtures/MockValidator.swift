@@ -9,7 +9,7 @@
 import Foundation
 @testable import validate
 
-class MockValidator: _BaseValidator, ValidatorProtocol {
+class MockValidator: BaseValidator, ValidatorProtocol {
     
     var someSetting: Bool = false
     

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class ValidatorCallback: _BaseValidator, ValidatorProtocol {
+public class ValidatorCallback: BaseValidator, ValidatorProtocol {
     
     /// Holds the callback
     var callback: ((validator: ValidatorCallback, value: Any?, context: [String : Any?]?) throws -> (result: Bool, errorMessage: String?))!
@@ -20,7 +20,7 @@ public class ValidatorCallback: _BaseValidator, ValidatorProtocol {
      
      - returns: the instance
      */
-    required public init(@noescape _ initializer: ValidatorCallback -> ()) {
+    required public init(@noescape _ initializer: ValidatorCallback -> () = { _ in }) {
         
         super.init()
         initializer(self)
@@ -36,7 +36,7 @@ public class ValidatorCallback: _BaseValidator, ValidatorProtocol {
      
      - returns: true if ok
      */
-    public override func validate<T : Any>(value: T?, context: [String : Any?]?) throws -> Bool {
+    public override func validate<T: Any>(value: T?, context: [String: Any?]?) throws -> Bool {
         
         if nil == self.callback {
             

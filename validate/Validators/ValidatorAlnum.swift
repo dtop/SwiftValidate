@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class ValidatorAlnum: _BaseValidator, ValidatorProtocol {
+public class ValidatorAlnum: BaseValidator, ValidatorProtocol {
     
     /// allow only ascii chars
     var allowEmpty: Bool = false
@@ -26,7 +26,7 @@ public class ValidatorAlnum: _BaseValidator, ValidatorProtocol {
      
      - returns: the instance
      */
-    required public init(@noescape _ initializer: ValidatorAlnum -> ()) {
+    required public init(@noescape _ initializer: ValidatorAlnum -> () = { _ in }) {
         
         super.init()
         initializer(self)

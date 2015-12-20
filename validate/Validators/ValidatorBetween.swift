@@ -41,10 +41,10 @@ public class ValidatorBetween<TYPE: SignedNumberType>: ValidatorProtocol {
     
     // MARK: - comparision closures -
     
-    var compareExclusive = { (a: TYPE, b: TYPE ) -> Bool in return a > b }
-    var compareInclusive = { (a: TYPE, b: TYPE ) -> Bool in return a >= b }
+    var compareExclusive = { (alpha: TYPE, bravo: TYPE ) -> Bool in return alpha > bravo }
+    var compareInclusive = { (alpha: TYPE, bravo: TYPE ) -> Bool in return alpha >= bravo }
     
-    required public init(@noescape _ initializer: ValidatorBetween -> ()) {
+    required public init(@noescape _ initializer: ValidatorBetween -> () = { _ in }) {
         
         initializer(self)
     }

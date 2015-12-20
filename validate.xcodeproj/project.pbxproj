@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9F0E5D491C26BDCB00A9E760 /* ValidatorDateTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0E5D481C26BDCB00A9E760 /* ValidatorDateTime.swift */; };
+		9F0E5D4B1C26BDE500A9E760 /* ValidatorDateTimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0E5D4A1C26BDE500A9E760 /* ValidatorDateTimeTests.swift */; };
+		9F0E5D4D1C26C24E00A9E760 /* ValidatorEmail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0E5D4C1C26C24E00A9E760 /* ValidatorEmail.swift */; };
+		9F0E5D4F1C26C26200A9E760 /* ValidatorEmailTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0E5D4E1C26C26200A9E760 /* ValidatorEmailTests.swift */; };
 		9FCB7D801C26021900887033 /* validate.h in Headers */ = {isa = PBXBuildFile; fileRef = 9FCB7D7F1C26021900887033 /* validate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9FCB7D871C26021900887033 /* validate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FCB7D7C1C26021900887033 /* validate.framework */; };
 		9FCB7D8C1C26021900887033 /* ValidatorChainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCB7D8B1C26021900887033 /* ValidatorChainTests.swift */; };
@@ -40,6 +44,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9F0E5D481C26BDCB00A9E760 /* ValidatorDateTime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ValidatorDateTime.swift; path = Validators/ValidatorDateTime.swift; sourceTree = "<group>"; };
+		9F0E5D4A1C26BDE500A9E760 /* ValidatorDateTimeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidatorDateTimeTests.swift; sourceTree = "<group>"; };
+		9F0E5D4C1C26C24E00A9E760 /* ValidatorEmail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ValidatorEmail.swift; path = Validators/ValidatorEmail.swift; sourceTree = "<group>"; };
+		9F0E5D4E1C26C26200A9E760 /* ValidatorEmailTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidatorEmailTests.swift; sourceTree = "<group>"; };
 		9FCB7D7C1C26021900887033 /* validate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = validate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FCB7D7F1C26021900887033 /* validate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = validate.h; sourceTree = "<group>"; };
 		9FCB7D811C26021900887033 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -84,6 +92,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9F0E5D471C26BDA600A9E760 /* DateTime */ = {
+			isa = PBXGroup;
+			children = (
+				9F0E5D481C26BDCB00A9E760 /* ValidatorDateTime.swift */,
+			);
+			name = DateTime;
+			sourceTree = "<group>";
+		};
 		9FCB7D721C26021900887033 = {
 			isa = PBXGroup;
 			children = (
@@ -119,6 +135,8 @@
 		9FCB7D8A1C26021900887033 /* validateTests */ = {
 			isa = PBXGroup;
 			children = (
+				9F0E5D4E1C26C26200A9E760 /* ValidatorEmailTests.swift */,
+				9F0E5D4A1C26BDE500A9E760 /* ValidatorDateTimeTests.swift */,
 				9FCB7DBB1C262B8F00887033 /* ValidatorCallbackTests.swift */,
 				9FCB7DB61C26177B00887033 /* ValidatorBetweenTests.swift */,
 				9FCB7DB21C26120F00887033 /* ValidatorAlnumTests.swift */,
@@ -135,6 +153,7 @@
 		9FCB7D9E1C26024800887033 /* validators */ = {
 			isa = PBXGroup;
 			children = (
+				9F0E5D471C26BDA600A9E760 /* DateTime */,
 				9FCB7DB81C26294100887033 /* Generic */,
 				9FCB7DAF1C260F4800887033 /* Numeric */,
 				9FCB7DAE1C260F3900887033 /* String */,
@@ -156,6 +175,7 @@
 				9FCB7D9F1C26025600887033 /* ValidatorEmpty.swift */,
 				9FCB7DA11C26025600887033 /* ValidatorStrLen.swift */,
 				9FCB7DB01C260F6500887033 /* ValidatorAlnum.swift */,
+				9F0E5D4C1C26C24E00A9E760 /* ValidatorEmail.swift */,
 			);
 			name = String;
 			sourceTree = "<group>";
@@ -199,6 +219,7 @@
 				9FCB7D781C26021900887033 /* Frameworks */,
 				9FCB7D791C26021900887033 /* Headers */,
 				9FCB7D7A1C26021900887033 /* Resources */,
+				9F0E5D501C26C36F00A9E760 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -280,14 +301,32 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		9F0E5D501C26C36F00A9E760 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"SwiftLint does not exist, download from https://github.com/realm/SwiftLint\"\nfi";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		9FCB7D771C26021900887033 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				9FCB7D9A1C26024100887033 /* BaseValidator.swift in Sources */,
+				9F0E5D4D1C26C24E00A9E760 /* ValidatorEmail.swift in Sources */,
 				9FCB7DB51C26152300887033 /* ValidatorBetween.swift in Sources */,
 				9FCB7D9B1C26024100887033 /* ValidationAwareProtocol.swift in Sources */,
+				9F0E5D491C26BDCB00A9E760 /* ValidatorDateTime.swift in Sources */,
 				9FCB7DB11C260F6500887033 /* ValidatorAlnum.swift in Sources */,
 				9FCB7D9D1C26024100887033 /* ValidatorProtocol.swift in Sources */,
 				9FCB7DA41C26025600887033 /* ValidatorStrLen.swift in Sources */,
@@ -302,8 +341,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F0E5D4B1C26BDE500A9E760 /* ValidatorDateTimeTests.swift in Sources */,
 				9FCB7DB31C26120F00887033 /* ValidatorAlnumTests.swift in Sources */,
 				9FCB7DB71C26177B00887033 /* ValidatorBetweenTests.swift in Sources */,
+				9F0E5D4F1C26C26200A9E760 /* ValidatorEmailTests.swift in Sources */,
 				9FCB7DAD1C260AA000887033 /* ValidatorStrLenTests.swift in Sources */,
 				9FCB7DA71C26045600887033 /* MockValidator.swift in Sources */,
 				9FCB7DA91C26061400887033 /* ValidatorEmptyTests.swift in Sources */,
@@ -487,6 +528,7 @@
 				9FCB7D921C26021900887033 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9FCB7D931C26021900887033 /* Build configuration list for PBXNativeTarget "validateTests" */ = {
 			isa = XCConfigurationList;
@@ -495,6 +537,7 @@
 				9FCB7D951C26021900887033 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
