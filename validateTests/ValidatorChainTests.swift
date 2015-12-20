@@ -21,15 +21,21 @@ class ValidatorChainTests: XCTestCase {
         super.tearDown()
     }
     
+    /**
+     Tests if the validation chain can be used
+     */
     func testChainCanBeSetuped() {
 
         let chain = ValidatorChain() {
             $0.stopOnException = true
             $0.stopOnFirstError = false
+        } <<< MockValidator() {
+            $0.someSetting = true
         }
         
         XCTAssertTrue(chain.stopOnException)
         XCTAssertFalse(chain.stopOnFirstError)
+        XCTAssertTrue(chain.validate(true, context: nil))
+        XCTAssertFalse(chain.validate(false, context: nil))
     }
-    
 }

@@ -40,7 +40,11 @@ public class _BaseValidator: ValidationAwareProtocol {
      */
     func returnError(error: String) -> Bool {
         
-        self.errors.append(error)
+        if !error.isEmpty {
+        
+            self.errors.append(error)
+        }
+        
         return false
     }
 }
