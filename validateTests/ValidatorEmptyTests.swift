@@ -29,7 +29,7 @@ class ValidatorEmptyTests: XCTestCase {
         var result: Bool       = false
         
         let validator = ValidatorEmpty() {
-            $0.canBeNil = false
+            $0.allowNil = false
         }
         
         do {
@@ -38,7 +38,7 @@ class ValidatorEmptyTests: XCTestCase {
             result = try validator.validate(testValue, context: nil)
             XCTAssertFalse(result)
             
-            validator.canBeNil = true
+            validator.allowNil = true
             
             result = try validator.validate(testValue, context: nil)
             XCTAssertTrue(result)
@@ -56,7 +56,7 @@ class ValidatorEmptyTests: XCTestCase {
         var result: Bool       = false
         
         let validator = ValidatorEmpty() {
-            $0.canBeNil = false
+            $0.allowNil = false
         }
         
         do {
