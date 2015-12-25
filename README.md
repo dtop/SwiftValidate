@@ -1,5 +1,5 @@
 # swift-validate
-[![Build Status](https://travis-ci.org/dtop/swift-validate.svg)](https://travis-ci.org/dtop/SwiftValidate)
+[![Build Status](https://travis-ci.org/dtop/SwiftValidate.svg)](https://travis-ci.org/dtop/SwiftValidate)
 [![Compatibility](https://img.shields.io/badge/Swift-2.1-blue.svg)](https://developer.apple.com/swift)
 [![DependencyManagement](https://img.shields.io/badge/CocoaPods-Compatible-brightgreen.svg)](https://cocoapods.org)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/dtop/SwiftValidate/master/LICENSE)
