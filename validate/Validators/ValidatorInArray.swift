@@ -11,7 +11,7 @@ import Foundation
 public class ValidatorInArray<TYPE where TYPE: Equatable>: ValidatorProtocol {
     
     /// nil value is allowed and true
-    var allowNil: Bool = false
+    var allowNil: Bool = true
     
     /// possible values
     var array: [TYPE] = []

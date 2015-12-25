@@ -9,6 +9,7 @@ By [Danilo Topalovic](http://blog.danilo-topalovic.de).
 * [Requirements]
 * [Usage]
 * [Included Validators]
+  + [Required]
   + [Empty]
   + [StrLen]
   + [Alnum]
@@ -59,6 +60,24 @@ let errors = validatorChain.errors
 ```
 
 # Included Validators
+
+#### ValidatorRequired()
+
+Since all other validators allow nil from default setting, this validator can be added first to
+check the value is present.
+It is also equipped with a callback where you can decide by value and context if the requiry is satisfied or not.
+
+Configuration
+
+**Configuration**
+
+| value                  |  type     | default | description                       |
+|------------------------|:---------:|---------|-----------------------------------|
+| `requirementCondition` |  closure  | !       | optional custom requirement check |
+
+**Error Messages**
+
++ `errorMessage` - error message if value is nil
 
 #### ValidatorEmpty()
 
@@ -289,6 +308,7 @@ Executes the given callback and works with the results
 | `callback`     | closure  | !       | the callback to validate with             |
 
 Callback be like:
+
 ```swift
 let validator = ValidatorCallback() {
     $0.callback = {(validator: ValidatorCallback, value: Any?, context: [String : Any?]?) in
@@ -310,6 +330,7 @@ let validator = ValidatorCallback() {
 Validates that the given value is contained in the predefined array
 
 Generic:
+
 ```swift
 let validator = ValidatorInArray<String>() {
     $0.array = ["Andrew", "Bob", "Cole", "Dan", "Edwin"]
@@ -336,6 +357,7 @@ let validator = ValidatorInArray<Double>() {
 # Extensibility
 
 Non generic:
+
 ```swift
 class MyValidator: BaseValidator, ValidatorProtocol {
 
@@ -374,6 +396,7 @@ class MyGenericValidator<TYPE where TYPE: Equatable>: ValidatorProtocol {
 [Requirements]: #requirements
 [Usage]: #usage
 [Included Validators]: #included-validators
+[Required]: #validatorrequired
 [Empty]: #validatorempty
 [StrLen]: #validatorstrlen
 [Alnum]: #validatoralnum
