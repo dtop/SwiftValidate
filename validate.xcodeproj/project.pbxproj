@@ -22,6 +22,8 @@
 		9F0E5D671C26F11100A9E760 /* ValidatorRegexTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0E5D661C26F11100A9E760 /* ValidatorRegexTests.swift */; };
 		9F0E5D691C26F80D00A9E760 /* ValidatorDateBetween.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0E5D681C26F80D00A9E760 /* ValidatorDateBetween.swift */; };
 		9F0E5D6B1C26FFAA00A9E760 /* ValidatorDateBetweenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0E5D6A1C26FFAA00A9E760 /* ValidatorDateBetweenTests.swift */; };
+		9F11AE971C2D98FF00D2FB29 /* ValidationIterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F11AE961C2D98FF00D2FB29 /* ValidationIterator.swift */; };
+		9F11AE991C2DA30B00D2FB29 /* ValidationIteratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F11AE981C2DA30B00D2FB29 /* ValidationIteratorTests.swift */; };
 		9F88DF781C2D5C8600E8CA4B /* ValidatorRequired.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F88DF771C2D5C8600E8CA4B /* ValidatorRequired.swift */; };
 		9F88DF7A1C2D620C00E8CA4B /* ValidatorRequiredTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F88DF791C2D620C00E8CA4B /* ValidatorRequiredTests.swift */; };
 		9FCB7D801C26021900887033 /* validate.h in Headers */ = {isa = PBXBuildFile; fileRef = 9FCB7D7F1C26021900887033 /* validate.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -72,6 +74,8 @@
 		9F0E5D661C26F11100A9E760 /* ValidatorRegexTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidatorRegexTests.swift; sourceTree = "<group>"; };
 		9F0E5D681C26F80D00A9E760 /* ValidatorDateBetween.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ValidatorDateBetween.swift; path = Validators/ValidatorDateBetween.swift; sourceTree = "<group>"; };
 		9F0E5D6A1C26FFAA00A9E760 /* ValidatorDateBetweenTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidatorDateBetweenTests.swift; sourceTree = "<group>"; };
+		9F11AE961C2D98FF00D2FB29 /* ValidationIterator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidationIterator.swift; sourceTree = "<group>"; };
+		9F11AE981C2DA30B00D2FB29 /* ValidationIteratorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidationIteratorTests.swift; sourceTree = "<group>"; };
 		9F88DF771C2D5C8600E8CA4B /* ValidatorRequired.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ValidatorRequired.swift; path = Validators/ValidatorRequired.swift; sourceTree = "<group>"; };
 		9F88DF791C2D620C00E8CA4B /* ValidatorRequiredTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidatorRequiredTests.swift; sourceTree = "<group>"; };
 		9FCB7D7C1C26021900887033 /* validate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = validate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -181,6 +185,7 @@
 				9FCB7D991C26024100887033 /* ValidatorProtocol.swift */,
 				9FCB7D7F1C26021900887033 /* validate.h */,
 				9FCB7D811C26021900887033 /* Info.plist */,
+				9F11AE961C2D98FF00D2FB29 /* ValidationIterator.swift */,
 			);
 			path = validate;
 			sourceTree = "<group>";
@@ -188,6 +193,7 @@
 		9FCB7D8A1C26021900887033 /* validateTests */ = {
 			isa = PBXGroup;
 			children = (
+				9F11AE981C2DA30B00D2FB29 /* ValidationIteratorTests.swift */,
 				9F88DF791C2D620C00E8CA4B /* ValidatorRequiredTests.swift */,
 				9F0E5D6A1C26FFAA00A9E760 /* ValidatorDateBetweenTests.swift */,
 				9F0E5D661C26F11100A9E760 /* ValidatorRegexTests.swift */,
@@ -393,6 +399,7 @@
 				9F0E5D491C26BDCB00A9E760 /* ValidatorDateTime.swift in Sources */,
 				9FCB7DB11C260F6500887033 /* ValidatorAlnum.swift in Sources */,
 				9FCB7D9D1C26024100887033 /* ValidatorProtocol.swift in Sources */,
+				9F11AE971C2D98FF00D2FB29 /* ValidationIterator.swift in Sources */,
 				9F0E5D651C26F0F700A9E760 /* ValidatorRegex.swift in Sources */,
 				9FCB7DA41C26025600887033 /* ValidatorStrLen.swift in Sources */,
 				9FCB7DA21C26025600887033 /* ValidatorEmpty.swift in Sources */,
@@ -419,6 +426,7 @@
 				9F0E5D5A1C26E28D00A9E760 /* ValidatorGreaterThanTests.swift in Sources */,
 				9F0E5D631C26EE5E00A9E760 /* ValidatorInArrayTests.swift in Sources */,
 				9F0E5D6B1C26FFAA00A9E760 /* ValidatorDateBetweenTests.swift in Sources */,
+				9F11AE991C2DA30B00D2FB29 /* ValidationIteratorTests.swift in Sources */,
 				9F0E5D4F1C26C26200A9E760 /* ValidatorEmailTests.swift in Sources */,
 				9FCB7DAD1C260AA000887033 /* ValidatorStrLenTests.swift in Sources */,
 				9F0E5D5E1C26E65800A9E760 /* ValidatorSmallerThanTests.swift in Sources */,

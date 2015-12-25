@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ValidatorChain {
+public class ValidatorChain {
     
     /// holds the validators
     var validators: [ValidationAwareProtocol] = []
@@ -102,9 +102,9 @@ class ValidatorChain {
     }
 }
 
-infix operator <<< { associativity left precedence 95 }
+infix operator <~~ { associativity left precedence 100 }
 
-func <<< (left: ValidatorChain, right: ValidationAwareProtocol) -> ValidatorChain {
+func <~~ (left: ValidatorChain, right: ValidationAwareProtocol) -> ValidatorChain {
     
     left.addValidator(right)
     return left

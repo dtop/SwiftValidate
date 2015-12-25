@@ -67,6 +67,6 @@ public class ValidatorAlnum: BaseValidator, ValidatorProtocol {
             return true
         }
         
-        return self.returnError(self.errorNoString)
+        throw NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "Unable to validate chars in string incompatible value"])
     }
 }

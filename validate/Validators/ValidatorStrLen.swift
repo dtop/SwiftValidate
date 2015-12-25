@@ -13,8 +13,8 @@ import Foundation
  */
 class ValidatorStrLen: BaseValidator, ValidatorProtocol {
     
-    /// error if no string
-    var errorMessageNotAString = NSLocalizedString("the given value was no string", comment: "ValidatorStrLen - error message no string")
+    /// allow nil
+    var allowNil = true
     
     /// error if too small
     var errorMessageTooSmall = NSLocalizedString("please enter at least %i characters", comment: "ValidatorStrLen - error message size too small")
@@ -27,6 +27,15 @@ class ValidatorStrLen: BaseValidator, ValidatorProtocol {
     
     // minimum string length
     var minLength: Int = 3
+    
+    /// minimum length inclusive
+    var minInclusive = true
+    
+    /// maximum length inclusive (<= instead of <)
+    var maxInclusive = true
+    
+    private let compareGreater = {(alpha: Int, bravo: Int) -> Bool in return alpha > bravo}
+    private let compareGreaterEqual = {(alpha: Int, bravo: Int) -> Bool in return alpha >= bravo}
     
     /**
      inits
@@ -51,25 +60,22 @@ class ValidatorStrLen: BaseValidator, ValidatorProtocol {
      */
     override func validate<T: Any>(value: T?, context: [String: Any?]?) throws -> Bool {
         
-        if let val: String = value as? String {
-            
-            let tooLong  = val.characters.count > self.maxLength
-            let tooShort = val.characters.count < self.minLength
-            
-            if tooLong {
-                
-                self.errors.append(self.stuffString(self.errorMessageTooLarge, num: self.maxLength))
-            }
-            
-            if tooShort {
-                
-                self.errors.append(self.stuffString(self.errorMessageTooSmall, num: self.minLength))
-            }
-            
-            return !tooShort && !tooLong
+        if self.allowNil && nil == value {
+            return true
         }
         
-        return self.returnError(self.errorMessageNotAString)
+        // real string
+        if let val: String = value as? String {
+            
+            let length = val.characters.count
+            
+            let notTooLong  = self.measureMaximum(length)
+            let notTooShort = self.measureMinimum(length)
+            
+            return notTooLong && notTooShort
+        }
+        
+        throw NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "Unable to measure string length of string incompatible value"])
     }
     
     /**
@@ -83,5 +89,41 @@ class ValidatorStrLen: BaseValidator, ValidatorProtocol {
     private func stuffString(str: String, num: Int) -> String {
         
         return String(format: str, num)
+    }
+    
+    /**
+     Measures the maximum
+     
+     - parameter length: the str length
+     
+     - returns: true if ok
+     */
+    private func measureMaximum(length: Int) -> Bool {
+        
+        let result = (self.maxInclusive) ? self.compareGreaterEqual(self.maxLength, length) : self.compareGreater(self.maxLength, length)
+        if !result {
+            
+            return self.returnError(self.stuffString(self.errorMessageTooLarge, num: self.maxLength))
+        }
+        
+        return true
+    }
+    
+    /**
+     Measures the minimum
+     
+     - parameter length: the str length
+     
+     - returns: true if ok
+     */
+    private func measureMinimum(length: Int) -> Bool {
+        
+        let result = (self.minInclusive) ? self.compareGreaterEqual(length, self.minLength) : self.compareGreater(length, self.minLength)
+        if !result {
+            
+            return self.returnError(self.stuffString(self.errorMessageTooSmall, num: self.minLength))
+        }
+        
+        return true
     }
 }

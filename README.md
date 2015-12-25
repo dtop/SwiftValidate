@@ -1,9 +1,9 @@
 # swift-validate
-[![Build Status](https://travis-ci.org/dtop/swift-validate.svg?branch=feature%2Ftravis-ci)](https://travis-ci.org/dtop/swift-validate)
+[![Build Status](https://travis-ci.org/dtop/swift-validate.svg)](https://travis-ci.org/dtop/SwiftValidate)
 [![Compatibility](https://img.shields.io/badge/Swift-2.1-blue.svg)](https://developer.apple.com/swift)
 [![DependencyManagement](https://img.shields.io/badge/CocoaPods-Compatible-brightgreen.svg)](https://cocoapods.org)
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/dtop/swift-validate/master/LICENSE)
-[![GitHub release](https://img.shields.io/github/release/dtop/swift-validate.svg)](https://github.com/dtop/swift-validate)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/dtop/SwiftValidate/master/LICENSE)
+[![GitHub release](https://img.shields.io/github/release/dtop/SwiftValidate.svg)](https://github.com/dtop/SwiftValidate)
 ##### enhanced validation for swift
 
 By [Danilo Topalovic](http://blog.danilo-topalovic.de).
@@ -12,6 +12,7 @@ By [Danilo Topalovic](http://blog.danilo-topalovic.de).
 
 * [Introduction]
 * [Requirements]
+* [Installation]
 * [Usage]
 * [Included Validators]
   + [Required]
@@ -44,17 +45,35 @@ if you encounter any issues or bugs please feel free to report the bug or even w
 * iOS 8.0+
 * XCode 7.0+
 
+## Installation
+
+See [CocoaPods] for easy installation into your project
+
+Add `SwiftValidate` to your `Podfile` like
+
+
+```
+platform :ios, '8.0'
+use_frameworks!
+
+pod 'SwiftValidate'
+
+```
+
 ## Usage
+
+All validators are usable completely on their own but one of the main advantages of `SwiftValidate` is that the validators are chainable.
+Add as many validators to a single chain as you need for properly validate your value.
 
 ```swift
 let validatorChain = ValidatorChain() {
     $0.stopOnFirstError = true
     $0.stopOnException = true
-} <<< ValidatorRequired() {
+} <~~ ValidatorRequired() {
     $0.errorMessage = "Enter the value!"
-} <<< ValidatorEmpty() {
+} <~~ ValidatorEmpty() {
     $0.allowNil = false
-} <<< ValidatorStrLen() {
+} <~~ ValidatorStrLen() {
     $0.minLength = 3
     $0.maxLength = 30
     $0.errorMessageTooSmall = "My fancy own error message"
@@ -66,7 +85,80 @@ let result = validatorChain.validate(myValue, context: nil)
 let errors = validatorChain.errors
 ```
 
-# Included Validators
+If you are dealing with a lot of values (e.g. a form result) you can easily predefine an ValidationIterator and add several chains linked to the form fields name to it.
+
+see the extraction of the ValidatorChainTests:
+
+```swift
+
+        // form values given by some user
+        let formResults: [String: Any?] = [
+            "name": "John Appleseed",
+            "street": "1456 Sesame Street",
+            "zipcode": "01526",
+            "city": "Somewhere",
+            "country": nil
+        ]
+        
+        let validationIterator = ValidationIterator() {
+            $0.resultForUnknownKeys = true
+        }
+        
+        // name, street, city
+        validationIterator.registerChain(
+            ValidatorChain() {
+                    $0.stopOnException = true
+                    $0.stopOnFirstError = true
+                }
+                <~~ ValidatorRequired()
+                <~~ ValidatorEmpty()
+                <~~ ValidatorStrLen() {
+                    $0.minLength = 3
+                    $0.maxLength = 50
+                },
+            forKeys: ["name", "street"]
+        )
+        
+        // zipcode
+        validationIterator.registerChain(
+            ValidatorChain() {
+                $0.stopOnException = true
+                $0.stopOnFirstError = true
+            }
+            <~~ ValidatorRequired()
+            <~~ ValidatorStrLen() {
+                $0.minLength = 5
+                $0.maxLength = 5
+            }
+            <~~ ValidatorNumeric() {
+                $0.canBeString = true
+                $0.allowFloatingPoint = false
+            },
+            forKey: "zipcode"
+        )
+        
+        // country (not required but if present between 3 and 50 chars)
+        validationIterator.registerChain(
+            ValidatorChain() {
+                $0.stopOnException = true
+                $0.stopOnFirstError = true
+            }
+            <~~ ValidatorStrLen() {
+                $0.minLength = 3
+                $0.maxLength = 50
+            },
+            forKey: "country"
+        )
+        
+        
+        let validationResult = validationIterator.validate(formResults)
+
+```
+
+
+see [WiKi] for more examples and explinations
+
+## Included Validators
 
 #### ValidatorRequired()
 
@@ -86,6 +178,7 @@ Configuration
 
 + `errorMessage` - error message if value is nil
 
+---
 #### ValidatorEmpty()
 
 Tests if the given value is not an empty string
@@ -107,14 +200,16 @@ Tests if a given value is between min and max in strlen
 
 **Configuration**
 
-| value       | type | default | description              |
-|-------------|:----:|---------|--------------------------|
-| `allowNil`  | Bool | true    | value an be nil          |
-| `minLength` |  Int | 3       | minimum length of string |
-| `maxLength` |  Int | 30      | maximum length of string |
+| value          | type | default | description                |
+|----------------|:----:|---------|----------------------------|
+| `allowNil`     | Bool | true    | value an be nil            |
+| `minLength`    |  Int | 3       | minimum length of string   |
+| `maxLength`    |  Int | 30      | maximum length of string   |
+| `minInclusive` | Bool | true    | minimum inclusive in value |
+| `maxInclusive` | Bool | true    | maximum inclusive in value |
 
 **Error Messages**
-+ `errorMessageNotAString: String` - error message if not a string
+
 + `errorMessageTooSmall: String` - error message if string is not long enaugh
 + `errorMessageTooLarge: String`- error message if string is too long
 
@@ -398,9 +493,12 @@ class MyGenericValidator<TYPE where TYPE: Equatable>: ValidatorProtocol {
 
 [Eureka]: https://github.com/xmartlabs/Eureka
 [Zend\Validate]: https://github.com/zendframework/zend-validator
+[CocoaPods]: https://cocoapods.org
+[WiKi]: https://github.com/dtop/SwiftValidate/wiki
 
 [Introduction]: #introduction
 [Requirements]: #requirements
+[Installation]: #installation
 [Usage]: #usage
 [Included Validators]: #included-validators
 [Required]: #validatorrequired
