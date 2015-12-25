@@ -28,22 +28,15 @@ class ValidatorStrLenTests: XCTestCase {
             $0.minLength = 2
         }
         
-        let testValue: String? = nil
-        var result: Bool       = true
-        
         do {
             
-            // handle nil
-            result = try validator.validate(testValue, context: nil)
-            XCTAssertFalse(result)
-            
-            // handle int
-            result = try validator.validate(123456, context: nil)
-            XCTAssertFalse(result)
+            // must throw
+            try validator.validate(123456, context: nil)
+            XCTAssert(false)
             
         } catch _ {
             
-            XCTAssert(false)
+            XCTAssert(true)
         }
     }
     

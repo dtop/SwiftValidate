@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
-  s.name         = "swift-validate"
-  s.version      = "0.0.3"
+  s.name         = "SwiftValidate"
+  s.version      = "0.0.4"
   s.summary      = "A highly customizable validation library for swift"
   s.homepage     = "http://github.com/dtop/swift-validate"
   s.license      = "MIT"
@@ -10,5 +10,4 @@ Pod::Spec.new do |s|
   s.ios.frameworks = 'UIKit', 'Foundation'
   s.source       = { :git => "https://github.com/dtop/swift-validate.git", :tag => s.version }
   s.source_files  = "validate/*.swift", "validate/**/*.swift"
-  s.deprecated_in_favor_of = "SwiftValidate"
 end

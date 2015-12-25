@@ -29,7 +29,7 @@ class ValidatorChainTests: XCTestCase {
         let chain = ValidatorChain() {
             $0.stopOnException = true
             $0.stopOnFirstError = false
-        } <<< MockValidator() {
+        } <~~ MockValidator() {
             $0.someSetting = true
         }
         

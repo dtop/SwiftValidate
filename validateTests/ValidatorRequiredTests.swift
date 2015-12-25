@@ -82,7 +82,7 @@ class ValidatorRequiredTests: XCTestCase {
         let chain = ValidatorChain {
             $0.stopOnFirstError = true
             $0.stopOnException = true
-        } <<< ValidatorRequired {
+        } <~~ ValidatorRequired {
             $0.requirementCondition = nil
         }
         
