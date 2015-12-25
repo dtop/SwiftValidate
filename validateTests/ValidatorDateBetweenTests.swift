@@ -52,13 +52,11 @@ class ValidatorDateBetweenTests: XCTestCase {
         
         let df = NSDateFormatter()
         df.dateFormat = "yyyy-MM-dd"
-        df.locale = NSLocale(localeIdentifier: "de_DE")
-        df.timeZone = NSTimeZone.localTimeZone()
         
         let validator = ValidatorDateBetween() {
             $0.allowNil = false
-            $0.min = NSDate(timeIntervalSince1970: 315532800)
-            $0.max = NSDate(timeIntervalSince1970: 631155600)
+            $0.min = df.dateFromString("1980-01-01")
+            $0.max = df.dateFromString("1990-01-01")
             $0.maxInclusive = false
             $0.minInclusive = true
             $0.dateFormatter = df

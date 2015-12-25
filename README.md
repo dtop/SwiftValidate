@@ -1,4 +1,9 @@
 # swift-validate
+[![Build Status](https://travis-ci.org/dtop/swift-validate.svg?branch=feature%2Ftravis-ci)](https://travis-ci.org/dtop/swift-validate)
+[![Compatibility](https://img.shields.io/badge/Swift-2.1-blue.svg)](https://developer.apple.com/swift)
+[![DependencyManagement](https://img.shields.io/badge/CocoaPods-Compatible-brightgreen.svg)](https://cocoapods.org)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/dtop/swift-validate/master/LICENSE)
+[![GitHub release](https://img.shields.io/github/release/dtop/swift-validate.svg)](https://github.com/dtop/swift-validate)
 ##### enhanced validation for swift
 
 By [Danilo Topalovic](http://blog.danilo-topalovic.de).
@@ -30,9 +35,9 @@ By [Danilo Topalovic](http://blog.danilo-topalovic.de).
 
 Unfortunately I did not find a fancy name for this software so I've called it what it is - a validator.
 
-Heavily inspired by [Zend\Validate] and [Eureka] I started working on this component and delivered the alpha 1 day later ;-).
+Heavily inspired by [Zend\Validate] and [Eureka] I started working on this component and I still add tests / validators.
+if you encounter any issues or bugs please feel free to report the bug or even write a test for this bug in order to be good again when the bug is solved.
 
-Support for Cocoapods will be added asap
 
 ## Requirements
 

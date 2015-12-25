@@ -1,0 +1,11 @@
+language: objective-c
+osx_image: xcode7
+env:
+  - DESTINATION="OS=9.0,name=iPhone 6" SCHEME="validate" SDK=iphonesimulator9.0
+before_install:
+  - gem install xcpretty --no-rdoc --no-ri --no-document --quiet
+script:
+  - set -o pipefail
+  - xcodebuild -version
+  - xcodebuild -project validate.xcodeproj -scheme "$SCHEME" -sdk "$SDK" -destination "$DESTINATION"
+    -configuration Debug ONLY_ACTIVE_ARCH=NO test | xcpretty -c
