@@ -45,6 +45,8 @@ Support for Cocoapods will be added asap
 let validatorChain = ValidatorChain() {
     $0.stopOnFirstError = true
     $0.stopOnException = true
+} <<< ValidatorRequired() {
+    $0.errorMessage = "Enter the value!"
 } <<< ValidatorEmpty() {
     $0.allowNil = false
 } <<< ValidatorStrLen() {
@@ -73,7 +75,7 @@ Configuration
 
 | value                  |  type     | default | description                       |
 |------------------------|:---------:|---------|-----------------------------------|
-| `requirementCondition` |  closure  | !       | optional custom requirement check |
+| `requirementCondition` |  closure  | ?       | optional custom requirement check |
 
 **Error Messages**
 
