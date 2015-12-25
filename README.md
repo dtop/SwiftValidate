@@ -1,4 +1,9 @@
 # swift-validate
+[![Build Status](https://travis-ci.org/dtop/swift-validate.svg?branch=feature%2Ftravis-ci)](https://travis-ci.org/dtop/swift-validate)
+[![Compatibility](https://img.shields.io/badge/Swift-2.1-blue.svg)](https://developer.apple.com/swift)
+[![DependencyManagement](https://img.shields.io/badge/CocoaPods-Compatible-brightgreen.svg)](https://cocoapods.org)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/dtop/swift-validate/master/LICENSE)
+[![GitHub release](https://img.shields.io/github/release/dtop/swift-validate.svg)](https://github.com/dtop/swift-validate)
 ##### enhanced validation for swift
 
 By [Danilo Topalovic](http://blog.danilo-topalovic.de).
