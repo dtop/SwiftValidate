@@ -35,9 +35,9 @@ By [Danilo Topalovic](http://blog.danilo-topalovic.de).
 
 Unfortunately I did not find a fancy name for this software so I've called it what it is - a validator.
 
-Heavily inspired by [Zend\Validate] and [Eureka] I started working on this component and delivered the alpha 1 day later ;-).
+Heavily inspired by [Zend\Validate] and [Eureka] I started working on this component and I still add tests / validators.
+if you encounter any issues or bugs please feel free to report the bug or even write a test for this bug in order to be good again when the bug is solved.
 
-Support for Cocoapods will be added asap
 
 ## Requirements
 
