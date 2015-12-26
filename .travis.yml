@@ -7,5 +7,5 @@ before_install:
 script:
   - set -o pipefail
   - xcodebuild -version
-  - xcodebuild -project validate.xcodeproj -scheme "$SCHEME" -sdk "$SDK" -destination "$DESTINATION"
+  - xcodebuild -project SwiftValidate.xcodeproj -scheme "$SCHEME" -sdk "$SDK" -destination "$DESTINATION"
     -configuration Debug ONLY_ACTIVE_ARCH=NO test | xcpretty -c
