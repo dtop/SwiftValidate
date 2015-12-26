@@ -11,13 +11,13 @@ import Foundation
 public class ValidatorDateTime: BaseValidator, ValidatorProtocol {
     
     /// nil is allowed
-    var allowNil: Bool = true
+    public var allowNil: Bool = true
     
     /// Holds the date format to interpret with
-    var dateFormat: String = "yyyy-MM-dd HH:mm:ss"
+    public var dateFormat: String = "yyyy-MM-dd HH:mm:ss"
     
     /// Error string for illegal type
-    var errorMessageInvalidDate: String = NSLocalizedString("the given type is not compatible to NSDate", comment: "ValidatorDateTime - illegal type")
+    public var errorMessageInvalidDate: String = NSLocalizedString("the given type is not compatible to NSDate", comment: "ValidatorDateTime - illegal type")
     
     /**
      Inits the class

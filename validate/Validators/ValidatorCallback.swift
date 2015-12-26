@@ -11,10 +11,10 @@ import Foundation
 public class ValidatorCallback: BaseValidator, ValidatorProtocol {
     
     /// nil is allowed
-    var allowNil: Bool = true
+    public var allowNil: Bool = true
     
     /// Holds the callback
-    var callback: ((validator: ValidatorCallback, value: Any?, context: [String : Any?]?) throws -> (result: Bool, errorMessage: String?))!
+    public var callback: ((validator: ValidatorCallback, value: Any?, context: [String : Any?]?) throws -> (result: Bool, errorMessage: String?))!
     
     /**
      Init

@@ -16,28 +16,28 @@ public class ValidatorEmail: BaseValidator, ValidatorProtocol {
     private static let maxLengthHostnamePart: Int = 255
     
     /// nil is allowed
-    var allowNil: Bool = true
+    public var allowNil: Bool = true
     
     /// Validates the local part of the mail addr (before @)
-    var validateLocalPart: Bool = true
+    public var validateLocalPart: Bool = true
     
     /// Validates the hostname part of the mail addr (after @)
-    var validateHostnamePart: Bool = true
+    public var validateHostnamePart: Bool = true
     
     /// strict check
-    var strict: Bool = true
+    public var strict: Bool = true
     
     /// generic invalid error message
-    var errorMessageInvalidAddress: String = NSLocalizedString("the entered address is invalid", comment: "ValidatorEmail - Invalid address")
+    public var errorMessageInvalidAddress: String = NSLocalizedString("the entered address is invalid", comment: "ValidatorEmail - Invalid address")
     
     /// error message when local part is invalid
-    var errorMessageInvalidLocalPart: String = NSLocalizedString("the local part of the mail contains invalid characters", comment: "ValidatorEmail - invalid local part")
+    public var errorMessageInvalidLocalPart: String = NSLocalizedString("the local part of the mail contains invalid characters", comment: "ValidatorEmail - invalid local part")
 
     /// error message when hostname part is invalid
-    var errorMessageInvalidHostnamePart: String = NSLocalizedString("the hostname part of the mail contains invalid characters", comment: "ValidatorEmail - invalid remote part")
+    public var errorMessageInvalidHostnamePart: String = NSLocalizedString("the hostname part of the mail contains invalid characters", comment: "ValidatorEmail - invalid remote part")
     
     /// error message if the length was exceeded
-    var errorMessagePartLengthExceeded: String = NSLocalizedString("the %@ part is too long %i of max %i given", comment: "ValidatorEmail - Length exceeded")
+    public var errorMessagePartLengthExceeded: String = NSLocalizedString("the %@ part is too long %i of max %i given", comment: "ValidatorEmail - Length exceeded")
     
     /**
      Easy init

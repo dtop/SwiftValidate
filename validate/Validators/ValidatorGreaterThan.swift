@@ -11,19 +11,19 @@ import Foundation
 public class ValidatorGreaterThan<TYPE: SignedNumberType>: ValidatorProtocol {
     
     /// nil is allowed
-    var allowNil: Bool = true
+    public var allowNil: Bool = true
     
     /// the value to compare against
-    var min: TYPE = 0
+    public var min: TYPE = 0
     
     /// number inclusive?
-    var inclusive: Bool = true
+    public var inclusive: Bool = true
     
     /// error message for invalid type (not a number)
-    var errorMessageInvalidType: String = NSLocalizedString("the given type was invalid", comment: "ValidatorGreaterThan - invalid type")
+    public var errorMessageInvalidType: String = NSLocalizedString("the given type was invalid", comment: "ValidatorGreaterThan - invalid type")
     
     /// error message if value is smaller than expected
-    var errorMessageNotGreaterThan: String = NSLocalizedString("the given value was not greater than %@", comment: "ValidatorGreaterThan - value too small")
+    public var errorMessageNotGreaterThan: String = NSLocalizedString("the given value was not greater than %@", comment: "ValidatorGreaterThan - value too small")
     
     /// the errors
     private var _err: [String] = []
@@ -35,8 +35,8 @@ public class ValidatorGreaterThan<TYPE: SignedNumberType>: ValidatorProtocol {
     
     //MARK: comparision functions
     
-    let compareExclusive = { (alpha: TYPE, bravo: TYPE ) -> Bool in return alpha > bravo }
-    let compareInclusive = { (alpha: TYPE, bravo: TYPE ) -> Bool in return alpha >= bravo }
+    private let compareExclusive = { (alpha: TYPE, bravo: TYPE ) -> Bool in return alpha > bravo }
+    private let compareInclusive = { (alpha: TYPE, bravo: TYPE ) -> Bool in return alpha >= bravo }
     
     //MARK: methods
     
@@ -82,7 +82,7 @@ public class ValidatorGreaterThan<TYPE: SignedNumberType>: ValidatorProtocol {
     
     //MARK: - private functions -
     
-    func compareAsString(value: String) throws -> Bool {
+    private func compareAsString(value: String) throws -> Bool {
         
         if let numVal = Double(value) {
             
@@ -114,7 +114,7 @@ public class ValidatorGreaterThan<TYPE: SignedNumberType>: ValidatorProtocol {
      
      - returns: true if ok
      */
-    func compareAsNumber(value: TYPE) -> Bool {
+    private func compareAsNumber(value: TYPE) -> Bool {
         
         let result = (self.inclusive) ? self.compareInclusive(value, self.min) : self.compareExclusive(value, self.min)
         if !result {

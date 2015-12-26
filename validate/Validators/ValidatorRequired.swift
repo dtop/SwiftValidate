@@ -11,10 +11,10 @@ import Foundation
 public class ValidatorRequired: BaseValidator, ValidatorProtocol {
     
     /// custom callback that determines satisfaction of requirement
-    var requirementCondition: ((value: Any?, context: [String: Any?]?) -> Bool)?
+    public var requirementCondition: ((value: Any?, context: [String: Any?]?) -> Bool)?
     
     /// the error message
-    var errorMessage: String = NSLocalizedString("This value is required. Please enter a value", comment: "ValidatorRequired - No value")
+    public var errorMessage: String = NSLocalizedString("This value is required. Please enter a value", comment: "ValidatorRequired - No value")
     
     /**
      Inits the validator

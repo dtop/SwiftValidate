@@ -11,16 +11,16 @@ import Foundation
 public class ValidatorAlnum: BaseValidator, ValidatorProtocol {
     
     /// allow nil values
-    var allowNil: Bool = true
+    public var allowNil: Bool = true
     
     /// allow only ascii chars
-    var allowEmpty: Bool = false
+    public var allowEmpty: Bool = false
     
     /// error message not alnum
-    var errorMessageStringNotAlnum: String = NSLocalizedString("The String contains illegal characters", comment: "ValidatorAlnum - String not alnum")
+    public var errorMessageStringNotAlnum: String = NSLocalizedString("The String contains illegal characters", comment: "ValidatorAlnum - String not alnum")
     
     /// error message no string
-    var errorNoString: String = NSLocalizedString("The entered value was no string", comment: "ValidatorAlnum - String no string")
+    public var errorNoString: String = NSLocalizedString("The entered value was no string", comment: "ValidatorAlnum - String no string")
     
     /**
      Required init

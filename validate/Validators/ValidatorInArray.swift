@@ -11,12 +11,12 @@ import Foundation
 public class ValidatorInArray<TYPE where TYPE: Equatable>: ValidatorProtocol {
     
     /// nil value is allowed and true
-    var allowNil: Bool = true
+    public var allowNil: Bool = true
     
     /// possible values
-    var array: [TYPE] = []
+    public var array: [TYPE] = []
     
-    var errorMessageItemIsNotContained: String = NSLocalizedString("the given value is not contained in the possibilities", comment: "ValidatorInArray - Not contained")
+    public var errorMessageItemIsNotContained: String = NSLocalizedString("the given value is not contained in the possibilities", comment: "ValidatorInArray - Not contained")
     
     /// the errors
     private var _err: [String] = []
@@ -85,7 +85,7 @@ public class ValidatorInArray<TYPE where TYPE: Equatable>: ValidatorProtocol {
     
     - returns: true if contained
     */
-    func compareDifferentTypesAsString(value: String) throws -> Bool {
+    private func compareDifferentTypesAsString(value: String) throws -> Bool {
         
         // convert everything to string
         

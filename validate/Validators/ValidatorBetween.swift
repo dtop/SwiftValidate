@@ -11,28 +11,28 @@ import Foundation
 public class ValidatorBetween<TYPE: SignedNumberType>: ValidatorProtocol {
     
     /// allows the value to be nil
-    var allowNil: Bool = true
+    public var allowNil: Bool = true
     
     /// allows the value as string
-    var allowString: Bool = true
+    public var allowString: Bool = true
     
     // minimal value
-    var minValue: TYPE = 0
+    public var minValue: TYPE = 0
     
     // maximal value
-    var maxValue: TYPE = 0
+    public var maxValue: TYPE = 0
     
     // comparision inclusive with min
-    var minInclusive = true
+    public var minInclusive = true
     
     // comparision inclusive with max
-    var maxInclusive = true
+    public var maxInclusive = true
     
     /// error message for invalid type (not a number)
-    var errorMessageInvalidType: String = NSLocalizedString("the given type was invalid", comment: "ValidatorBetween - invalid type")
+    public var errorMessageInvalidType: String = NSLocalizedString("the given type was invalid", comment: "ValidatorBetween - invalid type")
     
     /// error message if not between
-    var errorMessageNotBetween: String = NSLocalizedString("the given number is not between the presets", comment: "ValidatorBetween - not between")
+    public var errorMessageNotBetween: String = NSLocalizedString("the given number is not between the presets", comment: "ValidatorBetween - not between")
     
     /// the errors
     private var _err: [String] = []
@@ -44,8 +44,8 @@ public class ValidatorBetween<TYPE: SignedNumberType>: ValidatorProtocol {
     
     // MARK: comparision closures
     
-    let compareExclusive = { (alpha: TYPE, bravo: TYPE ) -> Bool in return alpha > bravo }
-    let compareInclusive = { (alpha: TYPE, bravo: TYPE ) -> Bool in return alpha >= bravo }
+    private let compareExclusive = { (alpha: TYPE, bravo: TYPE ) -> Bool in return alpha > bravo }
+    private let compareInclusive = { (alpha: TYPE, bravo: TYPE ) -> Bool in return alpha >= bravo }
     
     // MARK: methods
     

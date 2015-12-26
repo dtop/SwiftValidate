@@ -11,19 +11,19 @@ import Foundation
 public class ValidatorRegex: BaseValidator, ValidatorProtocol {
     
     /// allows a nil value
-    var allowNil: Bool = true
+    public var allowNil: Bool = true
     
     /// the pattern to be matched against
-    var pattern: String!
+    public var pattern: String!
     
     /// expression options
-    var options: NSRegularExpressionOptions = NSRegularExpressionOptions(rawValue: 0)
+    public var options: NSRegularExpressionOptions = NSRegularExpressionOptions(rawValue: 0)
     
     /// matching options
-    var matchingOptions: NSMatchingOptions = NSMatchingOptions(rawValue: 0)
+    public var matchingOptions: NSMatchingOptions = NSMatchingOptions(rawValue: 0)
     
     /// error message
-    var errorMessageValueIsNotMatching: String = NSLocalizedString("the given value is not matching to the predefined regex", comment: "ValidatorRegex - no match")
+    public var errorMessageValueIsNotMatching: String = NSLocalizedString("the given value is not matching to the predefined regex", comment: "ValidatorRegex - no match")
     
     /**
      Easy init
