@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import validate
+@testable import SwiftValidate
 
 class ValidatorDateTimeTests: XCTestCase {
     

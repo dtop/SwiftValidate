@@ -7,7 +7,7 @@
 //
 
 import Foundation
-@testable import validate
+@testable import SwiftValidate
 
 class MockValidator: BaseValidator, ValidatorProtocol {
     
