@@ -579,6 +579,7 @@
 				INFOPLIST_FILE = validateTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "de.danilo-topalovic.validateTests";
+				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)Tests";
 				PRODUCT_NAME = SwiftValidate;
 			};
 			name = Debug;
@@ -589,6 +590,7 @@
 				INFOPLIST_FILE = validateTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "de.danilo-topalovic.validateTests";
+				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)Tests";
 				PRODUCT_NAME = SwiftValidate;
 			};
 			name = Release;
