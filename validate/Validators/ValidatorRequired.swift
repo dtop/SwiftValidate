@@ -40,6 +40,12 @@ public class ValidatorRequired: BaseValidator, ValidatorProtocol {
      */
     public override func validate<T: Any>(value: T?, context: [String: Any?]?) throws -> Bool {
         
-        return (nil != self.requirementCondition && self.requirementCondition!(value: value, context: context)) || nil != value
+        let result = (nil != self.requirementCondition && self.requirementCondition!(value: value, context: context)) || nil != value
+        
+        if !result {
+            return self.returnError(self.errorMessage)
+        }
+        
+        return result
     }
 }

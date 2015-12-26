@@ -79,7 +79,8 @@ public class ValidationIterator {
             if let chain = self.chains[key] {
                 
                 // validating value according to registered chain
-                result = result && self.validateValue(value, withKey: key, andWithChain: chain, andContext: values)
+                let validatorResult = self.validateValue(value, withKey: key, andWithChain: chain, andContext: values)
+                result = result && validatorResult
                 continue
             }
             
