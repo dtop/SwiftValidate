@@ -1,4 +1,4 @@
-# swift-validate
+# SwiftValidate
 [![Build Status](https://travis-ci.org/dtop/SwiftValidate.svg)](https://travis-ci.org/dtop/SwiftValidate)
 [![Compatibility](https://img.shields.io/badge/Swift-2.1-blue.svg)](https://developer.apple.com/swift)
 [![DependencyManagement](https://img.shields.io/badge/CocoaPods-Compatible-brightgreen.svg)](https://cocoapods.org)
