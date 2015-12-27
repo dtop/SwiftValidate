@@ -9,7 +9,7 @@
 import XCTest
 @testable import SwiftValidate
 
-class ValidatorAlnumTests: XCTestCase {
+class ValidatorCharsetTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
@@ -25,6 +25,7 @@ class ValidatorAlnumTests: XCTestCase {
 
         // code coverage
         let _ = ValidatorAlnum()
+        let _ = ValidatorCharset()
         
         let validator = ValidatorAlnum() {
             $0.allowEmpty = true
@@ -51,8 +52,9 @@ class ValidatorAlnumTests: XCTestCase {
     
     func testValidatorCanHandleNil() {
         
-        let validator = ValidatorAlnum() {
+        let validator = ValidatorCharset() {
             $0.allowEmpty = true
+            $0.charset = NSCharacterSet.alphanumericCharacterSet()
         }
         
         var result: Bool = true
@@ -69,10 +71,28 @@ class ValidatorAlnumTests: XCTestCase {
         }
     }
     
+    func testValidatorThrowsIfNoCharsetIsGiven() {
+        
+        let validator = ValidatorCharset() {
+            $0.allowEmpty = true
+        }
+        
+        do {
+            
+            try validator.validate(true, context: nil)
+            XCTAssert(false, "may never be reached")
+            
+        } catch let error as NSError {
+            
+            XCTAssertEqual("no chaset given", error.localizedDescription)
+        }
+    }
+    
     func testValidatorThrowsOnIllegalInput() {
         
-        let validator = ValidatorAlnum() {
+        let validator = ValidatorCharset() {
             $0.allowEmpty = true
+            $0.charset = NSCharacterSet.alphanumericCharacterSet()
         }
         
         do {
