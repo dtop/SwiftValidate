@@ -87,7 +87,7 @@ let errors = validatorChain.errors
 
 If you are dealing with a lot of values (e.g. a form result) you can easily predefine an ValidationIterator and add several chains linked to the form fields name to it.
 
-see the extraction of the ValidatorChainTests:
+see the extraction of the ValidationIteratorTests:
 
 ```swift
 
@@ -276,7 +276,7 @@ Validates if the given value is a valid number
 | value                |        type       | default | description                        |
 |----------------------|:-----------------:|---------|------------------------------------|
 | `allowNil`           |        Bool       | true    | nil is allowed                     |
-| `canBeString`        |        Bool       | true    | value can be a numerical string    |
+| `allowString`        |        Bool       | true    | value can be a numerical string    |
 | `allowFloatingPoint` |        Bool       | true    | value can be a floatingpoint value |
 
 **Error Messages**
@@ -289,12 +289,14 @@ Validates if the given value is a valid number
 Validates if a numerical value is between 2 predefined values
 
 Generic:
+
 ```swift
 let validator = ValidatorBetween<Double>() {
     $0.minValue = 1.0
     $0.maxValue = 99.1
 }
 ```
+
 **Configuration**
 
 | value          | type | default | description                               |
@@ -317,6 +319,7 @@ let validator = ValidatorBetween<Double>() {
 Validates if the given value is greater than the predefined one
 
 Generic:
+
 ```swift
 let validator = ValidatorGreaterThan<Double>() {
     $0.min = 1.0
@@ -342,6 +345,7 @@ let validator = ValidatorGreaterThan<Double>() {
 Validates if the given value is smaller than the predefined one
 
 Generic:
+
 ```swift
 let validator = ValidatorSmallerThan<Double>() {
     $0.max = 10.0

@@ -14,7 +14,7 @@ public class ValidatorNumeric: BaseValidator, ValidatorProtocol {
     public var allowNil: Bool = true
     
     /// Holds if the number can be a string representation
-    public var canBeString: Bool = true
+    public var allowString: Bool = true
     
     /// Holds if we accept floating point numbers
     public var allowFloatingPoint = true
@@ -53,7 +53,7 @@ public class ValidatorNumeric: BaseValidator, ValidatorProtocol {
         
         if let strVal: String = value as? String {
             
-            if !self.canBeString {
+            if !self.allowString {
                 return self.returnError(self.errorMessageNotNumeric)
             }
             

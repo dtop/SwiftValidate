@@ -26,7 +26,7 @@ class ValidatorNumericTests: XCTestCase {
         let _ = ValidatorNumeric()
         
         let validator = ValidatorNumeric() {
-            $0.canBeString = false
+            $0.allowString = false
             $0.allowFloatingPoint = true
         }
         
@@ -62,7 +62,7 @@ class ValidatorNumericTests: XCTestCase {
     func testValidatorHandlesStrings() {
         
         let validator = ValidatorNumeric() {
-            $0.canBeString = true
+            $0.allowString = true
             $0.allowFloatingPoint = true
         }
         
@@ -93,7 +93,7 @@ class ValidatorNumericTests: XCTestCase {
     func testValidatorCanHandleNil() {
         
         let validator = ValidatorNumeric {
-            $0.canBeString = true
+            $0.allowString = true
             $0.allowFloatingPoint = true
         }
         

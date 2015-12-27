@@ -68,7 +68,7 @@ class ValidationIteratorTests: XCTestCase {
                 $0.maxLength = 5
             }
             <~~ ValidatorNumeric() {
-                $0.canBeString = true
+                $0.allowString = true
                 $0.allowFloatingPoint = false
             },
             forKey: "zipcode"
