@@ -48,6 +48,9 @@ public class ValidatorRegex: BaseValidator, ValidatorProtocol {
      */
     public override func validate<T: Any>(value: T?, context: [String: Any?]?) throws -> Bool {
         
+        // reset errors
+        self.emptyErrors()
+        
         if nil == self.pattern {
             throw NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "No pattern given for matching"])
         }

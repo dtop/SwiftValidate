@@ -11,7 +11,13 @@ import Foundation
 
 class MockValidator: BaseValidator, ValidatorProtocol {
     
-    var someSetting: Bool = false
+    var allowNil: Bool = true
+    
+    var returnValue: Bool = true
+    
+    var throwException: Bool = false
+    
+    
     
     required init(@noescape _ initializer: MockValidator -> ()) {
         
@@ -21,11 +27,19 @@ class MockValidator: BaseValidator, ValidatorProtocol {
     
     override func validate<T: Any>(value: T?, context: [String: Any?]?) throws -> Bool {
         
-        if let boolVal = value as? Bool {
-            
-            return boolVal || self.returnError("Some error string")
+        if self.throwException {
+            throw NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "Exception Thrown"])
         }
         
-        return self.returnError("Some other error string")
+        if self.allowNil && nil == value {
+            return true
+        }
+        
+        if !self.returnValue {
+            
+            return self.returnError("Some error string")
+        }
+        
+        return true
     }
 }

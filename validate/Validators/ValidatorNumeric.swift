@@ -45,6 +45,12 @@ public class ValidatorNumeric: BaseValidator, ValidatorProtocol {
      */
     override public func validate<T: Any>(value: T?, context: [String: Any?]?) throws -> Bool {
         
+        self.emptyErrors()
+        
+        if self.allowNil && nil == value {
+            return true
+        }
+        
         if let strVal: String = value as? String {
             
             if !self.canBeString {

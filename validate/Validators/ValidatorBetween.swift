@@ -71,6 +71,8 @@ public class ValidatorBetween<TYPE: SignedNumberType>: ValidatorProtocol {
      */
     public func validate<T: Any>(value: T?, context: [String: Any?]?) throws -> Bool {
         
+        self._err = [String]()
+        
         if self.allowNil && nil == value {
             return true
         }
@@ -99,8 +101,7 @@ public class ValidatorBetween<TYPE: SignedNumberType>: ValidatorProtocol {
             return false
         }
         
-        self._err.append(self.errorMessageInvalidType)
-        return false
+        throw NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "invalid type - not compatible to string or SignedNumberType"])
     }
     
     /**
@@ -117,11 +118,11 @@ public class ValidatorBetween<TYPE: SignedNumberType>: ValidatorProtocol {
         if let numVal = Double(value) {
             
             guard let minVal = NumberConverter<TYPE>.toDouble(self.minValue) else {
-                return false
+                throw NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "internal error - could not convert to double"])
             }
             
             guard let maxVal = NumberConverter<TYPE>.toDouble(self.maxValue) else {
-                return false
+                throw NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "internal error - could not convert to double"])
             }
             
             let comparator = ValidatorBetween<Double>() {
@@ -132,10 +133,14 @@ public class ValidatorBetween<TYPE: SignedNumberType>: ValidatorProtocol {
                 $0.maxInclusive = self.maxInclusive
             }
             
-            return try comparator.validate(numVal, context: nil)
+            let result = try comparator.validate(numVal, context: nil)
+            if !result {
+                self._err = comparator.errors
+            }
+            
+            return result
         }
         
-        self._err.append(self.errorMessageInvalidType)
-        return false
+        throw NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "invalid type - not compatible to string or SignedNumberType"])
     }
 }

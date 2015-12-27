@@ -23,6 +23,9 @@ class ValidationIteratorTests: XCTestCase {
     
     func testValidationIteratorValidatesAllValues() {
 
+        /// code coverage
+        let _ = ValidationIterator()
+        
         var validationResult: Bool = false
         
         // form values given by some user
@@ -94,5 +97,57 @@ class ValidationIteratorTests: XCTestCase {
         // must not fail (unknown fields are ok)
         validationResult = validationIterator.validate(formResults)
         XCTAssertTrue(validationResult)
+    }
+    
+    func testValidationIteratorDispatchesErrors() {
+        
+        // form values given by some user
+        let formResults: [String: Any?] = [
+            "name": "John Appleseed",
+            "street": "1456 Sesame Street",
+            "custom": "1"
+        ]
+        
+        let validationIterator = ValidationIterator() {
+            $0.resultForUnknownKeys = false
+        }
+        
+        // name, street, city
+        validationIterator.registerChain(
+            ValidatorChain() {
+                $0.stopOnException = true
+                $0.stopOnFirstError = true
+            }
+            <~~ ValidatorRequired()
+            <~~ ValidatorEmpty()
+            <~~ ValidatorStrLen() {
+                $0.minLength = 3
+                $0.maxLength = 50
+            },
+            forKeys: ["name", "street", "custom"]
+        )
+        
+        let result = validationIterator.validate(formResults)
+        XCTAssertFalse(result)
+        
+        let errors = validationIterator.getAllErrors()
+
+        guard let customErrors = errors["custom"] else {
+            XCTAssert(false, "no errors")
+            return
+        }
+        
+        XCTAssertTrue(customErrors.contains("please enter at least 3 characters"))
+        
+        guard let otherErrors = validationIterator.getErrorsFor(key: "custom") else {
+            XCTAssert(false, "no errors")
+            return
+        }
+        
+        XCTAssertTrue(otherErrors.contains("please enter at least 3 characters"))
+        
+        if let _ = validationIterator.getErrorsFor(key: "wrong") {
+            XCTAssert(false, "may not get anything")
+        }
     }
 }

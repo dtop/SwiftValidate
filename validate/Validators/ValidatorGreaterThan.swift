@@ -62,6 +62,8 @@ public class ValidatorGreaterThan<TYPE: SignedNumberType>: ValidatorProtocol {
      */
     public func validate<T: Any>(value: T?, context: [String: Any?]?) throws -> Bool {
         
+        self._err = [String]()
+        
         if self.allowNil && nil == value {
             return true
         }
@@ -76,8 +78,7 @@ public class ValidatorGreaterThan<TYPE: SignedNumberType>: ValidatorProtocol {
             return self.compareAsNumber(myVal)
         }
         
-        self._err.append(self.errorMessageInvalidType)
-        return false
+        throw NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "invalid type - not compatible to string or SignedNumberType"])
     }
     
     //MARK: - private functions -
@@ -87,7 +88,7 @@ public class ValidatorGreaterThan<TYPE: SignedNumberType>: ValidatorProtocol {
         if let numVal = Double(value) {
             
             guard let min = NumberConverter<TYPE>.toDouble(self.min) else {
-                return false
+                throw NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "internal error - could not convert to double"])
             }
             
             let validator = ValidatorGreaterThan<Double>() {
@@ -103,8 +104,7 @@ public class ValidatorGreaterThan<TYPE: SignedNumberType>: ValidatorProtocol {
             return result
         }
         
-        self._err.append(self.errorMessageInvalidType)
-        return false
+        throw NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "invalid type - not compatible to string or SignedNumberType"])
     }
     
     /**

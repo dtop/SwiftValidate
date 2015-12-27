@@ -41,13 +41,15 @@ public class ValidatorCallback: BaseValidator, ValidatorProtocol {
      */
     public override func validate<T: Any>(value: T?, context: [String: Any?]?) throws -> Bool {
         
-        if self.allowNil && nil == value {
-            return true
-        }
+        // reset errors
+        self.emptyErrors()
         
         if nil == self.callback {
-            
             throw NSError(domain: "validate", code: 0, userInfo: [NSLocalizedDescriptionKey: "No callback given!"])
+        }
+        
+        if self.allowNil && nil == value {
+            return true
         }
         
         let result = try self.callback(validator: self, value: value, context: context)

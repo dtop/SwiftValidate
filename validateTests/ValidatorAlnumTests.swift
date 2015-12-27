@@ -21,8 +21,11 @@ class ValidatorAlnumTests: XCTestCase {
         super.tearDown()
     }
     
-    func testValidator() {
+    func testValidatorCanHandleCharset() {
 
+        // code coverage
+        let _ = ValidatorAlnum()
+        
         let validator = ValidatorAlnum() {
             $0.allowEmpty = true
         }
@@ -40,11 +43,47 @@ class ValidatorAlnumTests: XCTestCase {
             result = try validator.validate("dfgjkljgkldfg", context: nil)
             XCTAssertTrue(result)
             
-        } catch let error as NSError {
+        } catch _ {
             
-            print(error)
+            XCTAssert(false)
+        }
+    }
+    
+    func testValidatorCanHandleNil() {
+        
+        let validator = ValidatorAlnum() {
+            $0.allowEmpty = true
         }
         
+        var result: Bool = true
+        
+        do {
+            
+            let value: String? = nil
+            result = try validator.validate(value, context: nil)
+            XCTAssertTrue(result)
+            
+        } catch _ {
+            
+            XCTAssert(false)
+        }
+    }
+    
+    func testValidatorThrowsOnIllegalInput() {
+        
+        let validator = ValidatorAlnum() {
+            $0.allowEmpty = true
+        }
+        
+        do {
+            
+            try validator.validate(true, context: nil)
+            XCTAssert(false, "may never be reached")
+            
+        } catch let error as NSError {
+            
+            XCTAssertEqual("Unable to validate chars in string incompatible value", error.localizedDescription)
+        }
     }
     
 }

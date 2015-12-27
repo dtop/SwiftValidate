@@ -23,6 +23,8 @@ class ValidatorStrLenTests: XCTestCase {
     
     func testValidatorCanHandleOdds() {
 
+        let _ = ValidatorStrLen()
+        
         let validator = ValidatorStrLen() {
             $0.maxLength = 10
             $0.minLength = 2
@@ -32,7 +34,7 @@ class ValidatorStrLenTests: XCTestCase {
             
             // must throw
             try validator.validate(123456, context: nil)
-            XCTAssert(false)
+            XCTAssert(false, "my not reach this point")
             
         } catch _ {
             
@@ -63,10 +65,65 @@ class ValidatorStrLenTests: XCTestCase {
             result = try validator.validate("aaaaa", context: nil)
             XCTAssertTrue(result)
             
+            // handle exact max
+            result = try validator.validate("iiiiiiiiii", context: nil)
+            XCTAssertTrue(result)
+            
+            // handle exact min
+            result = try validator.validate("ii", context: nil)
+            XCTAssertTrue(result)
+            
+            validator.maxInclusive = false
+            validator.minInclusive = false
+            
+            // handle exact max
+            result = try validator.validate("iiiiiiiiii", context: nil)
+            XCTAssertFalse(result)
+            
+            // handle exact min
+            result = try validator.validate("ii", context: nil)
+            XCTAssertFalse(result)
+            
         } catch _ {
             
             XCTAssert(false)
         }
     }
 
+    func testValidatorThrowsOnInvalidType() {
+        
+        let validator = ValidatorStrLen() {
+            $0.maxLength = 10
+            $0.minLength = 2
+        }
+        
+        do {
+            
+            try validator.validate(true, context: nil)
+            XCTAssert(false, "may never be reached")
+            
+        } catch _ {
+            
+            XCTAssert(true)
+        }
+    }
+    
+    func testValidatorCanHandleNil() {
+        
+        let validator = ValidatorStrLen() {
+            $0.maxLength = 10
+            $0.minLength = 2
+        }
+        
+        do {
+            
+            let value: String? = nil
+            let result = try validator.validate(value, context: nil)
+            XCTAssertTrue(result)
+            
+        } catch _ {
+            
+            XCTAssert(false)
+        }
+    }
 }

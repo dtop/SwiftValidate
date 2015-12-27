@@ -44,6 +44,9 @@ public class ValidatorDateTime: BaseValidator, ValidatorProtocol {
      */
     public override func validate<T: Any>(value: T?, context: [String: Any?]?) throws -> Bool {
         
+        // reset errors
+        self.emptyErrors()
+        
         /// nothing to check if we have NSDate here
         if let _ = value as? NSDate {
             return true

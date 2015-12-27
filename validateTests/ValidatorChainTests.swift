@@ -26,16 +26,81 @@ class ValidatorChainTests: XCTestCase {
      */
     func testChainCanBeSetuped() {
 
+        // code coverage
+        let _ = ValidatorChain()
+        
         let chain = ValidatorChain() {
             $0.stopOnException = true
             $0.stopOnFirstError = false
         } <~~ MockValidator() {
-            $0.someSetting = true
+            $0.throwException = false
+            $0.returnValue = true
         }
         
-        XCTAssertTrue(chain.stopOnException)
-        XCTAssertFalse(chain.stopOnFirstError)
         XCTAssertTrue(chain.validate(true, context: nil))
+        
+        guard let validator: MockValidator = chain.getValidator(0) else {
+            XCTAssert(false, "could not retreive validator")
+            return
+        }
+        
+        validator.returnValue = false
         XCTAssertFalse(chain.validate(false, context: nil))
+    }
+    
+    func testValidatorsCanBeRegained() {
+        
+        let chain = ValidatorChain() {
+            $0.stopOnException = true
+            $0.stopOnFirstError = false
+            } <~~ MockValidator() {
+                $0.throwException = false
+                $0.returnValue = true
+        }
+        
+        guard let _: MockValidator = chain.getValidator(0) else {
+            XCTAssert(false, "could not retreive validator")
+            return
+        }
+        
+        if let _: String = chain.getValidator(0) {
+            XCTAssert(false, "may never be reached")
+        }
+        
+        if let _: MockValidator = chain.getValidator(26) {
+            XCTAssert(false, "may never be reached")
+        }
+    }
+    
+    func testChainHandlesExceptions() {
+        
+        let chain = ValidatorChain() {
+            $0.stopOnException = true
+            $0.stopOnFirstError = true
+        } <~~ MockValidator() {
+            $0.throwException = true
+        }
+        
+        chain.validate(false, context: nil)
+        XCTAssertTrue(chain.errors.contains("Exception Thrown"))
+    }
+    
+    func testChainHandlesExceptionsIfNotFirst() {
+        
+        let chain = ValidatorChain() {
+            $0.stopOnException = false
+            $0.stopOnFirstError = false
+        }
+        <~~ MockValidator() {
+            $0.throwException = true
+            $0.returnValue = false
+        }
+        <~~ MockValidator() {
+            $0.throwException = false
+            $0.returnValue = true
+        }
+    
+        chain.validate(false, context: nil)
+        XCTAssertTrue(chain.errors.contains("Exception Thrown"))
     }
 }

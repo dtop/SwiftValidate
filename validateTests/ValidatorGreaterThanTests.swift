@@ -23,6 +23,8 @@ class ValidatorGreaterThanTests: XCTestCase {
     
     func testValidatorCanHandleInt() {
         
+        let _ = ValidatorGreaterThan<Int>()
+        
         let validator = ValidatorGreaterThan<Int>() {
             $0.min = 10
         }
@@ -54,8 +56,12 @@ class ValidatorGreaterThanTests: XCTestCase {
             result = try validator.validate(Float(9.1), context: nil)
             XCTAssertFalse(result)
             
+            XCTAssertTrue(validator.errors.contains(String(format: validator.errorMessageNotGreaterThan, String(validator.min))))
+            
             result = try validator.validate(Float(11.4), context: nil)
             XCTAssertTrue(result)
+            
+            XCTAssertFalse(validator.errors.contains(String(format: validator.errorMessageNotGreaterThan, String(validator.min))))
         } catch _ {
             XCTAssert(false)
         }
@@ -125,6 +131,26 @@ class ValidatorGreaterThanTests: XCTestCase {
         }
     }
     
+    func testValidatorCanHandleFloatAsString() {
+        
+        let validator = ValidatorGreaterThan<Float>() {
+            $0.min = 10.0
+        }
+        
+        var result = false
+        
+        do {
+            
+            result = try validator.validate("9.9", context: nil)
+            XCTAssertFalse(result)
+            
+            result = try validator.validate("11.1", context: nil)
+            XCTAssertTrue(result)
+        } catch _ {
+            XCTAssert(false)
+        }
+    }
+    
     func testValidatorCanHandleDoubleAsString() {
         
         let validator = ValidatorGreaterThan<Double>() {
@@ -145,4 +171,56 @@ class ValidatorGreaterThanTests: XCTestCase {
         }
     }
     
+    func testValidatorCanHandleNil() {
+        
+        let validator = ValidatorGreaterThan<Double>() {
+            $0.min = 10.0
+        }
+        
+        var result = false
+        
+        do {
+
+            let value: Double? = nil
+            result = try validator.validate(value, context: nil)
+            XCTAssertTrue(result)
+
+        } catch _ {
+            XCTAssert(false)
+        }
+    }
+    
+    func testValidatorThrowsOnIllegalValue() {
+        
+        let validator = ValidatorGreaterThan<Double>() {
+            $0.min = 10.0
+        }
+        
+        do {
+            
+            try validator.validate(true, context: nil)
+            XCTAssert(false, "may never be reached")
+            
+        } catch let error as NSError {
+            
+            XCTAssertEqual("invalid type - not compatible to string or SignedNumberType", error.localizedDescription)
+        }
+    }
+    
+    func testValidatorThrowsOnIllegalValueAsString() {
+        
+        let validator = ValidatorGreaterThan<Double>() {
+            $0.min = 10.0
+        }
+        
+        do {
+            
+            try validator.validate("A456", context: nil)
+            XCTAssert(false, "may never be reached")
+            
+        } catch let error as NSError {
+            
+            XCTAssertEqual("invalid type - not compatible to string or SignedNumberType", error.localizedDescription)
+        }
+    }
 }

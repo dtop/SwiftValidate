@@ -86,6 +86,27 @@ public class ValidatorChain {
         self.validators.append(validator)
     }
     
+    /**
+     Returns a validator by index for editing
+     
+     - parameter index: the index
+     
+     - returns: the validator or nil
+     */
+    public func getValidator<T>(index: Int) -> T? {
+        
+        if self.validators.count < index {
+            return nil
+        }
+        
+        if let validator = self.validators[index] as? T {
+            
+            return validator
+        }
+        
+        return nil
+    }
+    
     // MARK: - private functions -
     
     /**

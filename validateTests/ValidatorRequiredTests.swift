@@ -35,6 +35,9 @@ class ValidatorRequiredTests: XCTestCase {
             result = try validator.validate(testValue, context: nil)
             XCTAssertFalse(result)
             
+            let errors = validator.errors
+            XCTAssertTrue(errors.contains(validator.errorMessage))
+            
             testValue = "not empty"
             
             result = try validator.validate(testValue, context: nil)

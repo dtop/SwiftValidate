@@ -23,6 +23,8 @@ class ValidatorNumericTests: XCTestCase {
     
     func testValidatorHandlesNumbers() {
 
+        let _ = ValidatorNumeric()
+        
         let validator = ValidatorNumeric() {
             $0.canBeString = false
             $0.allowFloatingPoint = true
@@ -50,7 +52,9 @@ class ValidatorNumericTests: XCTestCase {
             result = try validator.validate("2342424", context: nil)
             XCTAssertFalse(result)
             
-        } catch _ {
+        } catch let error as NSError {
+            
+            print(error)
             XCTAssert(false)
         }
     }
@@ -63,13 +67,8 @@ class ValidatorNumericTests: XCTestCase {
         }
         
         var result: Bool = true
-        let testValue: String? = nil
         
         do {
-            
-            // test nil
-            result = try validator.validate(testValue, context: nil)
-            XCTAssertFalse(result)
             
             // test empty string
             result = try validator.validate("", context: nil)
@@ -83,8 +82,32 @@ class ValidatorNumericTests: XCTestCase {
             result = try validator.validate("2342424", context: nil)
             XCTAssertTrue(result)
             
+            result = try validator.validate(true, context: nil)
+            XCTAssertFalse(result)
+            
         } catch _ {
             XCTAssert(false)
+        }
+    }
+    
+    func testValidatorCanHandleNil() {
+        
+        let validator = ValidatorNumeric {
+            $0.canBeString = true
+            $0.allowFloatingPoint = true
+        }
+        
+        var result: Bool = true
+        let testValue: String? = nil
+        
+        do {
+            
+            // test nil
+            result = try validator.validate(testValue, context: nil)
+            XCTAssertTrue(result)
+            
+        } catch _ {
+            XCTAssert(false, "thrown but should not")
         }
     }
 }

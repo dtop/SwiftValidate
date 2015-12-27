@@ -50,10 +50,13 @@ public class ValidatorInArray<TYPE where TYPE: Equatable>: ValidatorProtocol {
      */
     public func validate<T: Any>(value: T?, context: [String: Any?]?) throws -> Bool {
        
-        if self.allowNil && nil == value {
+        // reset errors
+        self._err = [String]()
+        
+        if self.allowNil && value == nil {
             return true
         }
-        
+
         if let myType = value as? TYPE {
             
             let result = self.array.filter({$0 == myType}).count > 0
@@ -71,7 +74,7 @@ public class ValidatorInArray<TYPE where TYPE: Equatable>: ValidatorProtocol {
             return try self.compareDifferentTypesAsString(strVal)
         }
         
-        throw NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "Can not use given value"])
+        throw NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "invalid type - not compatible to string or SignedNumberType"])
     }
     
     //MARK: - private functions -

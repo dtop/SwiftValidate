@@ -56,6 +56,9 @@ public class ValidatorDateBetween: BaseValidator, ValidatorProtocol {
     
     public override func validate<T: Any>(value: T?, context: [String: Any?]?) throws -> Bool {
         
+        // reset errors
+        self.emptyErrors()
+        
         if self.allowNil && nil == value {
             return true
         }
