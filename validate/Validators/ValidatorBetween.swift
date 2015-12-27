@@ -11,28 +11,28 @@ import Foundation
 public class ValidatorBetween<TYPE: SignedNumberType>: ValidatorProtocol {
     
     /// allows the value to be nil
-    var allowNil: Bool = true
+    public var allowNil: Bool = true
     
     /// allows the value as string
-    var allowString: Bool = true
+    public var allowString: Bool = true
     
     // minimal value
-    var minValue: TYPE = 0
+    public var minValue: TYPE = 0
     
     // maximal value
-    var maxValue: TYPE = 0
+    public var maxValue: TYPE = 0
     
     // comparision inclusive with min
-    var minInclusive = true
+    public var minInclusive = true
     
     // comparision inclusive with max
-    var maxInclusive = true
+    public var maxInclusive = true
     
     /// error message for invalid type (not a number)
-    var errorMessageInvalidType: String = NSLocalizedString("the given type was invalid", comment: "ValidatorBetween - invalid type")
+    public var errorMessageInvalidType: String = NSLocalizedString("the given type was invalid", comment: "ValidatorBetween - invalid type")
     
     /// error message if not between
-    var errorMessageNotBetween: String = NSLocalizedString("the given number is not between the presets", comment: "ValidatorBetween - not between")
+    public var errorMessageNotBetween: String = NSLocalizedString("the given number is not between the presets", comment: "ValidatorBetween - not between")
     
     /// the errors
     private var _err: [String] = []
@@ -44,8 +44,8 @@ public class ValidatorBetween<TYPE: SignedNumberType>: ValidatorProtocol {
     
     // MARK: comparision closures
     
-    let compareExclusive = { (alpha: TYPE, bravo: TYPE ) -> Bool in return alpha > bravo }
-    let compareInclusive = { (alpha: TYPE, bravo: TYPE ) -> Bool in return alpha >= bravo }
+    private let compareExclusive = { (alpha: TYPE, bravo: TYPE ) -> Bool in return alpha > bravo }
+    private let compareInclusive = { (alpha: TYPE, bravo: TYPE ) -> Bool in return alpha >= bravo }
     
     // MARK: methods
     
@@ -70,6 +70,8 @@ public class ValidatorBetween<TYPE: SignedNumberType>: ValidatorProtocol {
      - returns: true if ok
      */
     public func validate<T: Any>(value: T?, context: [String: Any?]?) throws -> Bool {
+        
+        self._err = [String]()
         
         if self.allowNil && nil == value {
             return true
@@ -99,8 +101,7 @@ public class ValidatorBetween<TYPE: SignedNumberType>: ValidatorProtocol {
             return false
         }
         
-        self._err.append(self.errorMessageInvalidType)
-        return false
+        throw NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "invalid type - not compatible to string or SignedNumberType"])
     }
     
     /**
@@ -117,11 +118,11 @@ public class ValidatorBetween<TYPE: SignedNumberType>: ValidatorProtocol {
         if let numVal = Double(value) {
             
             guard let minVal = NumberConverter<TYPE>.toDouble(self.minValue) else {
-                return false
+                throw NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "internal error - could not convert to double"])
             }
             
             guard let maxVal = NumberConverter<TYPE>.toDouble(self.maxValue) else {
-                return false
+                throw NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "internal error - could not convert to double"])
             }
             
             let comparator = ValidatorBetween<Double>() {
@@ -132,10 +133,14 @@ public class ValidatorBetween<TYPE: SignedNumberType>: ValidatorProtocol {
                 $0.maxInclusive = self.maxInclusive
             }
             
-            return try comparator.validate(numVal, context: nil)
+            let result = try comparator.validate(numVal, context: nil)
+            if !result {
+                self._err = comparator.errors
+            }
+            
+            return result
         }
         
-        self._err.append(self.errorMessageInvalidType)
-        return false
+        throw NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "invalid type - not compatible to string or SignedNumberType"])
     }
 }

@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import validate
+@testable import SwiftValidate
 
 class ValidatorSmallerThanTests: XCTestCase {
     
@@ -22,6 +22,8 @@ class ValidatorSmallerThanTests: XCTestCase {
     }
     
     func testValidatorCanHandleInt() {
+        
+        let _ = ValidatorSmallerThan<Int>()
         
         let validator = ValidatorSmallerThan<Int>() {
             $0.max = 10
@@ -51,11 +53,16 @@ class ValidatorSmallerThanTests: XCTestCase {
         
         do {
             
+            result = try validator.validate(Float(11.4), context: nil)
+            XCTAssertFalse(result)
+            
+            XCTAssertTrue(validator.errors.contains(String(format: validator.errorMessageNotSmallerThan, String(validator.max))))
+            
             result = try validator.validate(Float(9.1), context: nil)
             XCTAssertTrue(result)
             
-            result = try validator.validate(Float(11.4), context: nil)
-            XCTAssertFalse(result)
+            XCTAssertFalse(validator.errors.contains(String(format: validator.errorMessageNotSmallerThan, String(validator.max))))
+            
         } catch _ {
             XCTAssert(false)
         }
@@ -145,5 +152,56 @@ class ValidatorSmallerThanTests: XCTestCase {
         }
     }
     
-
+    func testValidatorCanHandleNil() {
+        
+        let validator = ValidatorSmallerThan<Double>() {
+            $0.max = 10.0
+        }
+        
+        var result = false
+        
+        do {
+            
+            let value: Double? = nil
+            result = try validator.validate(value, context: nil)
+            XCTAssertTrue(result)
+            
+        } catch _ {
+            XCTAssert(false)
+        }
+    }
+    
+    func testValidatorThrowsOnIllegalValue() {
+        
+        let validator = ValidatorSmallerThan<Double>() {
+            $0.max = 10.0
+        }
+        
+        do {
+            
+            try validator.validate(true, context: nil)
+            XCTAssert(false, "may never be reached")
+            
+        } catch let error as NSError {
+            
+            XCTAssertEqual("invalid type - not compatible to string or SignedNumberType", error.localizedDescription)
+        }
+    }
+    
+    func testValidatorThrowsOnIllegalValueAsString() {
+        
+        let validator = ValidatorSmallerThan<Double>() {
+            $0.max = 10.0
+        }
+        
+        do {
+            
+            try validator.validate("A456", context: nil)
+            XCTAssert(false, "may never be reached")
+            
+        } catch let error as NSError {
+            
+            XCTAssertEqual("invalid type - not compatible to string or SignedNumberType", error.localizedDescription)
+        }
+    }
 }

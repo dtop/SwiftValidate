@@ -11,10 +11,10 @@ import Foundation
 public class ValidatorCallback: BaseValidator, ValidatorProtocol {
     
     /// nil is allowed
-    var allowNil: Bool = true
+    public var allowNil: Bool = true
     
     /// Holds the callback
-    var callback: ((validator: ValidatorCallback, value: Any?, context: [String : Any?]?) throws -> (result: Bool, errorMessage: String?))!
+    public var callback: ((validator: ValidatorCallback, value: Any?, context: [String : Any?]?) throws -> (result: Bool, errorMessage: String?))!
     
     /**
      Init
@@ -41,13 +41,15 @@ public class ValidatorCallback: BaseValidator, ValidatorProtocol {
      */
     public override func validate<T: Any>(value: T?, context: [String: Any?]?) throws -> Bool {
         
-        if self.allowNil && nil == value {
-            return true
-        }
+        // reset errors
+        self.emptyErrors()
         
         if nil == self.callback {
-            
             throw NSError(domain: "validate", code: 0, userInfo: [NSLocalizedDescriptionKey: "No callback given!"])
+        }
+        
+        if self.allowNil && nil == value {
+            return true
         }
         
         let result = try self.callback(validator: self, value: value, context: context)

@@ -11,10 +11,10 @@ import Foundation
 public class ValidationIterator {
     
     /// result the iterator processes for unknown keys (no chain registered)
-    var resultForUnknownKeys: Bool = false
+    public var resultForUnknownKeys: Bool = false
     
     /// error message if no validation is given for the key
-    var errorNoFieldRegisteredForValidator: String = NSLocalizedString("The field %@ can not be validated - no validation registered", comment: "ValidationIterator - No Chain registered")
+    public var errorNoFieldRegisteredForValidator: String = NSLocalizedString("The field %@ can not be validated - no validation registered", comment: "ValidationIterator - No Chain registered")
     
     /// holds the validator chain for each field
     private var chains = [String: ValidatorChain]()
@@ -27,7 +27,7 @@ public class ValidationIterator {
      
      - returns: the instance
      */
-    required public init(@noescape _ initializer: (ValidationIterator) -> ()) {
+    required public init(@noescape _ initializer: (ValidationIterator) -> () = { _ in }) {
         
         initializer(self)
     }
@@ -39,7 +39,7 @@ public class ValidationIterator {
      - parameter chain: the chain
      - parameter key:   the key
      */
-    func registerChain(chain: ValidatorChain, forKey key: String) {
+    public func registerChain(chain: ValidatorChain, forKey key: String) {
         
         self.chains[key] = chain
     }
@@ -50,7 +50,7 @@ public class ValidationIterator {
      - parameter chain: the chain
      - parameter keys:  the array of keys
      */
-    func registerChain(chain: ValidatorChain, forKeys keys: [String]) {
+    public func registerChain(chain: ValidatorChain, forKeys keys: [String]) {
         
         for key in keys {
             
@@ -66,7 +66,7 @@ public class ValidationIterator {
      
      - returns: true if validation has completely passed
      */
-    func validate(values: [String: Any?]) -> Bool {
+    public func validate(values: [String: Any?]) -> Bool {
         
         /// the result that will be returned
         var result: Bool = values.count > 0
@@ -79,7 +79,8 @@ public class ValidationIterator {
             if let chain = self.chains[key] {
                 
                 // validating value according to registered chain
-                result = result && self.validateValue(value, withKey: key, andWithChain: chain, andContext: values)
+                let validatorResult = self.validateValue(value, withKey: key, andWithChain: chain, andContext: values)
+                result = result && validatorResult
                 continue
             }
             
@@ -99,7 +100,7 @@ public class ValidationIterator {
      
      - returns: all errors
      */
-    func getAllErrors() -> [String: [String]] {
+    public func getAllErrors() -> [String: [String]] {
         
         return self.errors
     }
@@ -111,7 +112,7 @@ public class ValidationIterator {
      
      - returns: the errors
      */
-    func getErrorsFor(key key: String) -> [String]? {
+    public func getErrorsFor(key key: String) -> [String]? {
         
         if let errors = self.errors[key] {
             

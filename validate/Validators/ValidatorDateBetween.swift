@@ -11,33 +11,33 @@ import Foundation
 public class ValidatorDateBetween: BaseValidator, ValidatorProtocol {
     
     /// allow nil
-    var allowNil: Bool = true
+    public var allowNil: Bool = true
     
     /// minimum date
-    var min: NSDate!
+    public var min: NSDate!
     
     /// maximum date
-    var max: NSDate!
+    public var max: NSDate!
     
     /// inclusive minimum
-    var minInclusive: Bool = true
+    public var minInclusive: Bool = true
     
     /// inclusive maximum
-    var maxInclusive: Bool = true
+    public var maxInclusive: Bool = true
     
     /// date formatter if string is expected
-    var dateFormatter: NSDateFormatter!
+    public var dateFormatter: NSDateFormatter!
     
     /// error message if not between
-    var errorMessageNotBetween: String = NSLocalizedString("given date is not between predefined dates", comment: "ValidatorDateBetween - not between")
+    public var errorMessageNotBetween: String = NSLocalizedString("given date is not between predefined dates", comment: "ValidatorDateBetween - not between")
     
     // MARK: comparison funcs
     
-    let compareAscExclusive = { (left: NSDate, right: NSDate) -> Bool in return left.compare(right) == .OrderedDescending }
-    let compareAscInclusive = { (left: NSDate, right: NSDate) -> Bool in let result = left.compare(right); return result == .OrderedDescending || result == .OrderedSame }
+    private let compareAscExclusive = { (left: NSDate, right: NSDate) -> Bool in return left.compare(right) == .OrderedDescending }
+    private let compareAscInclusive = { (left: NSDate, right: NSDate) -> Bool in let result = left.compare(right); return result == .OrderedDescending || result == .OrderedSame }
     
-    let compareDescExclusive = { (left: NSDate, right: NSDate) -> Bool in return left.compare(right) == .OrderedAscending }
-    let compareDescInclusive = { (left: NSDate, right: NSDate) -> Bool in let result = left.compare(right); return result == .OrderedAscending || result == .OrderedSame }
+    private let compareDescExclusive = { (left: NSDate, right: NSDate) -> Bool in return left.compare(right) == .OrderedAscending }
+    private let compareDescInclusive = { (left: NSDate, right: NSDate) -> Bool in let result = left.compare(right); return result == .OrderedAscending || result == .OrderedSame }
     
     // MARK: methods
     
@@ -55,6 +55,9 @@ public class ValidatorDateBetween: BaseValidator, ValidatorProtocol {
     }
     
     public override func validate<T: Any>(value: T?, context: [String: Any?]?) throws -> Bool {
+        
+        // reset errors
+        self.emptyErrors()
         
         if self.allowNil && nil == value {
             return true

@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import validate
+@testable import SwiftValidate
 
 class ValidatorRegexTests: XCTestCase {
     
@@ -22,6 +22,9 @@ class ValidatorRegexTests: XCTestCase {
     }
     
     func testValidatorCanHandleValidValue() {
+        
+        // code coverage
+        let _ = ValidatorRegex()
         
         let validator = ValidatorRegex() {
             $0.pattern = "^\\d{3}[-]\\d{2}[-]\\d{4}$"
@@ -50,6 +53,55 @@ class ValidatorRegexTests: XCTestCase {
             
         } catch _ {
             XCTAssert(false)
+        }
+    }
+    
+    func testValidatorThrowsIfNoPatternIsGiven() {
+        
+        let validator = ValidatorRegex() {
+            $0.allowNil = true
+        }
+        
+        do {
+            
+            try validator.validate("test", context: nil)
+            XCTAssert(false, "may never be reached")
+            
+        } catch let error as NSError {
+            XCTAssertEqual("No pattern given for matching", error.localizedDescription)
+        }
+    }
+    
+    func testValidatorCanHandleNil() {
+        
+        let validator = ValidatorRegex() {
+            $0.pattern = "^\\d{3}[-]\\d{2}[-]\\d{4}$"
+        }
+        
+        do {
+            
+            let value: String? = nil
+            let result = try validator.validate(value, context: nil)
+            XCTAssertTrue(result)
+            
+        } catch _ {
+            XCTAssert(false)
+        }
+    }
+    
+    func testValidatorThrowsOnIllegalValueType() {
+        
+        let validator = ValidatorRegex() {
+            $0.pattern = "^\\d{3}[-]\\d{2}[-]\\d{4}$"
+        }
+        
+        do {
+            
+            try validator.validate(453534.56, context: nil)
+            XCTAssert(false, "may never be reached")
+            
+        } catch let error as NSError {
+            XCTAssertEqual("Unknown or nil value type to match against", error.localizedDescription)
         }
     }
 }

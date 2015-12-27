@@ -8,26 +8,26 @@
 
 import Foundation
 
-class ValidatorNumeric: BaseValidator, ValidatorProtocol {
+public class ValidatorNumeric: BaseValidator, ValidatorProtocol {
     
     /// nil is allowed
-    var allowNil: Bool = true
+    public var allowNil: Bool = true
     
     /// Holds if the number can be a string representation
-    var canBeString: Bool = true
+    public var allowString: Bool = true
     
     /// Holds if we accept floating point numbers
-    var allowFloatingPoint = true
+    public var allowFloatingPoint = true
     
     /// error message not numeric
-    var errorMessageNotNumeric = NSLocalizedString("Please enter avalid number", comment: "error message not numeric")
+    public var errorMessageNotNumeric = NSLocalizedString("Please enter avalid number", comment: "error message not numeric")
     
     /**
      inits
      
      - returns: the instance
      */
-    required init(@noescape _ initializer: ValidatorNumeric -> () = { _ in }) {
+    required public init(@noescape _ initializer: ValidatorNumeric -> () = { _ in }) {
         
         super.init()
         initializer(self)
@@ -43,11 +43,17 @@ class ValidatorNumeric: BaseValidator, ValidatorProtocol {
      
      - returns: true on success
      */
-    override func validate<T: Any>(value: T?, context: [String: Any?]?) throws -> Bool {
+    override public func validate<T: Any>(value: T?, context: [String: Any?]?) throws -> Bool {
+        
+        self.emptyErrors()
+        
+        if self.allowNil && nil == value {
+            return true
+        }
         
         if let strVal: String = value as? String {
             
-            if !self.canBeString {
+            if !self.allowString {
                 return self.returnError(self.errorMessageNotNumeric)
             }
             

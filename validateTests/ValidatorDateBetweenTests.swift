@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import validate
+@testable import SwiftValidate
 
 class ValidatorDateBetweenTests: XCTestCase {
     
@@ -22,6 +22,9 @@ class ValidatorDateBetweenTests: XCTestCase {
     }
     
     func testValidatorCanHandleNSDateValue() {
+        
+        // code coverage
+        let _ = ValidatorDateBetween()
         
         let validator = ValidatorDateBetween() {
             $0.allowNil = false
@@ -41,6 +44,12 @@ class ValidatorDateBetweenTests: XCTestCase {
             result = try validator.validate(NSDate(timeIntervalSince1970: 87459), context: nil)
             XCTAssertFalse(result)
             
+            result = try validator.validate(NSDate(timeIntervalSince1970: 0), context: nil)
+            XCTAssertTrue(result)
+            
+            result = try validator.validate(NSDate(timeIntervalSince1970: 86400), context: nil)
+            XCTAssertTrue(result)
+            
         } catch _ {
             XCTAssert(false)
         }
@@ -58,7 +67,7 @@ class ValidatorDateBetweenTests: XCTestCase {
             $0.min = df.dateFromString("1980-01-01")
             $0.max = df.dateFromString("1990-01-01")
             $0.maxInclusive = false
-            $0.minInclusive = true
+            $0.minInclusive = false
             $0.dateFormatter = df
         }
         
@@ -66,21 +75,122 @@ class ValidatorDateBetweenTests: XCTestCase {
         
         do {
             
+            result = try validator.validate("1994-10-22", context: nil)
+            XCTAssertFalse(result)
+            
+            XCTAssertTrue(validator.errors.contains(validator.errorMessageNotBetween))
+            
             result = try validator.validate("1982-03-30", context: nil)
             XCTAssertTrue(result)
             
-            result = try validator.validate("1994-10-22", context: nil)
-            XCTAssertFalse(result)
+            XCTAssertFalse(validator.errors.contains(validator.errorMessageNotBetween))
             
             result = try validator.validate("1990-01-01", context: nil)
             XCTAssertFalse(result)
             
-        } catch let error as NSError {
+            result = try validator.validate("1980-01-01", context: nil)
+            XCTAssertFalse(result)
             
-            print(error)
+        } catch _ {
+            
             XCTAssert(false)
         }
         
     }
     
+    func testValidatorCanHandleNil() {
+        
+        let validator = ValidatorDateBetween() {
+            $0.min = NSDate(timeIntervalSince1970: 0)
+            $0.max = NSDate(timeIntervalSince1970: 86400)
+            $0.maxInclusive = true
+            $0.minInclusive = true
+        }
+        
+        do {
+            
+            let value: String? = nil
+            let result = try validator.validate(value, context: nil)
+            XCTAssertTrue(result)
+            
+        } catch _ {
+            XCTAssert(false, "thrown but may not throw")
+        }
+    }
+    
+    func testValidatorThrowsOnMissingPresets() {
+        
+        
+        let validator = ValidatorDateBetween() {
+            $0.maxInclusive = true
+            $0.minInclusive = true
+        }
+        
+        do {
+            
+            try validator.validate("foo", context: nil)
+            
+        } catch let error as NSError {
+            
+            XCTAssertEqual("min and/or max dates are nil", error.localizedDescription)
+        }
+        
+        validator.min = NSDate(timeIntervalSince1970: 0)
+        
+        do {
+            
+            try validator.validate("foo", context: nil)
+            
+        } catch let error as NSError {
+            
+            XCTAssertEqual("min and/or max dates are nil", error.localizedDescription)
+        }
+    }
+    
+    func testValidatorThrowsOnIllegalValueType() {
+        
+        let validator = ValidatorDateBetween() {
+            $0.min = NSDate(timeIntervalSince1970: 0)
+            $0.max = NSDate(timeIntervalSince1970: 86400)
+            $0.maxInclusive = true
+            $0.minInclusive = true
+        }
+        
+        do {
+            
+            try validator.validate(true, context: nil)
+            XCTAssert(false, "may never be reached")
+            
+        } catch let error as NSError {
+            
+            XCTAssertEqual("Unreadable date format or datatype", error.localizedDescription)
+        }
+    }
+    
+    func testValidatorThrowsWhenNoFormatterGiven() {
+        
+        // tests if you were born in the eighties ;-)
+        
+        let df = NSDateFormatter()
+        df.dateFormat = "yyyy-MM-dd"
+        
+        let validator = ValidatorDateBetween() {
+            $0.allowNil = false
+            $0.min = df.dateFromString("1980-01-01")
+            $0.max = df.dateFromString("1990-01-01")
+            $0.maxInclusive = false
+            $0.minInclusive = false
+        }
+        
+        do {
+            
+            try validator.validate("1994-10-22", context: nil)
+            XCTAssert(false, "may never be reached")
+            
+        } catch let error as NSError {
+            
+            XCTAssertEqual("No date formatter given", error.localizedDescription)
+        }
+        
+    }
 }

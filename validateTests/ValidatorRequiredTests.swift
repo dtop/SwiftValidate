@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import validate
+@testable import SwiftValidate
 
 class ValidatorRequiredTests: XCTestCase {
     
@@ -34,6 +34,9 @@ class ValidatorRequiredTests: XCTestCase {
             
             result = try validator.validate(testValue, context: nil)
             XCTAssertFalse(result)
+            
+            let errors = validator.errors
+            XCTAssertTrue(errors.contains(validator.errorMessage))
             
             testValue = "not empty"
             

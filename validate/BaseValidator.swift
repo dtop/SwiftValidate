@@ -47,4 +47,12 @@ public class BaseValidator: ValidationAwareProtocol {
         
         return false
     }
+    
+    /**
+     Empties the errors for the next run
+     */
+    func emptyErrors() {
+        
+        self.errors = [String]()
+    }
 }

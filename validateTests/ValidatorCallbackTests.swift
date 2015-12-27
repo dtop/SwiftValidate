@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import validate
+@testable import SwiftValidate
 
 class ValidatorCallbackTests: XCTestCase {
     
@@ -21,8 +21,11 @@ class ValidatorCallbackTests: XCTestCase {
         super.tearDown()
     }
     
-    func testCallback() {
+    func testValidatorIsCallingCallbackCallback() {
 
+        // code coverage
+        let _ = ValidatorCallback()
+        
         let error: String = "error bla bla bla"
         
         let validator = ValidatorCallback() {
@@ -34,6 +37,11 @@ class ValidatorCallbackTests: XCTestCase {
                         
                         return (true, nil)
                     } else {
+                        
+                        if nil != context {
+                            
+                            return (false, nil)
+                        }
                         
                         return (false, error)
                     }
@@ -53,7 +61,48 @@ class ValidatorCallbackTests: XCTestCase {
             result = try validator.validate(false, context: nil)
             XCTAssertFalse(result)
             
-            XCTAssertEqual(validator.errors[0], error)
+            XCTAssertTrue(validator.errors.contains(error))
+            
+            result = try validator.validate(false, context: ["foo":"bar"])
+            XCTAssertFalse(result)
+            
+        } catch _ {
+            XCTAssert(false)
+        }
+    }
+    
+    func testValidatorThrowsIfNoCallbackIsGiven() {
+        
+        let validator = ValidatorCallback()
+        
+        do {
+            
+            try validator.validate("", context: nil)
+            XCTAssert(false, "may never be reached")
+            
+        } catch let error as NSError {
+            XCTAssertEqual("No callback given!", error.localizedDescription)
+        }
+    }
+    
+    func testValidatorCanHandleNil() {
+        
+        let validator = ValidatorCallback() {
+            $0.callback = {
+                (validator: ValidatorCallback, value: Any?, context: [String : Any?]?) in
+                
+                return (false, "error")
+            }
+        }
+        
+        var result: Bool = true
+        
+        do {
+            
+            let value: String? = nil
+            result = try validator.validate(value, context: nil)
+            XCTAssertTrue(result)
+
             
         } catch _ {
             XCTAssert(false)

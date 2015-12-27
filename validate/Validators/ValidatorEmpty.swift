@@ -14,10 +14,10 @@ import Foundation
 public class ValidatorEmpty: BaseValidator, ValidatorProtocol {
     
     /// can the value be nil?
-    var allowNil: Bool = false
+    public var allowNil: Bool = false
     
     /// this error message
-    var errorMessage: String = NSLocalizedString("Value was Empty", comment: "ValidatorEmpty - Error String")
+    public var errorMessage: String = NSLocalizedString("Value was Empty", comment: "ValidatorEmpty - Error String")
     
     /**
      inits
@@ -43,6 +43,9 @@ public class ValidatorEmpty: BaseValidator, ValidatorProtocol {
      - returns: true on correctness
      */
     override public func validate<T: Any>(value: T?, context: [String: Any?]?) throws -> Bool {
+        
+        // reset errors
+        self.emptyErrors()
         
         if self.allowNil && nil == value {
             return true

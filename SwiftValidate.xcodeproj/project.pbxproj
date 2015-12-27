@@ -27,7 +27,7 @@
 		9F88DF781C2D5C8600E8CA4B /* ValidatorRequired.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F88DF771C2D5C8600E8CA4B /* ValidatorRequired.swift */; };
 		9F88DF7A1C2D620C00E8CA4B /* ValidatorRequiredTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F88DF791C2D620C00E8CA4B /* ValidatorRequiredTests.swift */; };
 		9FCB7D801C26021900887033 /* validate.h in Headers */ = {isa = PBXBuildFile; fileRef = 9FCB7D7F1C26021900887033 /* validate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		9FCB7D871C26021900887033 /* validate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FCB7D7C1C26021900887033 /* validate.framework */; };
+		9FCB7D871C26021900887033 /* SwiftValidate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FCB7D7C1C26021900887033 /* SwiftValidate.framework */; };
 		9FCB7D8C1C26021900887033 /* ValidatorChainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCB7D8B1C26021900887033 /* ValidatorChainTests.swift */; };
 		9FCB7D9A1C26024100887033 /* BaseValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCB7D961C26024100887033 /* BaseValidator.swift */; };
 		9FCB7D9B1C26024100887033 /* ValidationAwareProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCB7D971C26024100887033 /* ValidationAwareProtocol.swift */; };
@@ -78,10 +78,10 @@
 		9F11AE981C2DA30B00D2FB29 /* ValidationIteratorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidationIteratorTests.swift; sourceTree = "<group>"; };
 		9F88DF771C2D5C8600E8CA4B /* ValidatorRequired.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ValidatorRequired.swift; path = Validators/ValidatorRequired.swift; sourceTree = "<group>"; };
 		9F88DF791C2D620C00E8CA4B /* ValidatorRequiredTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidatorRequiredTests.swift; sourceTree = "<group>"; };
-		9FCB7D7C1C26021900887033 /* validate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = validate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9FCB7D7C1C26021900887033 /* SwiftValidate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftValidate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FCB7D7F1C26021900887033 /* validate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = validate.h; sourceTree = "<group>"; };
 		9FCB7D811C26021900887033 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9FCB7D861C26021900887033 /* validateTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = validateTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9FCB7D861C26021900887033 /* SwiftValidate.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftValidate.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FCB7D8B1C26021900887033 /* ValidatorChainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatorChainTests.swift; sourceTree = "<group>"; };
 		9FCB7D8D1C26021900887033 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9FCB7D961C26024100887033 /* BaseValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseValidator.swift; sourceTree = "<group>"; };
@@ -115,7 +115,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9FCB7D871C26021900887033 /* validate.framework in Frameworks */,
+				9FCB7D871C26021900887033 /* SwiftValidate.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -167,8 +167,8 @@
 		9FCB7D7D1C26021900887033 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9FCB7D7C1C26021900887033 /* validate.framework */,
-				9FCB7D861C26021900887033 /* validateTests.xctest */,
+				9FCB7D7C1C26021900887033 /* SwiftValidate.framework */,
+				9FCB7D861C26021900887033 /* SwiftValidate.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -280,9 +280,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		9FCB7D7B1C26021900887033 /* validate */ = {
+		9FCB7D7B1C26021900887033 /* SwiftValidate */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9FCB7D901C26021900887033 /* Build configuration list for PBXNativeTarget "validate" */;
+			buildConfigurationList = 9FCB7D901C26021900887033 /* Build configuration list for PBXNativeTarget "SwiftValidate" */;
 			buildPhases = (
 				9FCB7D771C26021900887033 /* Sources */,
 				9FCB7D781C26021900887033 /* Frameworks */,
@@ -294,14 +294,14 @@
 			);
 			dependencies = (
 			);
-			name = validate;
+			name = SwiftValidate;
 			productName = validate;
-			productReference = 9FCB7D7C1C26021900887033 /* validate.framework */;
+			productReference = 9FCB7D7C1C26021900887033 /* SwiftValidate.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		9FCB7D851C26021900887033 /* validateTests */ = {
+		9FCB7D851C26021900887033 /* SwiftValidateTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9FCB7D931C26021900887033 /* Build configuration list for PBXNativeTarget "validateTests" */;
+			buildConfigurationList = 9FCB7D931C26021900887033 /* Build configuration list for PBXNativeTarget "SwiftValidateTests" */;
 			buildPhases = (
 				9FCB7D821C26021900887033 /* Sources */,
 				9FCB7D831C26021900887033 /* Frameworks */,
@@ -312,9 +312,9 @@
 			dependencies = (
 				9FCB7D891C26021900887033 /* PBXTargetDependency */,
 			);
-			name = validateTests;
+			name = SwiftValidateTests;
 			productName = validateTests;
-			productReference = 9FCB7D861C26021900887033 /* validateTests.xctest */;
+			productReference = 9FCB7D861C26021900887033 /* SwiftValidate.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -335,7 +335,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 9FCB7D761C26021900887033 /* Build configuration list for PBXProject "validate" */;
+			buildConfigurationList = 9FCB7D761C26021900887033 /* Build configuration list for PBXProject "SwiftValidate" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -347,8 +347,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				9FCB7D7B1C26021900887033 /* validate */,
-				9FCB7D851C26021900887033 /* validateTests */,
+				9FCB7D7B1C26021900887033 /* SwiftValidate */,
+				9FCB7D851C26021900887033 /* SwiftValidateTests */,
 			);
 		};
 /* End PBXProject section */
@@ -443,7 +443,7 @@
 /* Begin PBXTargetDependency section */
 		9FCB7D891C26021900887033 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 9FCB7D7B1C26021900887033 /* validate */;
+			target = 9FCB7D7B1C26021900887033 /* SwiftValidate */;
 			targetProxy = 9FCB7D881C26021900887033 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -550,7 +550,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "de.danilo-topalovic.validate";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = SwiftValidate;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -568,7 +568,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "de.danilo-topalovic.validate";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = SwiftValidate;
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -579,7 +579,8 @@
 				INFOPLIST_FILE = validateTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "de.danilo-topalovic.validateTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)Tests";
+				PRODUCT_NAME = SwiftValidate;
 			};
 			name = Debug;
 		};
@@ -589,14 +590,15 @@
 				INFOPLIST_FILE = validateTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "de.danilo-topalovic.validateTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)Tests";
+				PRODUCT_NAME = SwiftValidate;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		9FCB7D761C26021900887033 /* Build configuration list for PBXProject "validate" */ = {
+		9FCB7D761C26021900887033 /* Build configuration list for PBXProject "SwiftValidate" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9FCB7D8E1C26021900887033 /* Debug */,
@@ -605,7 +607,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9FCB7D901C26021900887033 /* Build configuration list for PBXNativeTarget "validate" */ = {
+		9FCB7D901C26021900887033 /* Build configuration list for PBXNativeTarget "SwiftValidate" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9FCB7D911C26021900887033 /* Debug */,
@@ -614,7 +616,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9FCB7D931C26021900887033 /* Build configuration list for PBXNativeTarget "validateTests" */ = {
+		9FCB7D931C26021900887033 /* Build configuration list for PBXNativeTarget "SwiftValidateTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9FCB7D941C26021900887033 /* Debug */,

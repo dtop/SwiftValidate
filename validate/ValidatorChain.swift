@@ -17,17 +17,17 @@ public class ValidatorChain {
     var errors: [String] = []
     
     /// should stop on first error
-    var stopOnFirstError: Bool = false
+    public var stopOnFirstError: Bool = false
     
     /// should stop on exception
-    var stopOnException: Bool = false
+    public var stopOnException: Bool = false
     
     /**
      Inits the validator chain
      
      - returns: the instance
      */
-    init(@noescape _ initializer: ValidatorChain -> () = { _ in }) {
+    public init(@noescape _ initializer: ValidatorChain -> () = { _ in }) {
         
         initializer(self)
     }
@@ -40,7 +40,7 @@ public class ValidatorChain {
      
      - returns: true if correct
      */
-    func validate<T: Any>(value: T?, context: [String: Any?]?) -> Bool {
+    public func validate<T: Any>(value: T?, context: [String: Any?]?) -> Bool {
         
         var result = true
         
@@ -81,9 +81,30 @@ public class ValidatorChain {
      
      - parameter validator: the validator
      */
-    func addValidator(validator: ValidationAwareProtocol) {
+    public func addValidator(validator: ValidationAwareProtocol) {
         
         self.validators.append(validator)
+    }
+    
+    /**
+     Returns a validator by index for editing
+     
+     - parameter index: the index
+     
+     - returns: the validator or nil
+     */
+    public func getValidator<T>(index: Int) -> T? {
+        
+        if self.validators.count < index {
+            return nil
+        }
+        
+        if let validator = self.validators[index] as? T {
+            
+            return validator
+        }
+        
+        return nil
     }
     
     // MARK: - private functions -
@@ -104,7 +125,7 @@ public class ValidatorChain {
 
 infix operator <~~ { associativity left precedence 100 }
 
-func <~~ (left: ValidatorChain, right: ValidationAwareProtocol) -> ValidatorChain {
+public func <~~ (left: ValidatorChain, right: ValidationAwareProtocol) -> ValidatorChain {
     
     left.addValidator(right)
     return left

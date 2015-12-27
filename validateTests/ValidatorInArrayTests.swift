@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import validate
+@testable import SwiftValidate
 
 class ValidatorInArrayTests: XCTestCase {
     
@@ -23,6 +23,9 @@ class ValidatorInArrayTests: XCTestCase {
     
     func testValidatorCanValidateDouble() {
         
+        // code coverage
+        let _ = ValidatorInArray<Double>()
+        
         let validator = ValidatorInArray<Double>() {
             $0.allowNil = false
             $0.array = [2.4, 3.1, 9.8, 4.9, 2.0]
@@ -37,6 +40,14 @@ class ValidatorInArrayTests: XCTestCase {
             
             result = try validator.validate(3.0, context: nil)
             XCTAssertFalse(result)
+            
+            XCTAssertTrue(validator.errors.contains(validator.errorMessageItemIsNotContained))
+            
+            result = try validator.validate(2.4, context: nil)
+            XCTAssertTrue(result)
+            
+            // msg may not occure on next validation
+            XCTAssertFalse(validator.errors.contains(validator.errorMessageItemIsNotContained))
             
         } catch _ {
             XCTAssert(false)
@@ -87,4 +98,40 @@ class ValidatorInArrayTests: XCTestCase {
         }
     }
     
+    func testValidatorCanHandleNil() {
+        
+        let validator = ValidatorInArray<String>() {
+            $0.allowNil = true
+            $0.array = ["Andrew", "Bob", "Cole", "Dan", "Edwin"]
+        }
+        
+        do {
+            
+            let value: Any? = nil
+            
+            let result = try validator.validate(value, context: nil)
+            XCTAssertTrue(result)
+            
+        } catch _ {
+            XCTAssert(false, "thrown but should not throw")
+        }
+    }
+    
+    func testValidatorThrowsOnInvalidType() {
+        
+        let validator = ValidatorInArray<String>() {
+            $0.allowNil = false
+            $0.array = ["Andrew", "Bob", "Cole", "Dan", "Edwin"]
+        }
+        
+        do {
+
+            try validator.validate(true, context: nil)
+            XCTAssert(false, "may not be reached")
+            
+        } catch let error as NSError {
+            
+            XCTAssertEqual("invalid type - not compatible to string or SignedNumberType", error.localizedDescription)
+        }
+    }
 }

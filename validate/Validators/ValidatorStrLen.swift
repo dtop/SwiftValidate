@@ -11,28 +11,28 @@ import Foundation
 /**
  * Validates the strlen of a string
  */
-class ValidatorStrLen: BaseValidator, ValidatorProtocol {
+public class ValidatorStrLen: BaseValidator, ValidatorProtocol {
     
     /// allow nil
-    var allowNil = true
+    public var allowNil = true
     
     /// error if too small
-    var errorMessageTooSmall = NSLocalizedString("please enter at least %i characters", comment: "ValidatorStrLen - error message size too small")
+    public var errorMessageTooSmall = NSLocalizedString("please enter at least %i characters", comment: "ValidatorStrLen - error message size too small")
     
     /// error if too large
-    var errorMessageTooLarge = NSLocalizedString("please enter %i or less characters", comment: "ValidatorStrLen - error message size too large")
+    public var errorMessageTooLarge = NSLocalizedString("please enter %i or less characters", comment: "ValidatorStrLen - error message size too large")
     
     /// maximum string lenght
-    var maxLength: Int = 30
+    public var maxLength: Int = 30
     
     // minimum string length
-    var minLength: Int = 3
+    public var minLength: Int = 3
     
     /// minimum length inclusive
-    var minInclusive = true
+    public var minInclusive = true
     
     /// maximum length inclusive (<= instead of <)
-    var maxInclusive = true
+    public var maxInclusive = true
     
     private let compareGreater = {(alpha: Int, bravo: Int) -> Bool in return alpha > bravo}
     private let compareGreaterEqual = {(alpha: Int, bravo: Int) -> Bool in return alpha >= bravo}
@@ -42,7 +42,7 @@ class ValidatorStrLen: BaseValidator, ValidatorProtocol {
      
      - returns: the instance
      */
-    required init(@noescape _ initializer: ValidatorStrLen -> () = { _ in }) {
+    required public init(@noescape _ initializer: ValidatorStrLen -> () = { _ in }) {
         
         super.init()
         initializer(self)
@@ -58,7 +58,10 @@ class ValidatorStrLen: BaseValidator, ValidatorProtocol {
      
      - returns: true if ok
      */
-    override func validate<T: Any>(value: T?, context: [String: Any?]?) throws -> Bool {
+    override public func validate<T: Any>(value: T?, context: [String: Any?]?) throws -> Bool {
+        
+        // reset errors
+        self.emptyErrors()
         
         if self.allowNil && nil == value {
             return true
