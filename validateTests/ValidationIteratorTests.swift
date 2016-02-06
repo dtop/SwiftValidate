@@ -149,5 +149,12 @@ class ValidationIteratorTests: XCTestCase {
         if let _ = validationIterator.getErrorsFor(key: "wrong") {
             XCTAssert(false, "may not get anything")
         }
+        
+        let secondResult = validationIterator.validate(formResults)
+        XCTAssertFalse(secondResult)
+        
+        // bug in rc6
+        let secondErrors = validationIterator.getAllErrors()
+        XCTAssertEqual(errors.count, secondErrors.count)
     }
 }
