@@ -18,6 +18,7 @@ By [Danilo Topalovic](http://blog.danilo-topalovic.de).
   + [Required]
   + [Empty]
   + [StrLen]
+  + [Charset]
   + [Alnum]
   + [Email]
   + [Regex]
@@ -39,6 +40,7 @@ Unfortunately I did not find a fancy name for this software so I've called it wh
 Heavily inspired by [Zend\Validate] and [Eureka] I started working on this component and I still add tests / validators.
 if you encounter any issues or bugs please feel free to report the bug or even write a test for this bug in order to be good again when the bug is solved.
 
+See also the [ExampleProject]
 
 ## Requirements
 
@@ -131,7 +133,7 @@ see the extraction of the ValidationIteratorTests:
                 $0.maxLength = 5
             }
             <~~ ValidatorNumeric() {
-                $0.canBeString = true
+                $0.allowString = true
                 $0.allowFloatingPoint = false
             },
             forKey: "zipcode"
@@ -214,20 +216,30 @@ Tests if a given value is between min and max in strlen
 + `errorMessageTooLarge: String`- error message if string is too long
 
 ---
-#### ValidatorAlnum()
+#### ValidatorCharset()
 
-Validates that the given value contains only alphanumerical chars
+Validates that the given value contains only chars from the given character set
 
 **configuration**
 
-| value        | type | default | description        |
-|--------------|:----:|---------|--------------------|
-| `allowNil`   | Bool | true    | value an be nil    |
-| `allowEmpty` | Bool | false   | value can be empty |
+| value        | type           | default | description        |
+|--------------|:--------------:|---------|--------------------|
+| `allowNil`   | Bool           | true    | value an be nil    |
+| `allowEmpty` | Bool           | false   | value can be empty |
+| `charset`    | NSCharacterSet | !       | charset to compare |
 
 **Error Messages**
 
-+ `errorMessageStringNotAlnum: String` - (optional)
++ `errorMessageStringDoesNotFit: String` - (optional)
+
+---
+### ValidatorAlnum()
+
+Validates if the given value consists of alpha numerical chars only
+
+```
+This is a specialization of ValidatorCharset()
+```
 
 ---
 #### ValidatorEmail()
@@ -499,6 +511,7 @@ class MyGenericValidator<TYPE where TYPE: Equatable>: ValidatorProtocol {
 [Zend\Validate]: https://github.com/zendframework/zend-validator
 [CocoaPods]: https://cocoapods.org
 [WiKi]: https://github.com/dtop/SwiftValidate/wiki
+[ExampleProject]: https://github.com/dtop/swift-validate-example
 
 [Introduction]: #introduction
 [Requirements]: #requirements
@@ -508,6 +521,7 @@ class MyGenericValidator<TYPE where TYPE: Equatable>: ValidatorProtocol {
 [Required]: #validatorrequired
 [Empty]: #validatorempty
 [StrLen]: #validatorstrlen
+[Charset]: #validatorcharset
 [Alnum]: #validatoralnum
 [Email]: #validatoremail
 [Regex]: #validatorregex

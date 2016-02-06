@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "SwiftValidate"
-  s.version      = "0.0.5"
+  s.version      = "0.0.6"
   s.summary      = "A highly customizable validation library for swift"
   s.homepage     = "http://github.com/dtop/SwiftValidate"
   s.license      = "MIT"

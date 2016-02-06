@@ -43,6 +43,7 @@ public class ValidatorChain {
     public func validate<T: Any>(value: T?, context: [String: Any?]?) -> Bool {
         
         var result = true
+        self.errors = [String]()
         
         for validator in self.validators {
             

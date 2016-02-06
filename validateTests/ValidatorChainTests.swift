@@ -103,4 +103,5 @@ class ValidatorChainTests: XCTestCase {
         chain.validate(false, context: nil)
         XCTAssertTrue(chain.errors.contains("Exception Thrown"))
     }
+    
 }
