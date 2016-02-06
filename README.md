@@ -39,6 +39,7 @@ Unfortunately I did not find a fancy name for this software so I've called it wh
 Heavily inspired by [Zend\Validate] and [Eureka] I started working on this component and I still add tests / validators.
 if you encounter any issues or bugs please feel free to report the bug or even write a test for this bug in order to be good again when the bug is solved.
 
+See also the [ExampleProject]
 
 ## Requirements
 
@@ -131,7 +132,7 @@ see the extraction of the ValidationIteratorTests:
                 $0.maxLength = 5
             }
             <~~ ValidatorNumeric() {
-                $0.canBeString = true
+                $0.allowString = true
                 $0.allowFloatingPoint = false
             },
             forKey: "zipcode"
@@ -499,6 +500,7 @@ class MyGenericValidator<TYPE where TYPE: Equatable>: ValidatorProtocol {
 [Zend\Validate]: https://github.com/zendframework/zend-validator
 [CocoaPods]: https://cocoapods.org
 [WiKi]: https://github.com/dtop/SwiftValidate/wiki
+[ExampleProject]: https://github.com/dtop/swift-validate-example
 
 [Introduction]: #introduction
 [Requirements]: #requirements
