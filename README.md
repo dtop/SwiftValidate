@@ -18,6 +18,7 @@ By [Danilo Topalovic](http://blog.danilo-topalovic.de).
   + [Required]
   + [Empty]
   + [StrLen]
+  + [Charset]
   + [Alnum]
   + [Email]
   + [Regex]
@@ -215,20 +216,30 @@ Tests if a given value is between min and max in strlen
 + `errorMessageTooLarge: String`- error message if string is too long
 
 ---
-#### ValidatorAlnum()
+#### ValidatorCharset()
 
-Validates that the given value contains only alphanumerical chars
+Validates that the given value contains only chars from the given character set
 
 **configuration**
 
-| value        | type | default | description        |
-|--------------|:----:|---------|--------------------|
-| `allowNil`   | Bool | true    | value an be nil    |
-| `allowEmpty` | Bool | false   | value can be empty |
+| value        | type           | default | description        |
+|--------------|:--------------:|---------|--------------------|
+| `allowNil`   | Bool           | true    | value an be nil    |
+| `allowEmpty` | Bool           | false   | value can be empty |
+| `charset`    | NSCharacterSet | !       | charset to compare |
 
 **Error Messages**
 
-+ `errorMessageStringNotAlnum: String` - (optional)
++ `errorMessageStringDoesNotFit: String` - (optional)
+
+---
+### ValidatorAlnum()
+
+Validates if the given value consists of alpha numerical chars only
+
+```
+This is a specialization of ValidatorCharset()
+```
 
 ---
 #### ValidatorEmail()
@@ -510,6 +521,7 @@ class MyGenericValidator<TYPE where TYPE: Equatable>: ValidatorProtocol {
 [Required]: #validatorrequired
 [Empty]: #validatorempty
 [StrLen]: #validatorstrlen
+[Charset]: #validatorcharset
 [Alnum]: #validatoralnum
 [Email]: #validatoremail
 [Regex]: #validatorregex

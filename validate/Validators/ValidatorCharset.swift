@@ -20,7 +20,7 @@ public class ValidatorCharset: BaseValidator, ValidatorProtocol {
     public var charset: NSCharacterSet!
     
     /// error message not alnum
-    public var errorMessageStringNotAlnum: String = NSLocalizedString("The String contains illegal characters", comment: "ValidatorCharset - String not alnum")
+    public var errorMessageStringDoesNotFit: String = NSLocalizedString("The String contains illegal characters", comment: "ValidatorCharset - String not alnum")
     
     /**
      Easy init
@@ -64,7 +64,7 @@ public class ValidatorCharset: BaseValidator, ValidatorProtocol {
             
             if let _ = strVal.rangeOfCharacterFromSet(self.charset.invertedSet) {
                 
-                return self.returnError(self.errorMessageStringNotAlnum)
+                return self.returnError(self.errorMessageStringDoesNotFit)
             }
             
             return true
