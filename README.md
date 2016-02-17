@@ -45,7 +45,7 @@ See also the [ExampleProject]
 ## Requirements
 
 * iOS 8.0+
-* XCode 7.0+
+* Xcode 7.0+
 
 ## Installation
 
