@@ -62,6 +62,13 @@ pod 'SwiftValidate'
 
 ```
 
+Of course you can use it in [Carthage] as well
+
+```
+github "dtop/SwiftValidate"
+
+```
+
 ## Usage
 
 All validators are usable completely on their own but one of the main advantages of `SwiftValidate` is that the validators are chainable.
@@ -512,6 +519,7 @@ class MyGenericValidator<TYPE where TYPE: Equatable>: ValidatorProtocol {
 [Eureka]: https://github.com/xmartlabs/Eureka
 [Zend\Validate]: https://github.com/zendframework/zend-validator
 [CocoaPods]: https://cocoapods.org
+[Carthage]: https://github.com/Carthage/Carthage
 [WiKi]: https://github.com/dtop/SwiftValidate/wiki
 [ExampleProject]: https://github.com/dtop/swift-validate-example
 
