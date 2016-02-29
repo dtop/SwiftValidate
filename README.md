@@ -45,7 +45,7 @@ See also the [ExampleProject]
 ## Requirements
 
 * iOS 8.0+
-* XCode 7.0+
+* Xcode 7.0+
 
 ## Installation
 
@@ -154,6 +154,7 @@ see the extraction of the ValidationIteratorTests:
         
         
         let validationResult = validationIterator.validate(formResults)
+        let cityInError = validationIterator.isInError("city")
 
 ```
 
@@ -248,12 +249,13 @@ Validates a given email address
 
 **Configuration**
 
-| value                  | type | default | description                                             |
-|------------------------|:----:|---------|---------------------------------------------------------|
-| `allowNil`             | Bool | true    | value an be nil                                         |
-| `validateLocalPart`    | Bool | true    | the local part of the mail address will be validated    |
-| `validateHostnamePart` | Bool | true    | the hostname part of the mail address will be validated |
-| `strict`               | Bool | true    | the length of the parts will also be validated          |
+| value                    | type | default | description                                             |
+|--------------------------|:----:|---------|---------------------------------------------------------|
+| `allowNil`               | Bool | true    | value an be nil                                         |
+| `validateLocalPart`      | Bool | true    | the local part of the mail address will be validated    |
+| `validateHostnamePart`   | Bool | true    | the hostname part of the mail address will be validated |
+| `validateTopLevelDomain` | Bool | true    | the address has to have a topleveldomain                |
+| `strict`                 | Bool | true    | the length of the parts will also be validated          |
 
 **Error Messages**
 
