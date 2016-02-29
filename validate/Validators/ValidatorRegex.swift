@@ -62,7 +62,9 @@ public class ValidatorRegex: BaseValidator, ValidatorProtocol {
         if let strVal = value as? String {
         
             let regex = try NSRegularExpression(pattern: self.pattern, options: self.options)
-            let result = regex.numberOfMatchesInString(strVal, options: self.matchingOptions, range: NSMakeRange(0, strVal.characters.count)) > 0
+            
+            let range = NSRange(location: 0, length: strVal.characters.count)
+            let result = regex.numberOfMatchesInString(strVal, options: self.matchingOptions, range: range) > 0
             
             if !result {
                 
