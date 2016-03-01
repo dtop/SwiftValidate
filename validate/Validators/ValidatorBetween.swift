@@ -117,11 +117,7 @@ public class ValidatorBetween<TYPE: SignedNumberType>: ValidatorProtocol {
         
         if let numVal = Double(value) {
             
-            guard let minVal = NumberConverter<TYPE>.toDouble(self.minValue) else {
-                throw NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "internal error - could not convert to double"])
-            }
-            
-            guard let maxVal = NumberConverter<TYPE>.toDouble(self.maxValue) else {
+            guard let minVal = NumberConverter<TYPE>.toDouble(self.minValue), let maxVal = NumberConverter<TYPE>.toDouble(self.maxValue) else {
                 throw NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "internal error - could not convert to double"])
             }
             

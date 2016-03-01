@@ -33,11 +33,12 @@ public class ValidatorDateBetween: BaseValidator, ValidatorProtocol {
     
     // MARK: comparison funcs
     
-    private let compareAscExclusive = { (left: NSDate, right: NSDate) -> Bool in return left.compare(right) == .OrderedDescending }
-    private let compareAscInclusive = { (left: NSDate, right: NSDate) -> Bool in let result = left.compare(right); return result == .OrderedDescending || result == .OrderedSame }
-    
-    private let compareDescExclusive = { (left: NSDate, right: NSDate) -> Bool in return left.compare(right) == .OrderedAscending }
-    private let compareDescInclusive = { (left: NSDate, right: NSDate) -> Bool in let result = left.compare(right); return result == .OrderedAscending || result == .OrderedSame }
+    private let compare = {
+        (left: NSDate, right: NSDate, expect: NSComparisonResult, inclusive: Bool) -> Bool in
+        
+        let result = left.compare(right)
+        return (inclusive) ? result == expect || result == .OrderedSame : result == expect
+    }
     
     // MARK: methods
     
@@ -69,9 +70,9 @@ public class ValidatorDateBetween: BaseValidator, ValidatorProtocol {
         
         if let date = try self.parseDate(value) {
             
-            let leftOk  = (self.minInclusive) ? self.compareAscInclusive(date, self.min)  : self.compareAscExclusive(date, self.min)
-            let rightOk = (self.maxInclusive) ? self.compareDescInclusive(date, self.max) : self.compareDescExclusive(date, self.max)
-            
+            let leftOk = self.compare(date, self.min, .OrderedDescending, self.minInclusive)
+            let rightOk = self.compare(date, self.max, .OrderedAscending, self.maxInclusive)
+
             if !leftOk || !rightOk {
                 
                 return self.returnError(self.errorMessageNotBetween)
