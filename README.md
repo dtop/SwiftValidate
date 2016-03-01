@@ -3,6 +3,7 @@
 [![Compatibility](https://img.shields.io/badge/Swift-2.1-blue.svg)](https://developer.apple.com/swift)
 [![DependencyManagement](https://img.shields.io/badge/CocoaPods-Compatible-brightgreen.svg)](https://cocoapods.org)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/dtop/SwiftValidate/master/LICENSE)
+[![codebeat badge](https://codebeat.co/badges/e6b1e8da-2b4a-46b9-ad1d-9bdd057fbb58)](https://codebeat.co/projects/github-com-dtop-swiftvalidate)
 [![GitHub release](https://img.shields.io/github/release/dtop/SwiftValidate.svg)](https://github.com/dtop/SwiftValidate)
 ##### enhanced validation for swift
 
