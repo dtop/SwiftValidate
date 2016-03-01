@@ -2,6 +2,7 @@ disabled_rules: # rule identifiers to exclude from running
   - function_body_length
   - leading_whitespace
   - trailing_whitespace
+  - valid_docs
 excluded: # paths to ignore during linting. overridden by `included`.
   - Carthage
   - Pods

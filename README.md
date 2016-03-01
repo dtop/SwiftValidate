@@ -3,6 +3,7 @@
 [![Compatibility](https://img.shields.io/badge/Swift-2.1-blue.svg)](https://developer.apple.com/swift)
 [![DependencyManagement](https://img.shields.io/badge/CocoaPods-Compatible-brightgreen.svg)](https://cocoapods.org)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/dtop/SwiftValidate/master/LICENSE)
+[![codebeat badge](https://codebeat.co/badges/e6b1e8da-2b4a-46b9-ad1d-9bdd057fbb58)](https://codebeat.co/projects/github-com-dtop-swiftvalidate)
 [![GitHub release](https://img.shields.io/github/release/dtop/SwiftValidate.svg)](https://github.com/dtop/SwiftValidate)
 ##### enhanced validation for swift
 
@@ -45,7 +46,7 @@ See also the [ExampleProject]
 ## Requirements
 
 * iOS 8.0+
-* XCode 7.0+
+* Xcode 7.0+
 
 ## Installation
 
@@ -59,6 +60,13 @@ platform :ios, '8.0'
 use_frameworks!
 
 pod 'SwiftValidate'
+
+```
+
+Of course you can use it in [Carthage] as well
+
+```
+github "dtop/SwiftValidate"
 
 ```
 
@@ -154,6 +162,7 @@ see the extraction of the ValidationIteratorTests:
         
         
         let validationResult = validationIterator.validate(formResults)
+        let cityInError = validationIterator.isInError("city")
 
 ```
 
@@ -248,12 +257,13 @@ Validates a given email address
 
 **Configuration**
 
-| value                  | type | default | description                                             |
-|------------------------|:----:|---------|---------------------------------------------------------|
-| `allowNil`             | Bool | true    | value an be nil                                         |
-| `validateLocalPart`    | Bool | true    | the local part of the mail address will be validated    |
-| `validateHostnamePart` | Bool | true    | the hostname part of the mail address will be validated |
-| `strict`               | Bool | true    | the length of the parts will also be validated          |
+| value                    | type | default | description                                             |
+|--------------------------|:----:|---------|---------------------------------------------------------|
+| `allowNil`               | Bool | true    | value an be nil                                         |
+| `validateLocalPart`      | Bool | true    | the local part of the mail address will be validated    |
+| `validateHostnamePart`   | Bool | true    | the hostname part of the mail address will be validated |
+| `validateTopLevelDomain` | Bool | true    | the address has to have a topleveldomain                |
+| `strict`                 | Bool | true    | the length of the parts will also be validated          |
 
 **Error Messages**
 
@@ -510,6 +520,7 @@ class MyGenericValidator<TYPE where TYPE: Equatable>: ValidatorProtocol {
 [Eureka]: https://github.com/xmartlabs/Eureka
 [Zend\Validate]: https://github.com/zendframework/zend-validator
 [CocoaPods]: https://cocoapods.org
+[Carthage]: https://github.com/Carthage/Carthage
 [WiKi]: https://github.com/dtop/SwiftValidate/wiki
 [ExampleProject]: https://github.com/dtop/swift-validate-example
 

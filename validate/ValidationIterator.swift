@@ -123,6 +123,22 @@ public class ValidationIterator {
     }
     
     /**
+     Returns if the given key is in error
+     
+     - parameter key: the key
+     
+     - returns: true if in error
+     */
+    public func isInError(key key: String) -> Bool {
+        
+        if let _ = self.errors[key] {
+            return true
+        }
+        
+        return false
+    }
+    
+    /**
      Validates the value against the chain
      
      - parameter value:   the value

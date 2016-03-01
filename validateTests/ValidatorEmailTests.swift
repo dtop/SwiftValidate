@@ -180,4 +180,69 @@ class ValidatorEmailTests: XCTestCase {
             XCTAssertEqual("no valid string value given", error.localizedDescription)
         }
     }
+    
+    func testValidatorCanHandleInsufficientInput() {
+        
+        let validator = ValidatorEmail() {
+            $0.strict = true
+            $0.validateHostnamePart = true
+            $0.validateLocalPart = true
+        }
+
+        do {
+            
+            let result = try validator.validate("a@", context: nil)
+            XCTAssertFalse(result)
+            
+        } catch _ {
+            XCTAssert(false)
+        }
+    }
+    
+    func testCanHandleMissingTld() {
+        
+        let validator = ValidatorEmail() {
+            $0.strict = true
+            $0.validateHostnamePart = true
+            $0.validateLocalPart = true
+            $0.validateToplevelDomain = true
+        }
+        
+        var result: Bool = false
+        let vMail = "foo@example.org"
+        let iMail = "foo@example"
+        
+        do {
+            
+            result = try validator.validate(vMail, context: nil)
+            XCTAssertTrue(result)
+            
+            result = try validator.validate(iMail, context: nil)
+            XCTAssertFalse(result)
+            
+        } catch _ {
+            XCTAssert(false)
+        }
+    }
+    
+    func testCanHandleMissconfig() {
+        
+        let validator = ValidatorEmail() {
+            $0.strict = true
+            $0.validateHostnamePart = false
+            $0.validateLocalPart = true
+            $0.validateToplevelDomain = true
+        }
+        
+        let iMail = "foo@example"
+        
+        do {
+            
+            _ = try validator.validate(iMail, context: nil)
+            XCTAssert(false)
+            
+        } catch _ {
+            XCTAssert(true)
+        }
+    }
 }

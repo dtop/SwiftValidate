@@ -24,6 +24,9 @@ public class ValidatorEmail: BaseValidator, ValidatorProtocol {
     /// Validates the hostname part of the mail addr (after @)
     public var validateHostnamePart: Bool = true
     
+    /// Validates if a tld is present
+    public var validateToplevelDomain: Bool = true
+    
     /// strict check
     public var strict: Bool = true
     
@@ -69,14 +72,21 @@ public class ValidatorEmail: BaseValidator, ValidatorProtocol {
             return true
         }
         
+        if !self.validateHostnamePart && self.validateToplevelDomain {
+            throw NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "Topleveldomain cannot be validated without the hostname"])
+        }
+        
         if let strVal = value as? String {
             
             if !self.validateMailFormat(strVal) {
                 return false
             }
             
-            let partial = self.splitEmailAddress(strVal)
-            let valid   = ((self.doValidateLocalPart(partial.local) || !self.validateLocalPart) && (self.doValidateHostnamePart(partial.hostname) || !self.validateHostnamePart))
+            guard let partial = self.splitEmailAddress(strVal) else {
+                return false
+            }
+            
+            let valid = ((self.doValidateLocalPart(partial.local) || !self.validateLocalPart) && (self.doValidateHostnamePart(partial.hostname) || !self.validateHostnamePart))
             
             return valid
         }
@@ -123,14 +133,28 @@ public class ValidatorEmail: BaseValidator, ValidatorProtocol {
             return false
         }
         
-        let charset = NSCharacterSet.URLHostAllowedCharacterSet()
+        var result: Bool = false
         
+        if self.validateToplevelDomain {
+            do {
+             
+                let pattern = "\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])$"
+                let regex = try NSRegularExpression(pattern: pattern, options: NSRegularExpressionOptions(rawValue: 0))
+                
+                let x = regex.numberOfMatchesInString(part, options: NSMatchingOptions(rawValue: 0), range: NSRange(location: 0, length: part.characters.count))
+                result =  x > 0
+            } catch _ {
+                result = false
+            }
+        }
+        
+        let charset = NSCharacterSet.URLHostAllowedCharacterSet()
         if let _ = part.rangeOfCharacterFromSet(charset.invertedSet) {
             
             return self.returnError(self.errorMessageInvalidHostnamePart)
         }
         
-        return true
+        return result
     }
     
     /**
@@ -167,9 +191,14 @@ public class ValidatorEmail: BaseValidator, ValidatorProtocol {
      
      - returns: the tupel
      */
-    private func splitEmailAddress(address: String) -> (local: String, hostname: String) {
+    private func splitEmailAddress(address: String) -> (local: String, hostname: String)? {
         
         let parts = address.characters.split { $0 == "@" }.map(String.init)
+        
+        if parts.count != 2 {
+            return nil
+        }
+        
         return (parts[0], parts[1])
     }
     
