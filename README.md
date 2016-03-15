@@ -503,7 +503,7 @@ class MyValidator: BaseValidator, ValidatorProtocol {
 Generic:
 
 ```swift
-class MyGenericValidator<TYPE where TYPE: Equatable>: ValidatorProtocol {
+class MyGenericValidator<TYPE where TYPE: Equatable>: ValidatorProtocol, ValidationAwareProtocol {
 
     required public init(@noescape _ initializer: MyGenericValidator -> () = { _ in }) {
         initializer(self)

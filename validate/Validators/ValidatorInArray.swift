@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class ValidatorInArray<TYPE where TYPE: Equatable>: ValidatorProtocol {
+public class ValidatorInArray<TYPE where TYPE: Equatable>: ValidatorProtocol, ValidationAwareProtocol {
     
     /// nil value is allowed and true
     public var allowNil: Bool = true
