@@ -88,6 +88,26 @@ class ValidatorSmallerThanTests: XCTestCase {
         }
     }
     
+    func testValidatorCanHandleNegatives() {
+        
+        let validator = ValidatorSmallerThan<Double>() {
+            $0.max = -10.0
+        }
+        
+        var result = false
+        
+        do {
+            
+            result = try validator.validate(-9.9, context: nil)
+            XCTAssertFalse(result)
+            
+            result = try validator.validate(-11.1, context: nil)
+            XCTAssertTrue(result)
+        } catch _ {
+            XCTAssert(false)
+        }
+    }
+    
     func testValidatorRespectsInclusive() {
         
         let validator = ValidatorSmallerThan<Int>() {

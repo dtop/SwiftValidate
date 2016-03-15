@@ -104,4 +104,25 @@ class ValidatorChainTests: XCTestCase {
         XCTAssertTrue(chain.errors.contains("Exception Thrown"))
     }
     
+    func testEverythingCanBeAppliedToChain() {
+        
+        let chain = ValidatorChain()
+        
+        chain <~~ ValidatorInArray<Int>()
+        chain <~~ ValidatorRequired()
+        chain <~~ ValidatorDateTime()
+        chain <~~ ValidatorDateBetween()
+        chain <~~ ValidatorCallback()
+        chain <~~ ValidatorNumeric()
+        chain <~~ ValidatorNumeric()
+        chain <~~ ValidatorBetween<Int>()
+        chain <~~ ValidatorGreaterThan<Int>()
+        chain <~~ ValidatorSmallerThan<Int>()
+        chain <~~ ValidatorEmpty()
+        chain <~~ ValidatorStrLen()
+        chain <~~ ValidatorAlnum()
+        chain <~~ ValidatorEmail()
+        chain <~~ ValidatorRegex()
+        chain <~~ ValidatorCharset()
+    }
 }
