@@ -44,8 +44,7 @@ public class ValidatorBetween<TYPE: SignedNumberType>: ValidatorProtocol, Valida
     
     // MARK: comparision closures
     
-    private let compareExclusive = { (alpha: TYPE, bravo: TYPE ) -> Bool in return alpha > bravo }
-    private let compareInclusive = { (alpha: TYPE, bravo: TYPE ) -> Bool in return alpha >= bravo }
+    private let comparator = { (alpha: TYPE, bravo: TYPE, comp: (TYPE, TYPE) -> Bool) -> Bool in return comp(alpha, bravo) }
     
     // MARK: methods
     
@@ -90,8 +89,8 @@ public class ValidatorBetween<TYPE: SignedNumberType>: ValidatorProtocol, Valida
         
         if let myNum: TYPE = value as? TYPE {
             
-            let leftOk = (self.minInclusive) ? self.compareInclusive(myNum, self.minValue) : self.compareExclusive(myNum, self.minValue)
-            let rightOk = (self.maxInclusive) ? self.compareInclusive(self.maxValue, myNum) : self.compareExclusive(self.maxValue, myNum)
+            let leftOk = (self.minInclusive) ? self.comparator(myNum, self.minValue, >=) : self.comparator(myNum, self.minValue, >)
+            let rightOk = (self.maxInclusive) ? self.comparator(myNum, self.maxValue, <=) : self.comparator(myNum, self.maxValue, <)
             
             if leftOk && rightOk {
                 return true

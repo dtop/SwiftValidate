@@ -35,8 +35,7 @@ public class ValidatorGreaterThan<TYPE: SignedNumberType>: ValidatorProtocol, Va
     
     //MARK: comparision functions
     
-    private let compareExclusive = { (alpha: TYPE, bravo: TYPE ) -> Bool in return alpha > bravo }
-    private let compareInclusive = { (alpha: TYPE, bravo: TYPE ) -> Bool in return alpha >= bravo }
+    private let comparator = { (alpha: TYPE, bravo: TYPE, comp: (TYPE, TYPE) -> Bool) -> Bool in return comp(alpha, bravo) }
     
     //MARK: methods
     
@@ -116,7 +115,8 @@ public class ValidatorGreaterThan<TYPE: SignedNumberType>: ValidatorProtocol, Va
      */
     private func compareAsNumber(value: TYPE) -> Bool {
         
-        let result = (self.inclusive) ? self.compareInclusive(value, self.min) : self.compareExclusive(value, self.min)
+        let result = (self.inclusive) ? self.comparator(value, self.min, >=) : self.comparator(value, self.min, >)
+        
         if !result {
             
             self._err.append(String(format: self.errorMessageNotGreaterThan, String(self.min)))

@@ -1,5 +1,9 @@
 # Version History
 
+### Version 1.0.0
+
+- cleaned the code a little
+
 ### Version 0.0.9
 
 - fixed bugs within the generic iterators (thanks @jpaas)
