@@ -1,5 +1,10 @@
 # Version History
 
+### Version 1.0.1
+
+- added assert to test
+- added code coverage service
+
 ### Version 1.0.0
 
 - cleaned the code a little

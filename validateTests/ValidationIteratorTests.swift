@@ -95,6 +95,8 @@ class ValidationIteratorTests: XCTestCase {
         let fieldInError = validationIterator.isInError(key: "city")
         XCTAssertTrue(fieldInError)
         
+        XCTAssertFalse(validationIterator.isInError(key: "nonexisting-key"))
+        
         validationIterator.resultForUnknownKeys = true
      
         // must not fail (unknown fields are ok)
