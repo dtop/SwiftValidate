@@ -5,6 +5,7 @@
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/dtop/SwiftValidate/master/LICENSE)
 [![codebeat badge](https://codebeat.co/badges/e6b1e8da-2b4a-46b9-ad1d-9bdd057fbb58)](https://codebeat.co/projects/github-com-dtop-swiftvalidate)
+[![codecov.io](https://codecov.io/github/dtop/SwiftValidate/coverage.svg?branch=master)](https://codecov.io/github/dtop/SwiftValidate?branch=master)
 [![GitHub release](https://img.shields.io/github/release/dtop/SwiftValidate.svg)](https://github.com/dtop/SwiftValidate)
 ##### enhanced validation for swift
 
