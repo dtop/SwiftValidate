@@ -7,5 +7,4 @@ before_install:
 script:
   - set -o pipefail
   - xcodebuild -version
-  - xcodebuild -project SwiftValidate.xcodeproj -scheme "$SCHEME" -sdk "$SDK" -destination "$DESTINATION"
-    -configuration Debug ONLY_ACTIVE_ARCH=NO test | xcpretty -c
+  - xcodebuild -project SwiftValidate.xcodeproj -scheme "$SCHEME" -sdk "$SDK" -destination "$DESTINATION" -configuration Debug ONLY_ACTIVE_ARCH=NO test GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES | xcpretty -c
