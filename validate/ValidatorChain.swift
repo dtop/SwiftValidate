@@ -14,7 +14,7 @@ public class ValidatorChain {
     var validators: [ValidationAwareProtocol] = []
     
     /// holds the occured errors or thrown exceptions
-    var errors: [String] = []
+    public var errors: [String] = []
     
     /// should stop on first error
     public var stopOnFirstError: Bool = false
