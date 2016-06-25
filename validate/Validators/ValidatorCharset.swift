@@ -27,7 +27,7 @@ public class ValidatorCharset: BaseValidator, ValidatorProtocol {
      
      - returns: the instance
      */
-    public required init(@noescape _ initializer: ValidatorCharset -> () = { _ in }) {
+    public required init( _ initializer: @noescape(ValidatorCharset) -> () = { _ in }) {
         
         super.init()
         initializer(self)
@@ -43,7 +43,7 @@ public class ValidatorCharset: BaseValidator, ValidatorProtocol {
      
      - returns: true if ok
      */
-    public override func validate<T: Any>(value: T?, context: [String: Any?]?) throws -> Bool {
+    public override func validate<T: Any>(_ value: T?, context: [String: Any?]?) throws -> Bool {
         
         // reset errors
         self.emptyErrors()
@@ -62,9 +62,9 @@ public class ValidatorCharset: BaseValidator, ValidatorProtocol {
                 return true
             }
             
-            if let _ = strVal.rangeOfCharacterFromSet(self.charset.invertedSet) {
+            if let _ = strVal.rangeOfCharacter(from: self.charset.inverted) {
                 
-                return self.returnError(self.errorMessageStringDoesNotFit)
+                return self.returnError(error: self.errorMessageStringDoesNotFit)
             }
             
             return true

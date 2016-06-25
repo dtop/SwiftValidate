@@ -47,7 +47,7 @@ public class ValidatorEmail: BaseValidator, ValidatorProtocol {
      
      - returns: the instance
      */
-    required public init(@noescape _ initializer: ValidatorEmail -> () = { _ in }) {
+    required public init( _ initializer: @noescape(ValidatorEmail) -> () = { _ in }) {
         
         super.init()
         initializer(self)
@@ -63,7 +63,7 @@ public class ValidatorEmail: BaseValidator, ValidatorProtocol {
      
      - returns: true if ok
      */
-    public override func validate<T: Any>(value: T?, context: [String: Any?]?) throws -> Bool {
+    public override func validate<T: Any>(_ value: T?, context: [String: Any?]?) throws -> Bool {
         
         // reset errors
         self.emptyErrors()
@@ -78,15 +78,15 @@ public class ValidatorEmail: BaseValidator, ValidatorProtocol {
         
         if let strVal = value as? String {
             
-            if !self.validateMailFormat(strVal) {
+            if !self.validateMailFormat(address: strVal) {
                 return false
             }
             
-            guard let partial = self.splitEmailAddress(strVal) else {
+            guard let partial = self.splitEmailAddress(address: strVal) else {
                 return false
             }
             
-            let valid = ((self.doValidateLocalPart(partial.local) || !self.validateLocalPart) && (self.doValidateHostnamePart(partial.hostname) || !self.validateHostnamePart))
+            let valid = ((self.doValidate(localPart: partial.local) || !self.validateLocalPart) && (self.doValidate(hostnamePart: partial.hostname) || !self.validateHostnamePart))
             
             return valid
         }
@@ -103,18 +103,18 @@ public class ValidatorEmail: BaseValidator, ValidatorProtocol {
     
     - returns: true if ok
     */
-    private func doValidateLocalPart(part: String) -> Bool {
+    private func doValidate(localPart part: String) -> Bool {
         
-        if !self.checkLength(part, maxLen: ValidatorEmail.maxLengthLocalPart, what: "local") {
+        if !self.checkLength(value: part, maxLen: ValidatorEmail.maxLengthLocalPart, what: "local") {
             return false
         }
         
-        let charset: NSMutableCharacterSet = NSMutableCharacterSet.alphanumericCharacterSet()
-        charset.addCharactersInString("!#$%&'*+-/=?^_`{|}~")
+        let charset: NSMutableCharacterSet = NSMutableCharacterSet.alphanumerics()
+        charset.addCharacters(in: "!#$%&'*+-/=?^_`{|}~")
         
-        if let _ = part.rangeOfCharacterFromSet(charset.invertedSet) {
+        if let _ = part.rangeOfCharacter(from: charset.inverted) {
             
-            return self.returnError(self.errorMessageInvalidLocalPart)
+            return self.returnError(error: self.errorMessageInvalidLocalPart)
         }
         
         return true
@@ -127,9 +127,9 @@ public class ValidatorEmail: BaseValidator, ValidatorProtocol {
      
      - returns: true of ok
      */
-    private func doValidateHostnamePart(part: String) -> Bool {
+    private func doValidate(hostnamePart part: String) -> Bool {
         
-        if !self.checkLength(part, maxLen: ValidatorEmail.maxLengthHostnamePart, what: "hostname") {
+        if !self.checkLength(value: part, maxLen: ValidatorEmail.maxLengthHostnamePart, what: "hostname") {
             return false
         }
         
@@ -139,19 +139,19 @@ public class ValidatorEmail: BaseValidator, ValidatorProtocol {
             do {
              
                 let pattern = "\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])$"
-                let regex = try NSRegularExpression(pattern: pattern, options: NSRegularExpressionOptions(rawValue: 0))
+                let regex = try RegularExpression(pattern: pattern, options: RegularExpression.Options(rawValue: 0))
                 
-                let x = regex.numberOfMatchesInString(part, options: NSMatchingOptions(rawValue: 0), range: NSRange(location: 0, length: part.characters.count))
+                let x = regex.numberOfMatches(in: part, options: RegularExpression.MatchingOptions(rawValue: 0), range: NSRange(location: 0, length: part.characters.count))
                 result =  x > 0
             } catch _ {
                 result = false
             }
         }
         
-        let charset = NSCharacterSet.URLHostAllowedCharacterSet()
-        if let _ = part.rangeOfCharacterFromSet(charset.invertedSet) {
+        let charset = NSCharacterSet.urlHostAllowed()
+        if let _ = part.rangeOfCharacter(from: charset.inverted) {
             
-            return self.returnError(self.errorMessageInvalidHostnamePart)
+            return self.returnError(error: self.errorMessageInvalidHostnamePart)
         }
         
         return result
@@ -166,19 +166,20 @@ public class ValidatorEmail: BaseValidator, ValidatorProtocol {
     */
     private func validateMailFormat(address: String) -> Bool {
         
-        if address.containsString("..") {
+        
+        if address.contains("..") {
             
-            return self.returnError(self.errorMessageInvalidAddress)
+            return self.returnError(error: self.errorMessageInvalidAddress)
         }
         
-        if !address.containsString("@") {
+        if !address.contains("@") {
             
-            return self.returnError(self.errorMessageInvalidAddress)
+            return self.returnError(error: self.errorMessageInvalidAddress)
         }
         
-        if address.componentsSeparatedByString("@").count > 2 {
+        if address.components(separatedBy: "@").count > 2 {
             
-            return self.returnError(self.errorMessageInvalidAddress)
+            return self.returnError(error: self.errorMessageInvalidAddress)
         }
         
         return true
@@ -215,7 +216,7 @@ public class ValidatorEmail: BaseValidator, ValidatorProtocol {
         
         if self.strict && value.characters.count > maxLen {
             
-            return self.returnError(String(format: self.errorMessagePartLengthExceeded, what, value.characters.count, maxLen))
+            return self.returnError(error: String(format: self.errorMessagePartLengthExceeded, what, value.characters.count, maxLen))
         }
         
         return true

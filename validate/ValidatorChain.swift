@@ -27,7 +27,7 @@ public class ValidatorChain {
      
      - returns: the instance
      */
-    public init(@noescape _ initializer: ValidatorChain -> () = { _ in }) {
+    public init( _ initializer: @noescape(ValidatorChain) -> () = { _ in }) {
         
         initializer(self)
     }
@@ -40,7 +40,7 @@ public class ValidatorChain {
      
      - returns: true if correct
      */
-    public func validate<T: Any>(value: T?, context: [String: Any?]?) -> Bool {
+    public func validate<T: Any>(_ value: T?, context: [String: Any?]?) -> Bool {
         
         var result = true
         self.errors = [String]()
@@ -53,7 +53,7 @@ public class ValidatorChain {
                 
                 if !isValid {
                     
-                    self.addErrors(validator.errors)
+                    self.addErrors(errors: validator.errors)
                 }
                 
                 if self.stopOnFirstError && !isValid {
@@ -64,7 +64,7 @@ public class ValidatorChain {
                 result = result && isValid
             } catch let error as NSError {
                 
-                self.addErrors([error.localizedDescription])
+                self.addErrors(errors: [error.localizedDescription])
                 if self.stopOnException {
                     
                     return false
@@ -82,7 +82,7 @@ public class ValidatorChain {
      
      - parameter validator: the validator
      */
-    public func addValidator(validator: ValidationAwareProtocol) {
+    public func add(validator: ValidationAwareProtocol) {
         
         self.validators.append(validator)
     }
@@ -94,7 +94,7 @@ public class ValidatorChain {
      
      - returns: the validator or nil
      */
-    public func getValidator<T>(index: Int) -> T? {
+    public func get<T>(validatorWithIndex index: Int) -> T? {
         
         if self.validators.count < index {
             return nil
@@ -128,6 +128,6 @@ infix operator <~~ { associativity left precedence 100 }
 
 public func <~~ (left: ValidatorChain, right: ValidationAwareProtocol) -> ValidatorChain {
     
-    left.addValidator(right)
+    left.add(validator: right)
     return left
 }

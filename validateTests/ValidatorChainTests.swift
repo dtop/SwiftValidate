@@ -39,7 +39,7 @@ class ValidatorChainTests: XCTestCase {
         
         XCTAssertTrue(chain.validate(true, context: nil))
         
-        guard let validator: MockValidator = chain.getValidator(0) else {
+        guard let validator: MockValidator = chain.get(validatorWithIndex: 0) else {
             XCTAssert(false, "could not retreive validator")
             return
         }
@@ -58,16 +58,16 @@ class ValidatorChainTests: XCTestCase {
                 $0.returnValue = true
         }
         
-        guard let _: MockValidator = chain.getValidator(0) else {
+        guard let _: MockValidator = chain.get(validatorWithIndex: 0) else {
             XCTAssert(false, "could not retreive validator")
             return
         }
         
-        if let _: String = chain.getValidator(0) {
+        if let _: String = chain.get(validatorWithIndex: 0) {
             XCTAssert(false, "may never be reached")
         }
         
-        if let _: MockValidator = chain.getValidator(26) {
+        if let _: MockValidator = chain.get(validatorWithIndex: 26) {
             XCTAssert(false, "may never be reached")
         }
     }

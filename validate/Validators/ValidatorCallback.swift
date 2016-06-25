@@ -23,7 +23,7 @@ public class ValidatorCallback: BaseValidator, ValidatorProtocol {
      
      - returns: the instance
      */
-    required public init(@noescape _ initializer: ValidatorCallback -> () = { _ in }) {
+    required public init( _ initializer: @noescape(ValidatorCallback) -> () = { _ in }) {
         
         super.init()
         initializer(self)
@@ -39,7 +39,7 @@ public class ValidatorCallback: BaseValidator, ValidatorProtocol {
      
      - returns: true if ok
      */
-    public override func validate<T: Any>(value: T?, context: [String: Any?]?) throws -> Bool {
+    public override func validate<T: Any>(_ value: T?, context: [String: Any?]?) throws -> Bool {
         
         // reset errors
         self.emptyErrors()
@@ -56,7 +56,7 @@ public class ValidatorCallback: BaseValidator, ValidatorProtocol {
         
         if !result.result {
             
-            self.returnError(result.errorMessage ?? "")
+            self.returnError(error: result.errorMessage ?? "")
         }
         
         return result.result

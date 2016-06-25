@@ -54,7 +54,7 @@ class ValidatorCharsetTests: XCTestCase {
         
         let validator = ValidatorCharset() {
             $0.allowEmpty = true
-            $0.charset = NSCharacterSet.alphanumericCharacterSet()
+            $0.charset = NSCharacterSet.alphanumerics()
         }
         
         var result: Bool = true
@@ -92,7 +92,7 @@ class ValidatorCharsetTests: XCTestCase {
         
         let validator = ValidatorCharset() {
             $0.allowEmpty = true
-            $0.charset = NSCharacterSet.alphanumericCharacterSet()
+            $0.charset = NSCharacterSet.alphanumerics()
         }
         
         do {

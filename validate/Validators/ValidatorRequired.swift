@@ -21,7 +21,7 @@ public class ValidatorRequired: BaseValidator, ValidatorProtocol {
      
      - returns: the instance
      */
-    public required init(@noescape _ initializer: ValidatorRequired -> () = { _ in }) {
+    public required init( _ initializer: @noescape(ValidatorRequired) -> () = { _ in }) {
         
         super.init()
         initializer(self)
@@ -38,14 +38,14 @@ public class ValidatorRequired: BaseValidator, ValidatorProtocol {
      
      - returns: true if ok
      */
-    public override func validate<T: Any>(value: T?, context: [String: Any?]?) throws -> Bool {
+    public override func validate<T: Any>(_ value: T?, context: [String: Any?]?) throws -> Bool {
         
         self.emptyErrors()
         
         let result = (nil != self.requirementCondition && self.requirementCondition!(value: value, context: context)) || nil != value
         
         if !result {
-            return self.returnError(self.errorMessage)
+            return self.returnError(error: self.errorMessage)
         }
         
         return result

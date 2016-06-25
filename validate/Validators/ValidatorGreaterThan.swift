@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class ValidatorGreaterThan<TYPE: SignedNumberType>: ValidatorProtocol, ValidationAwareProtocol {
+public class ValidatorGreaterThan<TYPE: SignedNumber>: ValidatorProtocol, ValidationAwareProtocol {
     
     /// nil is allowed
     public var allowNil: Bool = true
@@ -44,7 +44,7 @@ public class ValidatorGreaterThan<TYPE: SignedNumberType>: ValidatorProtocol, Va
     
     - returns: the instance
     */
-    required public init(@noescape _ initializer: ValidatorGreaterThan -> () = { _ in }) {
+    required public init( _ initializer: @noescape(ValidatorGreaterThan) -> () = { _ in }) {
         
         initializer(self)
     }
@@ -59,7 +59,7 @@ public class ValidatorGreaterThan<TYPE: SignedNumberType>: ValidatorProtocol, Va
      
      - returns: true if ok
      */
-    public func validate<T: Any>(value: T?, context: [String: Any?]?) throws -> Bool {
+    public func validate<T: Any>(_ value: T?, context: [String: Any?]?) throws -> Bool {
         
         self._err = [String]()
         
@@ -69,12 +69,12 @@ public class ValidatorGreaterThan<TYPE: SignedNumberType>: ValidatorProtocol, Va
         
         if let strVal = value as? String {
             
-            return try self.compareAsString(strVal)
+            return try self.compareAsString(value: strVal)
         }
         
         if let myVal = value as? TYPE {
             
-            return self.compareAsNumber(myVal)
+            return self.compareAsNumber(value: myVal)
         }
         
         throw NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "invalid type - not compatible to string or SignedNumberType"])
@@ -86,7 +86,7 @@ public class ValidatorGreaterThan<TYPE: SignedNumberType>: ValidatorProtocol, Va
         
         if let numVal = Double(value) {
             
-            guard let min = NumberConverter<TYPE>.toDouble(self.min) else {
+            guard let min = NumberConverter<TYPE>.toDouble(value: self.min) else {
                 throw NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "internal error - could not convert to double"])
             }
             
