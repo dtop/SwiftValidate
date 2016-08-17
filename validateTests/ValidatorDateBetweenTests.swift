@@ -59,13 +59,13 @@ class ValidatorDateBetweenTests: XCTestCase {
         
         // tests if you were born in the eighties ;-)
         
-        let df = NSDateFormatter()
+        let df = DateFormatter()
         df.dateFormat = "yyyy-MM-dd"
         
         let validator = ValidatorDateBetween() {
             $0.allowNil = false
-            $0.min = df.dateFromString("1980-01-01")
-            $0.max = df.dateFromString("1990-01-01")
+            $0.min = df.date(from: "1980-01-01")
+            $0.max = df.date(from: "1990-01-01")
             $0.maxInclusive = false
             $0.minInclusive = false
             $0.dateFormatter = df
@@ -171,13 +171,13 @@ class ValidatorDateBetweenTests: XCTestCase {
         
         // tests if you were born in the eighties ;-)
         
-        let df = NSDateFormatter()
+        let df = DateFormatter()
         df.dateFormat = "yyyy-MM-dd"
         
         let validator = ValidatorDateBetween() {
             $0.allowNil = false
-            $0.min = df.dateFromString("1980-01-01")
-            $0.max = df.dateFromString("1990-01-01")
+            $0.min = df.date(from: "1980-01-01")
+            $0.max = df.date(from: "1990-01-01")
             $0.maxInclusive = false
             $0.minInclusive = false
         }

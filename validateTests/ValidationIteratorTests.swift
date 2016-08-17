@@ -42,8 +42,8 @@ class ValidationIteratorTests: XCTestCase {
         }
         
         // name, street, city
-        validationIterator.registerChain(
-            ValidatorChain() {
+        validationIterator.register(
+            chain: ValidatorChain() {
                     $0.stopOnException = true
                     $0.stopOnFirstError = true
                 }
@@ -57,8 +57,8 @@ class ValidationIteratorTests: XCTestCase {
         )
         
         // zipcode
-        validationIterator.registerChain(
-            ValidatorChain() {
+        validationIterator.register(
+            chain: ValidatorChain() {
                 $0.stopOnException = true
                 $0.stopOnFirstError = true
             }
@@ -75,8 +75,8 @@ class ValidationIteratorTests: XCTestCase {
         )
         
         // country (not required but if present between 3 and 50 chars
-        validationIterator.registerChain(
-            ValidatorChain() {
+        validationIterator.register(
+            chain: ValidatorChain() {
                 $0.stopOnException = true
                 $0.stopOnFirstError = true
             }
@@ -118,8 +118,8 @@ class ValidationIteratorTests: XCTestCase {
         }
         
         // name, street, city
-        validationIterator.registerChain(
-            ValidatorChain() {
+        validationIterator.register(
+            chain: ValidatorChain() {
                 $0.stopOnException = true
                 $0.stopOnFirstError = true
             }

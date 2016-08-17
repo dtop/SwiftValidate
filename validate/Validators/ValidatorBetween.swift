@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class ValidatorBetween<TYPE: SignedNumberType>: ValidatorProtocol, ValidationAwareProtocol {
+public class ValidatorBetween<TYPE: SignedNumber>: ValidatorProtocol, ValidationAwareProtocol {
     
     /// allows the value to be nil
     public var allowNil: Bool = true
@@ -53,7 +53,7 @@ public class ValidatorBetween<TYPE: SignedNumberType>: ValidatorProtocol, Valida
     
     - returns: the instance
     */
-    required public init(@noescape _ initializer: ValidatorBetween -> () = { _ in }) {
+    required public init( _ initializer: @noescape(ValidatorBetween) -> () = { _ in }) {
         
         initializer(self)
     }
@@ -68,7 +68,7 @@ public class ValidatorBetween<TYPE: SignedNumberType>: ValidatorProtocol, Valida
      
      - returns: true if ok
      */
-    public func validate<T: Any>(value: T?, context: [String: Any?]?) throws -> Bool {
+    public func validate<T: Any>(_ value: T?, context: [String: Any?]?) throws -> Bool {
         
         self._err = [String]()
         
@@ -84,7 +84,7 @@ public class ValidatorBetween<TYPE: SignedNumberType>: ValidatorProtocol, Valida
                 return false
             }
             
-            return try self.compareAsString(strVal)
+            return try self.compareAsString(value: strVal)
         }
         
         if let myNum: TYPE = value as? TYPE {
@@ -116,7 +116,7 @@ public class ValidatorBetween<TYPE: SignedNumberType>: ValidatorProtocol, Valida
         
         if let numVal = Double(value) {
             
-            guard let minVal = NumberConverter<TYPE>.toDouble(self.minValue), let maxVal = NumberConverter<TYPE>.toDouble(self.maxValue) else {
+            guard let minVal = NumberConverter<TYPE>.toDouble(value: self.minValue), let maxVal = NumberConverter<TYPE>.toDouble(value: self.maxValue) else {
                 throw NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "internal error - could not convert to double"])
             }
             

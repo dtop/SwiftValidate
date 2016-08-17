@@ -8,7 +8,7 @@
 
 import Foundation
 
-internal class NumberConverter<TYPE: SignedNumberType> {
+internal class NumberConverter<TYPE: SignedNumber> {
     
     /**
      Tries a conversion to double

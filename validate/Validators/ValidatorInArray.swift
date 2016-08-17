@@ -33,7 +33,7 @@ public class ValidatorInArray<TYPE where TYPE: Equatable>: ValidatorProtocol, Va
      
      - returns: the instance
      */
-    required public init(@noescape _ initializer: ValidatorInArray -> () = { _ in }) {
+    required public init( _ initializer: @noescape(ValidatorInArray) -> () = { _ in }) {
     
         initializer(self)
     }
@@ -48,7 +48,7 @@ public class ValidatorInArray<TYPE where TYPE: Equatable>: ValidatorProtocol, Va
      
      - returns: true if contained
      */
-    public func validate<T: Any>(value: T?, context: [String: Any?]?) throws -> Bool {
+    public func validate<T: Any>(_ value: T?, context: [String: Any?]?) throws -> Bool {
        
         // reset errors
         self._err = [String]()
@@ -71,7 +71,7 @@ public class ValidatorInArray<TYPE where TYPE: Equatable>: ValidatorProtocol, Va
         // if TYPE not String but Value
         if let strVal = value as? String {
             
-            return try self.compareDifferentTypesAsString(strVal)
+            return try self.compareDifferentTypesAsString(value: strVal)
         }
         
         throw NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "invalid type - not compatible to string or SignedNumberType"])

@@ -19,13 +19,13 @@ class MockValidator: BaseValidator, ValidatorProtocol {
     
     
     
-    required init(@noescape _ initializer: MockValidator -> ()) {
+    required init( _ initializer: @noescape(MockValidator) -> ()) {
         
         super.init()
         initializer(self)
     }
     
-    override func validate<T: Any>(value: T?, context: [String: Any?]?) throws -> Bool {
+    override func validate<T: Any>( _ value: T?, context: [String: Any?]?) throws -> Bool {
         
         if self.throwException {
             throw NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "Exception Thrown"])
@@ -37,7 +37,7 @@ class MockValidator: BaseValidator, ValidatorProtocol {
         
         if !self.returnValue {
             
-            return self.returnError("Some error string")
+            return self.returnError(error: "Some error string")
         }
         
         return true

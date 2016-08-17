@@ -27,7 +27,7 @@ public class ValidatorNumeric: BaseValidator, ValidatorProtocol {
      
      - returns: the instance
      */
-    required public init(@noescape _ initializer: ValidatorNumeric -> () = { _ in }) {
+    required public init( _ initializer: @noescape(ValidatorNumeric) -> () = { _ in }) {
         
         super.init()
         initializer(self)
@@ -43,7 +43,7 @@ public class ValidatorNumeric: BaseValidator, ValidatorProtocol {
      
      - returns: true on success
      */
-    override public func validate<T: Any>(value: T?, context: [String: Any?]?) throws -> Bool {
+    override public func validate<T: Any>(_ value: T?, context: [String: Any?]?) throws -> Bool {
         
         self.emptyErrors()
         
@@ -54,14 +54,14 @@ public class ValidatorNumeric: BaseValidator, ValidatorProtocol {
         if let strVal: String = value as? String {
             
             if !self.allowString {
-                return self.returnError(self.errorMessageNotNumeric)
+                return self.returnError(error: self.errorMessageNotNumeric)
             }
             
-            if self.canBeInt(strVal) || (self.allowFloatingPoint && self.canBeFloat(strVal)) {
+            if self.canBeInt(number: strVal) || (self.allowFloatingPoint && self.canBeFloat(number: strVal)) {
                 return true
             }
             
-            return self.returnError(self.errorMessageNotNumeric)
+            return self.returnError(error: self.errorMessageNotNumeric)
         }
         
         if let _ = value as? Int {
@@ -76,7 +76,7 @@ public class ValidatorNumeric: BaseValidator, ValidatorProtocol {
             }
         }
         
-        return self.returnError(self.errorMessageNotNumeric)
+        return self.returnError(error: self.errorMessageNotNumeric)
     }
     
     /**
