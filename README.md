@@ -67,6 +67,8 @@ pod 'SwiftValidate'
 
 ```
 
+and then run `pod install` in your directory as usual.
+
 Of course you can use it in [Carthage] as well
 
 ```
@@ -78,6 +80,12 @@ github "dtop/SwiftValidate"
 
 All validators are usable completely on their own but one of the main advantages of `SwiftValidate` is that the validators are chainable.
 Add as many validators to a single chain as you need for properly validate your value.
+
+Add
+```import SwiftValidate```
+to your View Controller.
+
+And then, you're all setup to start using it:
 
 ```swift
 let validatorChain = ValidatorChain() {
