@@ -1,6 +1,6 @@
 # SwiftValidate
 [![Build Status](https://travis-ci.org/dtop/SwiftValidate.svg)](https://travis-ci.org/dtop/SwiftValidate)
-[![Compatibility](https://img.shields.io/badge/Swift-3.0-blue.svg)](https://developer.apple.com/swift)
+[![Compatibility](https://img.shields.io/badge/Swift-3.0-orange.svg)](https://developer.apple.com/swift)
 [![DependencyManagement](https://img.shields.io/badge/CocoaPods-Compatible-brightgreen.svg)](https://cocoapods.org)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/dtop/SwiftValidate/master/LICENSE)

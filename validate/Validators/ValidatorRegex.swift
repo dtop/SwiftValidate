@@ -17,10 +17,10 @@ public class ValidatorRegex: BaseValidator, ValidatorProtocol {
     public var pattern: String!
     
     /// expression options
-    public var options: RegularExpression.Options = RegularExpression.Options(rawValue: 0)
+    public var options: NSRegularExpression.Options = NSRegularExpression.Options(rawValue: 0)
     
     /// matching options
-    public var matchingOptions: RegularExpression.MatchingOptions = RegularExpression.MatchingOptions(rawValue: 0)
+    public var matchingOptions: NSRegularExpression.MatchingOptions = NSRegularExpression.MatchingOptions(rawValue: 0)
     
     /// error message
     public var errorMessageValueIsNotMatching: String = NSLocalizedString("the given value is not matching to the predefined regex", comment: "ValidatorRegex - no match")
@@ -30,7 +30,7 @@ public class ValidatorRegex: BaseValidator, ValidatorProtocol {
      
      - returns: the instance
      */
-    required public init( _ initializer: @noescape(ValidatorRegex) -> () = { _ in }) {
+    required public init( _ initializer: (ValidatorRegex) -> () = { _ in }) {
         
         super.init()
         initializer(self)
@@ -61,7 +61,7 @@ public class ValidatorRegex: BaseValidator, ValidatorProtocol {
         
         if let strVal = value as? String {
         
-            let regex = try RegularExpression(pattern: self.pattern, options: self.options)
+            let regex = try NSRegularExpression(pattern: self.pattern, options: self.options)
             
             let range = NSRange(location: 0, length: strVal.characters.count)
             let result = regex.numberOfMatches(in: strVal, options: self.matchingOptions, range: range) > 0

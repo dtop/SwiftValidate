@@ -28,8 +28,8 @@ class ValidatorDateBetweenTests: XCTestCase {
         
         let validator = ValidatorDateBetween() {
             $0.allowNil = false
-            $0.min = NSDate(timeIntervalSince1970: 0)
-            $0.max = NSDate(timeIntervalSince1970: 86400)
+            $0.min = Date(timeIntervalSince1970: 0)
+            $0.max = Date(timeIntervalSince1970: 86400)
             $0.maxInclusive = true
             $0.minInclusive = true
         }
@@ -101,8 +101,8 @@ class ValidatorDateBetweenTests: XCTestCase {
     func testValidatorCanHandleNil() {
         
         let validator = ValidatorDateBetween() {
-            $0.min = NSDate(timeIntervalSince1970: 0)
-            $0.max = NSDate(timeIntervalSince1970: 86400)
+            $0.min = Date(timeIntervalSince1970: 0)
+            $0.max = Date(timeIntervalSince1970: 86400)
             $0.maxInclusive = true
             $0.minInclusive = true
         }
@@ -128,18 +128,18 @@ class ValidatorDateBetweenTests: XCTestCase {
         
         do {
             
-            try validator.validate("foo", context: nil)
+            _ = try validator.validate("foo", context: nil)
             
         } catch let error as NSError {
             
             XCTAssertEqual("min and/or max dates are nil", error.localizedDescription)
         }
         
-        validator.min = NSDate(timeIntervalSince1970: 0)
+        validator.min = Date(timeIntervalSince1970: 0)
         
         do {
             
-            try validator.validate("foo", context: nil)
+            _ = try validator.validate("foo", context: nil)
             
         } catch let error as NSError {
             
@@ -150,8 +150,8 @@ class ValidatorDateBetweenTests: XCTestCase {
     func testValidatorThrowsOnIllegalValueType() {
         
         let validator = ValidatorDateBetween() {
-            $0.min = NSDate(timeIntervalSince1970: 0)
-            $0.max = NSDate(timeIntervalSince1970: 86400)
+            $0.min = Date(timeIntervalSince1970: 0)
+            $0.max = Date(timeIntervalSince1970: 86400)
             $0.maxInclusive = true
             $0.minInclusive = true
         }

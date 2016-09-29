@@ -14,10 +14,10 @@ public class ValidatorDateBetween: BaseValidator, ValidatorProtocol {
     public var allowNil: Bool = true
     
     /// minimum date
-    public var min: NSDate!
+    public var min: Date!
     
     /// maximum date
-    public var max: NSDate!
+    public var max: Date!
     
     /// inclusive minimum
     public var minInclusive: Bool = true
@@ -34,7 +34,7 @@ public class ValidatorDateBetween: BaseValidator, ValidatorProtocol {
     // MARK: comparison funcs
     
     private let compare = {
-        (left: NSDate, right: NSDate, expect: ComparisonResult, inclusive: Bool) -> Bool in
+        (left: Date, right: Date, expect: ComparisonResult, inclusive: Bool) -> Bool in
         
         let result = left.compare(right as Date)
         return (inclusive) ? result == expect || result == .orderedSame : result == expect
@@ -49,7 +49,7 @@ public class ValidatorDateBetween: BaseValidator, ValidatorProtocol {
      
      - returns: the instance
      */
-    required public init( _ initializer: @noescape(ValidatorDateBetween) -> () = { _ in }) {
+    required public init( _ initializer: (ValidatorDateBetween) -> () = { _ in }) {
         
         super.init()
         initializer(self)
@@ -86,10 +86,10 @@ public class ValidatorDateBetween: BaseValidator, ValidatorProtocol {
     
     // MARK: - private methods -
     
-    private func parse(date value: Any?) throws -> NSDate? {
+    private func parse(date value: Any?) throws -> Date? {
         
         /// handle if is already NSDate
-        if let myDate = value as? NSDate {
+        if let myDate = value as? Date {
             return myDate
         }
         

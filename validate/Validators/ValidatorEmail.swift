@@ -47,7 +47,7 @@ public class ValidatorEmail: BaseValidator, ValidatorProtocol {
      
      - returns: the instance
      */
-    required public init( _ initializer: @noescape(ValidatorEmail) -> () = { _ in }) {
+    required public init( _ initializer: (ValidatorEmail) -> () = { _ in }) {
         
         super.init()
         initializer(self)
@@ -109,8 +109,8 @@ public class ValidatorEmail: BaseValidator, ValidatorProtocol {
             return false
         }
         
-        let charset: NSMutableCharacterSet = NSMutableCharacterSet.alphanumerics()
-        charset.addCharacters(in: "!#$%&'*+-/=?^_`{|}~")
+        var charset: CharacterSet = CharacterSet.alphanumerics
+        charset.insert(charactersIn: "!#$%&'*+-/=?^_`{|}~")
         
         if let _ = part.rangeOfCharacter(from: charset.inverted) {
             
@@ -139,16 +139,16 @@ public class ValidatorEmail: BaseValidator, ValidatorProtocol {
             do {
              
                 let pattern = "\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])$"
-                let regex = try RegularExpression(pattern: pattern, options: RegularExpression.Options(rawValue: 0))
+                let regex = try NSRegularExpression(pattern: pattern, options: NSRegularExpression.Options(rawValue: 0))
                 
-                let x = regex.numberOfMatches(in: part, options: RegularExpression.MatchingOptions(rawValue: 0), range: NSRange(location: 0, length: part.characters.count))
+                let x = regex.numberOfMatches(in: part, options: NSRegularExpression.MatchingOptions(rawValue: 0), range: NSRange(location: 0, length: part.characters.count))
                 result =  x > 0
             } catch _ {
                 result = false
             }
         }
         
-        let charset = NSCharacterSet.urlHostAllowed()
+        let charset = CharacterSet.urlHostAllowed
         if let _ = part.rangeOfCharacter(from: charset.inverted) {
             
             return self.returnError(error: self.errorMessageInvalidHostnamePart)

@@ -44,7 +44,7 @@ public class ValidatorSmallerThan<TYPE: SignedNumber>: ValidatorProtocol, Valida
     
     - returns: the instance
     */
-    required public init(@noescape _ initializer: @noescape(ValidatorSmallerThan) -> () = { _ in }) {
+    required public init(_ initializer: (ValidatorSmallerThan) -> () = { _ in }) {
         
         initializer(self)
     }
@@ -97,7 +97,7 @@ public class ValidatorSmallerThan<TYPE: SignedNumber>: ValidatorProtocol, Valida
             
             let result = try validator.validate(numVal, context: nil)
             if !result {
-                self._err.append(String(format: self.errorMessageNotSmallerThan, String(self.max)))
+                self._err.append(String(format: self.errorMessageNotSmallerThan, String(describing: self.max)))
             }
             
             return result
@@ -119,7 +119,7 @@ public class ValidatorSmallerThan<TYPE: SignedNumber>: ValidatorProtocol, Valida
         
         if !result {
             
-            self._err.append(String(format: self.errorMessageNotSmallerThan, String(self.max)))
+            self._err.append(String(format: self.errorMessageNotSmallerThan, String(describing: self.max)))
         }
         
         return result

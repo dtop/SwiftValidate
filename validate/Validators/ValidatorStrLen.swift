@@ -42,7 +42,7 @@ public class ValidatorStrLen: BaseValidator, ValidatorProtocol {
      
      - returns: the instance
      */
-    required public init( _ initializer: @noescape(ValidatorStrLen) -> () = { _ in }) {
+    required public init( _ initializer: (ValidatorStrLen) -> () = { _ in }) {
         
         super.init()
         initializer(self)

@@ -26,7 +26,7 @@ public class ValidatorEmpty: BaseValidator, ValidatorProtocol {
      
      - returns: the instance
      */
-    required public init( _ initializer: @noescape(ValidatorEmpty) -> () = { _ in }) {
+    required public init( _ initializer: (ValidatorEmpty) -> () = { _ in }) {
         
         super.init()
         initializer(self)

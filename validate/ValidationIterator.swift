@@ -27,7 +27,7 @@ public class ValidationIterator {
      
      - returns: the instance
      */
-    required public init( _ initializer: @noescape(ValidationIterator) -> () = { _ in }) {
+    required public init( _ initializer: (ValidationIterator) -> () = { _ in }) {
         
         initializer(self)
     }

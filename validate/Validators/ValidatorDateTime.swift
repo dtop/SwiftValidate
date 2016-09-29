@@ -26,7 +26,7 @@ public class ValidatorDateTime: BaseValidator, ValidatorProtocol {
      
      - returns: the instance
      */
-    required public init( _ initializer: @noescape(ValidatorDateTime) -> () = { _ in }) {
+    required public init( _ initializer: (ValidatorDateTime) -> () = { _ in }) {
         
         super.init()
         initializer(self)

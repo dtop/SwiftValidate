@@ -17,7 +17,7 @@ public class ValidatorCharset: BaseValidator, ValidatorProtocol {
     public var allowEmpty: Bool = false
     
     // the charset to validate against
-    public var charset: NSCharacterSet!
+    public var charset: CharacterSet!
     
     /// error message not alnum
     public var errorMessageStringDoesNotFit: String = NSLocalizedString("The String contains illegal characters", comment: "ValidatorCharset - String not alnum")
@@ -27,7 +27,7 @@ public class ValidatorCharset: BaseValidator, ValidatorProtocol {
      
      - returns: the instance
      */
-    public required init( _ initializer: @noescape(ValidatorCharset) -> () = { _ in }) {
+    public required init( _ initializer: (ValidatorCharset) -> () = { _ in }) {
         
         super.init()
         initializer(self)

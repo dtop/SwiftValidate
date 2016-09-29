@@ -15,9 +15,9 @@ public class ValidatorAlnum: ValidatorCharset {
      
      - returns: the instance
      */
-    required public init( _ initializer: @noescape(ValidatorCharset) -> () = { _ in }) {
+    required public init( _ initializer: (ValidatorCharset) -> () = { _ in }) {
         
         super.init(initializer)
-        self.charset = NSCharacterSet.alphanumerics()
+        self.charset = CharacterSet.alphanumerics
     }
 }

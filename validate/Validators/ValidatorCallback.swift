@@ -14,7 +14,7 @@ public class ValidatorCallback: BaseValidator, ValidatorProtocol {
     public var allowNil: Bool = true
     
     /// Holds the callback
-    public var callback: ((validator: ValidatorCallback, value: Any?, context: [String : Any?]?) throws -> (result: Bool, errorMessage: String?))!
+    public var callback: ((ValidatorCallback, Any?, [String : Any?]?) throws -> (result: Bool, errorMessage: String?))!
     
     /**
      Init
@@ -23,7 +23,7 @@ public class ValidatorCallback: BaseValidator, ValidatorProtocol {
      
      - returns: the instance
      */
-    required public init( _ initializer: @noescape(ValidatorCallback) -> () = { _ in }) {
+    required public init( _ initializer: (ValidatorCallback) -> () = { _ in }) {
         
         super.init()
         initializer(self)
@@ -52,11 +52,11 @@ public class ValidatorCallback: BaseValidator, ValidatorProtocol {
             return true
         }
         
-        let result = try self.callback(validator: self, value: value, context: context)
+        let result = try self.callback(self, value, context)
         
         if !result.result {
             
-            self.returnError(error: result.errorMessage ?? "")
+            _ = self.returnError(error: result.errorMessage ?? "")
         }
         
         return result.result

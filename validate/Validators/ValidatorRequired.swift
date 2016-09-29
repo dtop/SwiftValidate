@@ -11,7 +11,7 @@ import Foundation
 public class ValidatorRequired: BaseValidator, ValidatorProtocol {
     
     /// custom callback that determines satisfaction of requirement
-    public var requirementCondition: ((value: Any?, context: [String: Any?]?) -> Bool)?
+    public var requirementCondition: ((_ value: Any?, _ context: [String: Any?]?) -> Bool)?
     
     /// the error message
     public var errorMessage: String = NSLocalizedString("This value is required. Please enter a value", comment: "ValidatorRequired - No value")
@@ -21,7 +21,7 @@ public class ValidatorRequired: BaseValidator, ValidatorProtocol {
      
      - returns: the instance
      */
-    public required init( _ initializer: @noescape(ValidatorRequired) -> () = { _ in }) {
+    public required init( _ initializer: (ValidatorRequired) -> () = { _ in }) {
         
         super.init()
         initializer(self)
@@ -42,7 +42,7 @@ public class ValidatorRequired: BaseValidator, ValidatorProtocol {
         
         self.emptyErrors()
         
-        let result = (nil != self.requirementCondition && self.requirementCondition!(value: value, context: context)) || nil != value
+        let result = (nil != self.requirementCondition && self.requirementCondition!(value, context)) || nil != value
         
         if !result {
             return self.returnError(error: self.errorMessage)

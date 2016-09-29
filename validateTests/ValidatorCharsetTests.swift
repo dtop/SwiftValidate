@@ -54,7 +54,7 @@ class ValidatorCharsetTests: XCTestCase {
         
         let validator = ValidatorCharset() {
             $0.allowEmpty = true
-            $0.charset = NSCharacterSet.alphanumerics()
+            $0.charset = CharacterSet.alphanumerics
         }
         
         var result: Bool = true
@@ -79,7 +79,7 @@ class ValidatorCharsetTests: XCTestCase {
         
         do {
             
-            try validator.validate(true, context: nil)
+            _ = try validator.validate(true, context: nil)
             XCTAssert(false, "may never be reached")
             
         } catch let error as NSError {
@@ -92,12 +92,12 @@ class ValidatorCharsetTests: XCTestCase {
         
         let validator = ValidatorCharset() {
             $0.allowEmpty = true
-            $0.charset = NSCharacterSet.alphanumerics()
+            $0.charset = CharacterSet.alphanumerics
         }
         
         do {
             
-            try validator.validate(true, context: nil)
+            _ = try validator.validate(true, context: nil)
             XCTAssert(false, "may never be reached")
             
         } catch let error as NSError {

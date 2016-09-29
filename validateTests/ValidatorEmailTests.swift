@@ -124,8 +124,8 @@ class ValidatorEmailTests: XCTestCase {
         
         var result: Bool = false
         
-        let local = String(repeating: "a".characters.first!, count: 65)
-        let host  = String(repeating: "b".characters.first!, count: 256)
+        let local = String(repeating: "a", count: 65)
+        let host  = String(repeating: "b", count: 256)
         
         let mail1  = String(format: "%@@%@", local, "foo.com")
         let mail2  = String(format: "%@@%@", "foobert", host)
@@ -173,7 +173,7 @@ class ValidatorEmailTests: XCTestCase {
         
         do {
             
-            try validator.validate(true, context: nil)
+            _ = try validator.validate(true, context: nil)
             XCTAssert(false, "may never be reached")
             
         } catch let error as NSError {

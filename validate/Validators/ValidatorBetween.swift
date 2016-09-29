@@ -53,7 +53,7 @@ public class ValidatorBetween<TYPE: SignedNumber>: ValidatorProtocol, Validation
     
     - returns: the instance
     */
-    required public init( _ initializer: @noescape(ValidatorBetween) -> () = { _ in }) {
+    required public init( _ initializer: (ValidatorBetween) -> () = { _ in }) {
         
         initializer(self)
     }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class ValidatorInArray<TYPE where TYPE: Equatable>: ValidatorProtocol, ValidationAwareProtocol {
+public class ValidatorInArray<TYPE: Equatable>: ValidatorProtocol, ValidationAwareProtocol {
     
     /// nil value is allowed and true
     public var allowNil: Bool = true
@@ -33,7 +33,7 @@ public class ValidatorInArray<TYPE where TYPE: Equatable>: ValidatorProtocol, Va
      
      - returns: the instance
      */
-    required public init( _ initializer: @noescape(ValidatorInArray) -> () = { _ in }) {
+    required public init( _ initializer: (ValidatorInArray) -> () = { _ in }) {
     
         initializer(self)
     }
@@ -95,7 +95,7 @@ public class ValidatorInArray<TYPE where TYPE: Equatable>: ValidatorProtocol, Va
         var arr: [String] = []
         for item in self.array {
             
-            arr.append(String(item))
+            arr.append(String(describing: item))
         }
         
         let validator = ValidatorInArray<String>() {

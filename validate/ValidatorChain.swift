@@ -27,7 +27,7 @@ public class ValidatorChain {
      
      - returns: the instance
      */
-    public init( _ initializer: @noescape(ValidatorChain) -> () = { _ in }) {
+    public init( _ initializer: (ValidatorChain) -> () = { _ in }) {
         
         initializer(self)
     }
@@ -124,8 +124,14 @@ public class ValidatorChain {
     }
 }
 
-infix operator <~~ { associativity left precedence 100 }
+precedencegroup AsignmentPrecedence {
+    associativity: left
+    higherThan: LogicalConjunctionPrecedence
+}
 
+infix operator <~~ : AsignmentPrecedence
+
+@discardableResult
 public func <~~ (left: ValidatorChain, right: ValidationAwareProtocol) -> ValidatorChain {
     
     left.add(validator: right)

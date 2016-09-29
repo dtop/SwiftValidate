@@ -26,5 +26,5 @@ public protocol ValidatorProtocol {
      
      - returns: the instance
      */
-    init( _ initializer: @noescape(InstanceType) -> ())
+    init( _ initializer: (InstanceType) -> ())
 }
