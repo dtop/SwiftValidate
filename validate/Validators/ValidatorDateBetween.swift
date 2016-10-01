@@ -14,10 +14,10 @@ public class ValidatorDateBetween: BaseValidator, ValidatorProtocol {
     public var allowNil: Bool = true
     
     /// minimum date
-    public var min: NSDate!
+    public var min: Date!
     
     /// maximum date
-    public var max: NSDate!
+    public var max: Date!
     
     /// inclusive minimum
     public var minInclusive: Bool = true
@@ -26,7 +26,7 @@ public class ValidatorDateBetween: BaseValidator, ValidatorProtocol {
     public var maxInclusive: Bool = true
     
     /// date formatter if string is expected
-    public var dateFormatter: NSDateFormatter!
+    public var dateFormatter: DateFormatter!
     
     /// error message if not between
     public var errorMessageNotBetween: String = NSLocalizedString("given date is not between predefined dates", comment: "ValidatorDateBetween - not between")
@@ -34,10 +34,10 @@ public class ValidatorDateBetween: BaseValidator, ValidatorProtocol {
     // MARK: comparison funcs
     
     private let compare = {
-        (left: NSDate, right: NSDate, expect: NSComparisonResult, inclusive: Bool) -> Bool in
+        (left: Date, right: Date, expect: ComparisonResult, inclusive: Bool) -> Bool in
         
-        let result = left.compare(right)
-        return (inclusive) ? result == expect || result == .OrderedSame : result == expect
+        let result = left.compare(right as Date)
+        return (inclusive) ? result == expect || result == .orderedSame : result == expect
     }
     
     // MARK: methods
@@ -49,13 +49,13 @@ public class ValidatorDateBetween: BaseValidator, ValidatorProtocol {
      
      - returns: the instance
      */
-    required public init(@noescape _ initializer: ValidatorDateBetween -> () = { _ in }) {
+    required public init( _ initializer: (ValidatorDateBetween) -> () = { _ in }) {
         
         super.init()
         initializer(self)
     }
     
-    public override func validate<T: Any>(value: T?, context: [String: Any?]?) throws -> Bool {
+    public override func validate<T: Any>(_ value: T?, context: [String: Any?]?) throws -> Bool {
         
         // reset errors
         self.emptyErrors()
@@ -68,14 +68,14 @@ public class ValidatorDateBetween: BaseValidator, ValidatorProtocol {
             throw NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "min and/or max dates are nil"])
         }
         
-        if let date = try self.parseDate(value) {
+        if let date = try self.parse(date: value) {
             
-            let leftOk = self.compare(date, self.min, .OrderedDescending, self.minInclusive)
-            let rightOk = self.compare(date, self.max, .OrderedAscending, self.maxInclusive)
+            let leftOk = self.compare(date, self.min, .orderedDescending, self.minInclusive)
+            let rightOk = self.compare(date, self.max, .orderedAscending, self.maxInclusive)
 
             if !leftOk || !rightOk {
                 
-                return self.returnError(self.errorMessageNotBetween)
+                return self.returnError(error: self.errorMessageNotBetween)
             }
             
             return true
@@ -86,10 +86,10 @@ public class ValidatorDateBetween: BaseValidator, ValidatorProtocol {
     
     // MARK: - private methods -
     
-    private func parseDate(value: Any?) throws -> NSDate? {
+    private func parse(date value: Any?) throws -> Date? {
         
         /// handle if is already NSDate
-        if let myDate = value as? NSDate {
+        if let myDate = value as? Date {
             return myDate
         }
         
@@ -99,7 +99,7 @@ public class ValidatorDateBetween: BaseValidator, ValidatorProtocol {
                 throw NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "No date formatter given"])
             }
             
-            return self.dateFormatter.dateFromString(myString)
+            return self.dateFormatter.date(from: myString)
         }
         
         return nil

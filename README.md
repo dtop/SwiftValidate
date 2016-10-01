@@ -1,6 +1,6 @@
 # SwiftValidate
 [![Build Status](https://travis-ci.org/dtop/SwiftValidate.svg)](https://travis-ci.org/dtop/SwiftValidate)
-[![Compatibility](https://img.shields.io/badge/Swift-2.1-blue.svg)](https://developer.apple.com/swift)
+[![Compatibility](https://img.shields.io/badge/Swift-3.0-orange.svg)](https://developer.apple.com/swift)
 [![DependencyManagement](https://img.shields.io/badge/CocoaPods-Compatible-brightgreen.svg)](https://cocoapods.org)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/dtop/SwiftValidate/master/LICENSE)
@@ -127,8 +127,8 @@ see the extraction of the ValidationIteratorTests:
         }
         
         // name, street, city
-        validationIterator.registerChain(
-            ValidatorChain() {
+        validationIterator.register(
+            chain: ValidatorChain() {
                     $0.stopOnException = true
                     $0.stopOnFirstError = true
                 }
@@ -142,8 +142,8 @@ see the extraction of the ValidationIteratorTests:
         )
         
         // zipcode
-        validationIterator.registerChain(
-            ValidatorChain() {
+        validationIterator.register(
+            chain: ValidatorChain() {
                 $0.stopOnException = true
                 $0.stopOnFirstError = true
             }
@@ -160,8 +160,8 @@ see the extraction of the ValidationIteratorTests:
         )
         
         // country (not required but if present between 3 and 50 chars)
-        validationIterator.registerChain(
-            ValidatorChain() {
+        validationIterator.register(
+            chain: ValidatorChain() {
                 $0.stopOnException = true
                 $0.stopOnFirstError = true
             }
@@ -501,12 +501,12 @@ Non generic:
 ```swift
 class MyValidator: BaseValidator, ValidatorProtocol {
 
-    required public init(@noescape _ initializer: MyValidator -> () = { _ in }) {
+    required public init( _ initializer: @noescape(MyValidator) -> () = { _ in }) {
         super.init()
         initializer(self)
     }
     
-    override func validate<T: Any>(value: T?, context: [String: Any?]?) throws -> Bool {
+    override func validate<T: Any>( _ value: T?, context: [String: Any?]?) throws -> Bool {
         /// ...
     }
 }
@@ -517,11 +517,11 @@ Generic:
 ```swift
 class MyGenericValidator<TYPE where TYPE: Equatable>: ValidatorProtocol, ValidationAwareProtocol {
 
-    required public init(@noescape _ initializer: MyGenericValidator -> () = { _ in }) {
+    required public init( _ initializer: @noescape(MyGenericValidator) -> () = { _ in }) {
         initializer(self)
     }
 
-    public func validate<T: Any>(value: T?, context: [String: Any?]?) throws -> Bool {
+    public func validate<T: Any>( _ value: T?, context: [String: Any?]?) throws -> Bool {
         /// ...
     }
 }

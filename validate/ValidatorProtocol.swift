@@ -13,6 +13,8 @@ import Foundation
  */
 public protocol ValidatorProtocol {
     
+    associatedtype InstanceType
+    
     /// holds the occured errors
     var errors: [String] { get }
     
@@ -24,5 +26,5 @@ public protocol ValidatorProtocol {
      
      - returns: the instance
      */
-    init(@noescape _ initializer: Self -> ())
+    init( _ initializer: (InstanceType) -> ())
 }

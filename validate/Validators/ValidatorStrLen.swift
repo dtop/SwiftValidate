@@ -42,7 +42,7 @@ public class ValidatorStrLen: BaseValidator, ValidatorProtocol {
      
      - returns: the instance
      */
-    required public init(@noescape _ initializer: ValidatorStrLen -> () = { _ in }) {
+    required public init( _ initializer: (ValidatorStrLen) -> () = { _ in }) {
         
         super.init()
         initializer(self)
@@ -58,7 +58,7 @@ public class ValidatorStrLen: BaseValidator, ValidatorProtocol {
      
      - returns: true if ok
      */
-    override public func validate<T: Any>(value: T?, context: [String: Any?]?) throws -> Bool {
+    override public func validate<T: Any>(_ value: T?, context: [String: Any?]?) throws -> Bool {
         
         // reset errors
         self.emptyErrors()
@@ -72,8 +72,8 @@ public class ValidatorStrLen: BaseValidator, ValidatorProtocol {
             
             let length = val.characters.count
             
-            let notTooLong  = self.measureMaximum(length)
-            let notTooShort = self.measureMinimum(length)
+            let notTooLong  = self.measure(maximumLength: length)
+            let notTooShort = self.measure(minimumLength: length)
             
             return notTooLong && notTooShort
         }
@@ -101,12 +101,12 @@ public class ValidatorStrLen: BaseValidator, ValidatorProtocol {
      
      - returns: true if ok
      */
-    private func measureMaximum(length: Int) -> Bool {
+    private func measure(minimumLength length: Int) -> Bool {
         
         let result = (self.maxInclusive) ? self.compareGreaterEqual(self.maxLength, length) : self.compareGreater(self.maxLength, length)
         if !result {
             
-            return self.returnError(self.stuffString(self.errorMessageTooLarge, num: self.maxLength))
+            return self.returnError(error: self.stuffString(str: self.errorMessageTooLarge, num: self.maxLength))
         }
         
         return true
@@ -119,12 +119,12 @@ public class ValidatorStrLen: BaseValidator, ValidatorProtocol {
      
      - returns: true if ok
      */
-    private func measureMinimum(length: Int) -> Bool {
+    private func measure(maximumLength length: Int) -> Bool {
         
         let result = (self.minInclusive) ? self.compareGreaterEqual(length, self.minLength) : self.compareGreater(length, self.minLength)
         if !result {
             
-            return self.returnError(self.stuffString(self.errorMessageTooSmall, num: self.minLength))
+            return self.returnError(error: self.stuffString(str: self.errorMessageTooSmall, num: self.minLength))
         }
         
         return true

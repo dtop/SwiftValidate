@@ -27,7 +27,7 @@ public class BaseValidator: ValidationAwareProtocol {
      
      - returns: true on success
      */
-    public func validate<T: Any>(value: T?, context: [String: Any?]?) throws -> Bool {
+    public func validate<T: Any>(_ value: T?, context: [String: Any?]?) throws -> Bool {
         preconditionFailure("override me")
     }
     

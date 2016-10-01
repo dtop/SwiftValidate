@@ -26,7 +26,7 @@ public class ValidatorEmpty: BaseValidator, ValidatorProtocol {
      
      - returns: the instance
      */
-    required public init(@noescape _ initializer: ValidatorEmpty -> () = { _ in }) {
+    required public init( _ initializer: (ValidatorEmpty) -> () = { _ in }) {
         
         super.init()
         initializer(self)
@@ -42,7 +42,7 @@ public class ValidatorEmpty: BaseValidator, ValidatorProtocol {
      
      - returns: true on correctness
      */
-    override public func validate<T: Any>(value: T?, context: [String: Any?]?) throws -> Bool {
+    override public func validate<T: Any>(_ value: T?, context: [String: Any?]?) throws -> Bool {
         
         // reset errors
         self.emptyErrors()
@@ -55,12 +55,12 @@ public class ValidatorEmpty: BaseValidator, ValidatorProtocol {
             
             if val.isEmpty {
                 
-                return self.returnError(self.errorMessage)
+                return self.returnError(error: self.errorMessage)
             }
             
             return true
         }
         
-        return self.returnError(self.errorMessage)
+        return self.returnError(error: self.errorMessage)
     }
 }

@@ -27,7 +27,7 @@ public class ValidationIterator {
      
      - returns: the instance
      */
-    required public init(@noescape _ initializer: (ValidationIterator) -> () = { _ in }) {
+    required public init( _ initializer: (ValidationIterator) -> () = { _ in }) {
         
         initializer(self)
     }
@@ -39,7 +39,7 @@ public class ValidationIterator {
      - parameter chain: the chain
      - parameter key:   the key
      */
-    public func registerChain(chain: ValidatorChain, forKey key: String) {
+    public func register(chain: ValidatorChain, forKey key: String) {
         
         self.chains[key] = chain
     }
@@ -50,11 +50,11 @@ public class ValidationIterator {
      - parameter chain: the chain
      - parameter keys:  the array of keys
      */
-    public func registerChain(chain: ValidatorChain, forKeys keys: [String]) {
+    public func register(chain: ValidatorChain, forKeys keys: [String]) {
         
         for key in keys {
             
-            self.registerChain(chain, forKey: key)
+            self.register(chain: chain, forKey: key)
         }
     }
     
@@ -66,7 +66,7 @@ public class ValidationIterator {
      
      - returns: true if validation has completely passed
      */
-    public func validate(values: [String: Any?]) -> Bool {
+    public func validate(_ values: [String: Any?]) -> Bool {
         
         /// the result that will be returned
         var result: Bool = values.count > 0
@@ -79,7 +79,7 @@ public class ValidationIterator {
             if let chain = self.chains[key] {
                 
                 // validating value according to registered chain
-                let validatorResult = self.validateValue(value, withKey: key, andWithChain: chain, andContext: values)
+                let validatorResult = self.validate(value, withKey: key, andWithChain: chain, andContext: values)
                 result = result && validatorResult
                 continue
             }
@@ -112,7 +112,7 @@ public class ValidationIterator {
      
      - returns: the errors
      */
-    public func getErrorsFor(key key: String) -> [String]? {
+    public func getErrorsFor(key: String) -> [String]? {
         
         if let errors = self.errors[key] {
             
@@ -129,7 +129,7 @@ public class ValidationIterator {
      
      - returns: true if in error
      */
-    public func isInError(key key: String) -> Bool {
+    public func isInError(key: String) -> Bool {
         
         if let _ = self.errors[key] {
             return true
@@ -148,7 +148,7 @@ public class ValidationIterator {
      
      - returns: true if ok
      */
-    private func validateValue(value: Any?, withKey key: String, andWithChain chain: ValidatorChain, andContext context: [String: Any?]?) -> Bool {
+    private func validate(_ value: Any?, withKey key: String, andWithChain chain: ValidatorChain, andContext context: [String: Any?]?) -> Bool {
         
         if !chain.validate(value, context: context) {
          

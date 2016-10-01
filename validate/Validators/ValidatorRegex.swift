@@ -17,10 +17,10 @@ public class ValidatorRegex: BaseValidator, ValidatorProtocol {
     public var pattern: String!
     
     /// expression options
-    public var options: NSRegularExpressionOptions = NSRegularExpressionOptions(rawValue: 0)
+    public var options: NSRegularExpression.Options = NSRegularExpression.Options(rawValue: 0)
     
     /// matching options
-    public var matchingOptions: NSMatchingOptions = NSMatchingOptions(rawValue: 0)
+    public var matchingOptions: NSRegularExpression.MatchingOptions = NSRegularExpression.MatchingOptions(rawValue: 0)
     
     /// error message
     public var errorMessageValueIsNotMatching: String = NSLocalizedString("the given value is not matching to the predefined regex", comment: "ValidatorRegex - no match")
@@ -30,7 +30,7 @@ public class ValidatorRegex: BaseValidator, ValidatorProtocol {
      
      - returns: the instance
      */
-    required public init(@noescape _ initializer: ValidatorRegex -> () = { _ in }) {
+    required public init( _ initializer: (ValidatorRegex) -> () = { _ in }) {
         
         super.init()
         initializer(self)
@@ -46,7 +46,7 @@ public class ValidatorRegex: BaseValidator, ValidatorProtocol {
      
      - returns: true if it matches
      */
-    public override func validate<T: Any>(value: T?, context: [String: Any?]?) throws -> Bool {
+    public override func validate<T: Any>(_ value: T?, context: [String: Any?]?) throws -> Bool {
         
         // reset errors
         self.emptyErrors()
@@ -64,11 +64,11 @@ public class ValidatorRegex: BaseValidator, ValidatorProtocol {
             let regex = try NSRegularExpression(pattern: self.pattern, options: self.options)
             
             let range = NSRange(location: 0, length: strVal.characters.count)
-            let result = regex.numberOfMatchesInString(strVal, options: self.matchingOptions, range: range) > 0
+            let result = regex.numberOfMatches(in: strVal, options: self.matchingOptions, range: range) > 0
             
             if !result {
                 
-                return self.returnError(self.errorMessageValueIsNotMatching)
+                return self.returnError(error: self.errorMessageValueIsNotMatching)
             }
             
             return result

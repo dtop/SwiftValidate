@@ -26,7 +26,7 @@ public class ValidatorDateTime: BaseValidator, ValidatorProtocol {
      
      - returns: the instance
      */
-    required public init(@noescape _ initializer: ValidatorDateTime -> () = { _ in }) {
+    required public init( _ initializer: (ValidatorDateTime) -> () = { _ in }) {
         
         super.init()
         initializer(self)
@@ -42,7 +42,7 @@ public class ValidatorDateTime: BaseValidator, ValidatorProtocol {
      
      - returns: true if ok
      */
-    public override func validate<T: Any>(value: T?, context: [String: Any?]?) throws -> Bool {
+    public override func validate<T: Any>(_ value: T?, context: [String: Any?]?) throws -> Bool {
         
         // reset errors
         self.emptyErrors()
@@ -54,14 +54,14 @@ public class ValidatorDateTime: BaseValidator, ValidatorProtocol {
         
         if let strVal = value as? String {
             
-            let dateFormatter = NSDateFormatter()
+            let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = self.dateFormat
             
-            if let _ = dateFormatter.dateFromString(strVal) {
+            if let _ = dateFormatter.date(from: strVal) {
                 return true
             }
         }
         
-        return self.returnError(self.errorMessageInvalidDate)
+        return self.returnError(error: self.errorMessageInvalidDate)
     }
 }
