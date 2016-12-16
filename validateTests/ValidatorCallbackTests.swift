@@ -77,7 +77,7 @@ class ValidatorCallbackTests: XCTestCase {
         
         do {
             
-            try validator.validate("", context: nil)
+            let _ = try validator.validate("", context: nil)
             XCTAssert(false, "may never be reached")
             
         } catch let error as NSError {

@@ -60,10 +60,8 @@ Add `SwiftValidate` to your `Podfile` like
 
 
 ```
-platform :ios, '8.0'
-use_frameworks!
 
-pod 'SwiftValidate'
+pod 'SwiftValidate', '~> 2.0.1'
 
 ```
 

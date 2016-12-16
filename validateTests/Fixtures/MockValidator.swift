@@ -19,7 +19,7 @@ class MockValidator: BaseValidator, ValidatorProtocol {
     
     
     
-    required init( _ initializer: @noescape(MockValidator) -> ()) {
+    required init( _ initializer: (MockValidator) -> ()) {
         
         super.init()
         initializer(self)

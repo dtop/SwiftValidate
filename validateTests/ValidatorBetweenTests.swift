@@ -178,7 +178,7 @@ class ValidatorBetweenTests: XCTestCase {
         
         do {
             let str: String? = nil
-            try validator.validate(str, context: nil)
+            let _ = try validator.validate(str, context: nil)
             
         } catch _ {
             
@@ -198,7 +198,7 @@ class ValidatorBetweenTests: XCTestCase {
         
         do {
             
-            try validator.validate(true, context: nil)
+            let _ = try validator.validate(true, context: nil)
             
         } catch let error as NSError {
             
@@ -218,7 +218,7 @@ class ValidatorBetweenTests: XCTestCase {
         
         do {
             
-            try validator.validate("true", context: nil)
+            let _ = try validator.validate("true", context: nil)
             
         } catch let error as NSError {
             

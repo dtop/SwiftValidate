@@ -33,7 +33,7 @@ class ValidatorStrLenTests: XCTestCase {
         do {
             
             // must throw
-            try validator.validate(123456, context: nil)
+            let _ = try validator.validate(123456, context: nil)
             XCTAssert(false, "my not reach this point")
             
         } catch _ {
@@ -99,7 +99,7 @@ class ValidatorStrLenTests: XCTestCase {
         
         do {
             
-            try validator.validate(true, context: nil)
+            let _ = try validator.validate(true, context: nil)
             XCTAssert(false, "may never be reached")
             
         } catch _ {

@@ -126,7 +126,7 @@ class ValidatorInArrayTests: XCTestCase {
         
         do {
 
-            try validator.validate(true, context: nil)
+            let _ = try validator.validate(true, context: nil)
             XCTAssert(false, "may not be reached")
             
         } catch let error as NSError {

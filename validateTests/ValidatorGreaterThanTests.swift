@@ -198,7 +198,7 @@ class ValidatorGreaterThanTests: XCTestCase {
         
         do {
             
-            try validator.validate(true, context: nil)
+            let _ = try validator.validate(true, context: nil)
             XCTAssert(false, "may never be reached")
             
         } catch let error as NSError {
@@ -215,7 +215,7 @@ class ValidatorGreaterThanTests: XCTestCase {
         
         do {
             
-            try validator.validate("A456", context: nil)
+            let _ = try validator.validate("A456", context: nil)
             XCTAssert(false, "may never be reached")
             
         } catch let error as NSError {

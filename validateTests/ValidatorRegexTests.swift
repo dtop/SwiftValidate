@@ -64,7 +64,7 @@ class ValidatorRegexTests: XCTestCase {
         
         do {
             
-            try validator.validate("test", context: nil)
+            let _ = try validator.validate("test", context: nil)
             XCTAssert(false, "may never be reached")
             
         } catch let error as NSError {
@@ -97,7 +97,7 @@ class ValidatorRegexTests: XCTestCase {
         
         do {
             
-            try validator.validate(453534.56, context: nil)
+            let _ = try validator.validate(453534.56, context: nil)
             XCTAssert(false, "may never be reached")
             
         } catch let error as NSError {

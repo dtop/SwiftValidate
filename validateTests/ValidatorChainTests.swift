@@ -81,7 +81,7 @@ class ValidatorChainTests: XCTestCase {
             $0.throwException = true
         }
         
-        chain.validate(false, context: nil)
+        let _ = chain.validate(false, context: nil)
         XCTAssertTrue(chain.errors.contains("Exception Thrown"))
     }
     
@@ -100,7 +100,7 @@ class ValidatorChainTests: XCTestCase {
             $0.returnValue = true
         }
     
-        chain.validate(false, context: nil)
+        let _ = chain.validate(false, context: nil)
         XCTAssertTrue(chain.errors.contains("Exception Thrown"))
     }
     

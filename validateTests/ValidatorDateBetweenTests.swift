@@ -158,7 +158,7 @@ class ValidatorDateBetweenTests: XCTestCase {
         
         do {
             
-            try validator.validate(true, context: nil)
+            let _ = try validator.validate(true, context: nil)
             XCTAssert(false, "may never be reached")
             
         } catch let error as NSError {
@@ -184,7 +184,7 @@ class ValidatorDateBetweenTests: XCTestCase {
         
         do {
             
-            try validator.validate("1994-10-22", context: nil)
+            let _ = try validator.validate("1994-10-22", context: nil)
             XCTAssert(false, "may never be reached")
             
         } catch let error as NSError {
